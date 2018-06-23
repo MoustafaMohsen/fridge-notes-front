@@ -2,10 +2,6 @@ import { FormatService } from './../frormat.service';
 import { Grocery, MoreInformation } from './../Grocery';
 import { Component, OnInit,Input } from '@angular/core';
 import { GListService } from './../g-list.service';
-import {FormControl} from '@angular/forms';
-import { Observable } from 'rxjs/Observable';
-import {startWith} from 'rxjs/operators/startWith';
-import {map} from 'rxjs/operators/map';
 
 @Component({
   selector: 'app-g-add',

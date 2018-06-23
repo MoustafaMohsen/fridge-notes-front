@@ -3,7 +3,6 @@ import { element } from 'protractor';
 import { GListService } from './../g-list.service';
 import { Component, OnInit } from '@angular/core';
 import { Grocery, MoreInformation } from '../Grocery';
-import { Observable } from 'rxjs/Observable';
 import { HttpClient  } from '@angular/common/http';
 
 @Component({
