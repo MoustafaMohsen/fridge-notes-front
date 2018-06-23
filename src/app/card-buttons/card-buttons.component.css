@@ -1,0 +1,14 @@
+.bought{
+    background-color: #28ab6f;
+    color: white;
+}
+.needed{
+    background-color: #de0d0dba;
+}
+.remove{
+    margin-right: 15px;
+    color:rgb(170, 138, 138);
+}
+.MoreSection{
+    display: inline-block
+}

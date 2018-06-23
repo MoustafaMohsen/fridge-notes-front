@@ -1,0 +1,4 @@
+<button *ngIf="!bought" (click)='Bought(Item);boughtClicked=!boughtClicked' mat-raised-button class="bought">
+  Bought</button>
+<button *ngIf="bought" (click)='Needed(Item);' mat-raised-button color="primary" class="needed">
+  Needed</button>

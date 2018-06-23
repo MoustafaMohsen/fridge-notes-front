@@ -1,0 +1,36 @@
+<mat-card class="card">
+
+  <li class="row">
+
+    <!--===================Title & subtitle===================-->
+    <mat-card-header class="col-sm-auto mr-auto">
+
+      <!--Title-->
+      <mat-card-title>
+        <h3 (click)="GetDetails(Item.id)">{{Item.name}}</h3>
+      </mat-card-title>
+
+      <!--Type-->
+      <mat-card-subtitle *ngIf="!lastmore.bought" class="card-subtitle">
+        {{lastmore.no}} {{lastmore.typeOfNo}}
+      </mat-card-subtitle>
+      <!--Timeout-->
+      <mat-card-subtitle *ngIf="lastmore.bought" class="card-subtitle">
+        Usually every {{ SecondsToDays(avrageTimeout) }}
+      </mat-card-subtitle>
+      
+    </mat-card-header>
+
+    <!--Content (empty)-->
+    <mat-card-content class="type1">
+    </mat-card-content>
+
+    <!--=================Buttons======================-->
+    <div class="col-sm-auto">
+      <app-card-buttons [Item]='Item' [bought]='(Item.moreInformations[ Item.moreInformations.length-1])?.bought '>
+      </app-card-buttons>
+    </div>
+
+  </li>
+
+</mat-card>

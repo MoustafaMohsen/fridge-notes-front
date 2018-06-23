@@ -1,0 +1,50 @@
+<div class="container">
+<app-g-add [GList]="GList" ></app-g-add>
+
+<!-- ========================List Container===========================  -->
+<div class="ListContainer">
+
+  <!--Head ToolBar-->
+  <mat-toolbar color="primary" class="container-fluid matbar" (click)='testLog()' >
+    <mat-toolbar-row>
+      <span>the Grocery List</span>
+    </mat-toolbar-row>
+  </mat-toolbar>
+
+
+  <div *ngFor="let Item of GList;let i = index">
+    <ul class="ul list-unstyled list-group"
+    *ngIf="!(Item?.moreInformations[ Item.moreInformations.length-1]?.bought) || Item?.moreInformations[ Item.moreInformations.length-1].bought==null"
+    >
+    <app-item-card [Item]='Item'></app-item-card>
+    </ul>
+  </div>
+
+
+</div>
+</div>
+
+<!-- ========================List Container===========================  -->
+<mat-divider class="mat-divider"  ></mat-divider>
+
+<div class="NeededListContainer container" *ngIf="NeededOnly?.length!=0">
+ <!--Head ToolBar-->
+  <mat-toolbar color="primary" class="container-fluid matbar2" (click)='testLog()'>
+    <mat-toolbar-row>
+      <span>the Bought List</span>
+    </mat-toolbar-row>
+  </mat-toolbar>
+
+  <div *ngFor="let Item of GList;let i = index" >
+    <ul class="ul list-unstyled list-group" 
+    *ngIf="Item?.moreInformations[ Item.moreInformations.length-1]?.bought">
+    
+    <app-item-card [Item]='Item'></app-item-card>
+
+    </ul>
+  </div>
+
+
+</div>
+
+
