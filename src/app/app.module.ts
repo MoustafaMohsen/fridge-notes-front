@@ -4,7 +4,7 @@ import {FormsModule} from '@angular/forms';
 
 import { HttpClientModule } from '@angular/common/http';
 
-import { AppComponent } from './app.component';
+import { AppComponent } from './boot/app.component';
 import { GListComponent } from './g-list/g-list.component';
 import { GListService } from './g-list.service';
 import { GAddComponent } from './g-add/g-add.component';
