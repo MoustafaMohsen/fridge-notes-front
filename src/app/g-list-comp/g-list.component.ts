@@ -1,6 +1,6 @@
-import { HelpersService } from './../helpers.service';
+import { HelpersService } from '../Services/helpers.service';
 import { element } from 'protractor';
-import { GListService } from './../g-list.service';
+import { GListService } from '../Services/g-list.service';
 import { Component, OnInit } from '@angular/core';
 import { Grocery, MoreInformation } from '../Grocery';
 import { HttpClient  } from '@angular/common/http';

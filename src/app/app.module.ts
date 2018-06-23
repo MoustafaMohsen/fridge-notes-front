@@ -5,10 +5,10 @@ import {FormsModule} from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './boot/app.component';
-import { GListComponent } from './g-list/g-list.component';
-import { GListService } from './g-list.service';
-import { GAddComponent } from './g-add/g-add.component';
-import { GUpdateComponent } from './g-update/g-update.component';
+import { GListComponent } from './g-list-comp/g-list.component';
+import { GListService } from './Services/g-list.service';
+import { GAddComponent } from './g-add-comp/g-add.component';
+import { GUpdateComponent } from './g-update-comp/g-update.component';
 
 import { RouterModule } from '@angular/router'; 
 import { appRoutes } from './app.routing';
@@ -21,11 +21,11 @@ import {
   MatCardModule,MatProgressBarModule,MatToolbarModule,MatAutocompleteModule,
   MatFormFieldModule,MatSlideToggleModule,MatSnackBarModule,MatDividerModule,
 } from '@angular/material';
-import { HelpersService } from './helpers.service';
-import { FormatService } from './frormat.service';
-import { ItemCardComponent } from './item-card/item-card.component';
-import { CardButtonsComponent } from './card-buttons/card-buttons.component';
-import { RecomendedItemsComponent } from './recomended-items/recomended-items.component';
+import { HelpersService } from './Services/helpers.service';
+import { FormatService } from './Services/frormat.service';
+import { ItemCardComponent } from './item-card-comp/item-card.component';
+import { CardButtonsComponent } from './card-buttons-comp/card-buttons.component';
+import { RecomendedItemsComponent } from './recomended-items-comp/recomended-items.component';
 
 
 

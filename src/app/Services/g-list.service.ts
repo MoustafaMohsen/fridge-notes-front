@@ -1,4 +1,4 @@
-import { Grocery } from './Grocery';
+import { Grocery } from '../Grocery';
 import { Injectable } from '@angular/core';
 
 import { HttpClient  } from '@angular/common/http';
@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 import {map} from 'rxjs/operators';
 import { MatSnackBar } from '@angular/material';
 
-export const BASRURL = "http://localhost:6291/api/GroceriesApi";
+export const BASRURL = "https://linux-docker-4.herokuapp.com/api/GroceriesApi";
 
 @Injectable()
 export class GListService {

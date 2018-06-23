@@ -1,8 +1,8 @@
-import { HelpersService } from './../helpers.service';
+import { HelpersService } from '../Services/helpers.service';
 import { Component, OnInit,Input } from '@angular/core';
-import { GListService } from './../g-list.service';
+import { GListService } from '../Services/g-list.service';
 import { Grocery, MoreInformation } from '../Grocery';
-import { FormatService } from '../frormat.service';
+import { FormatService } from '../Services/frormat.service';
 declare var jquery:any;
 declare var $ :any;
 

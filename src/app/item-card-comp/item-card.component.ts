@@ -1,7 +1,7 @@
 import { Component, OnInit,Input } from '@angular/core';
 import { Grocery, MoreInformation } from '../Grocery';
-import { HelpersService } from './../helpers.service';
-import { GListService } from './../g-list.service';
+import { HelpersService } from '../Services/helpers.service';
+import { GListService } from '../Services/g-list.service';
 
 @Component({
   selector: 'app-item-card',

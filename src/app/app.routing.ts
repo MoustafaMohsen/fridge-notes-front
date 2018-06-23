@@ -1,7 +1,7 @@
 
 import { Routes} from '@angular/router'; 
-import { GListComponent } from './g-list/g-list.component';
-import { GAddComponent } from './g-add/g-add.component';
+import { GListComponent } from './g-list-comp/g-list.component';
+import { GAddComponent } from './g-add-comp/g-add.component';
 
 
 export const appRoutes:Routes =[

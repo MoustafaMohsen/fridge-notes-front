@@ -1,8 +1,8 @@
 import { Component, OnInit,Input } from '@angular/core';
-import { GListService } from './../g-list.service';
-import { HelpersService } from './../helpers.service';
+import { GListService } from '../Services/g-list.service';
+import { HelpersService } from '../Services/helpers.service';
 import { Grocery, MoreInformation } from '../Grocery';
-import { FormatService } from '../frormat.service';
+import { FormatService } from '../Services/frormat.service';
 import { MatSnackBar } from '@angular/material';
 
 declare var jquery:any;

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Grocery, MoreInformation } from './Grocery';
+import { Grocery, MoreInformation } from '../Grocery';
 import { GListService } from './g-list.service';
 
 @Injectable()
