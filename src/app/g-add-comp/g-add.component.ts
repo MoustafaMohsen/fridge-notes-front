@@ -20,7 +20,7 @@ export class GAddComponent implements OnInit {
 
   @Input() lastmoreInformations:MoreInformation={bought:false  ,no:1 ,typeOfNo :""};
 
-  constructor(  private GListService:GListService,private formatService:FormatService,private snackBar:MatSnackBar ){ }
+  constructor(  private web:GListService,private formatService:FormatService,private snackBar:MatSnackBar ){ }
   ngOnInit() {
   }
 
@@ -28,15 +28,15 @@ export class GAddComponent implements OnInit {
   add(g:Grocery){  //(click) Add to List button
     if (g.name =='')
     {
-      this.GListService.snackBar.open(""+"Empty Name", "X", {
+      this.web.snackBar.open(""+"Empty Name", "X", {
       duration: 2000,
     });;
       return}//if the data is empty
-    this.GListService.isGroceryNameExsits(g.name).subscribe(
+    this.web.isGroceryNameExsits(g.name).subscribe(
       (res)=>{
       console.log(res);
       if(res){
-        this.GListService.snackBar.open(""+"Item Name already exsits", "X", {
+        this.web.snackBar.open(""+"Item Name already exsits", "X", {
           duration: 2000,
         });;
         //Name exsists already
@@ -45,13 +45,13 @@ export class GAddComponent implements OnInit {
       if(!res){
         g.timeout =  this.timeoutDay*3600*24 
         var grocery =this.formatService.Toadd(g,g.name,g.basic,g.timeout,this.lastmoreInformations);
-        this.GListService.UpdateStatusObservable(grocery,"add")
+        this.web.request(grocery,"add")
         //this.GList.push(grocery)
           
         //GET All  from Api
         .subscribe(
           ()=>{
-          this.GListService.getGroceries().subscribe( (response)=>
+          this.web.getGroceries().subscribe( (response)=>
           {this.GList=response; }
         );}
       )
@@ -67,12 +67,12 @@ export class GAddComponent implements OnInit {
   Needed(g:Grocery){   //(click) Needed button
     g.timeout =  this.timeoutDay*3600*24 
     var grocery= this.formatService.Toneed(g,g.basic,g.timeout,this.lastmoreInformations);
-    this.GListService.UpdateStatus(grocery,"needed");
+    this.web.UpdateStatus(grocery,"needed");
     this.clean()
   }
 
   GetNeededOnly(){  //(click) Add button
-    this.NeededOnly =this.GListService.GetNeededOnly();    
+    this.NeededOnly =this.web.GetNeededOnly();    
   }
 
   SelectedSuggestion(g:Grocery){  //(click) Suggestion button

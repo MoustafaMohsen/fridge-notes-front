@@ -13,9 +13,9 @@ import {MatSnackBar} from '@angular/material'
 
 export class GListComponent implements OnInit {
   GList:Grocery[];
-  NeededOnly:Grocery[]=this.GListService.GetNeededOnly();
+  NeededOnly:Grocery[]=this.web.GetNeededOnly();
       
-  constructor(private GListService:GListService,private http: HttpClient,private snackBar:MatSnackBar) { }
+  constructor(private web:GListService,private http: HttpClient,private snackBar:MatSnackBar) { }
 
   ngOnInit() {    
     this.getList();
@@ -23,7 +23,7 @@ export class GListComponent implements OnInit {
 
   //GET All  from Api
   getList(){
-     this.GListService.getGroceries().subscribe( (response)=>
+     this.web.getGroceries().subscribe( (response)=>
       { 
        this.GList=response; 
       },

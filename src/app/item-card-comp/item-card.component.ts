@@ -16,10 +16,10 @@ export class ItemCardComponent implements OnInit {
     bought:false
 
   }
-  constructor(private GListService:GListService,private helper:HelpersService) { }
+  constructor(private web:GListService,private helper:HelpersService) { }
 
   ngOnInit() {
-    this.GListService.GuessTimeout(this.Item.id).subscribe(
+    this.web.GuessTimeout(this.Item.id).subscribe(
        (response)=>{
          this.avrageTimeout=response; 
         this. GEtLastMore();
@@ -28,7 +28,7 @@ export class ItemCardComponent implements OnInit {
 
     //Get Details
     GetDetails(index){    
-      this.GListService.getGroceryDetails(index).subscribe(res=>{console.log(res);})
+      this.web.getGroceryDetails(index).subscribe(res=>{console.log(res);})
     }
   
 

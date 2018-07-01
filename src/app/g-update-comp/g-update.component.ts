@@ -12,7 +12,7 @@ declare var $ :any;
   styleUrls: ['./g-update.component.css'],
 })
 export class GUpdateComponent implements OnInit {
-  constructor(private GListService:GListService,private formatService:FormatService,private helper:HelpersService) { }
+  constructor(private web:GListService,private formatService:FormatService,private helper:HelpersService) { }
   ngOnInit() {
     this.lastmoreInformations=this.Item.moreInformations[this.Item.moreInformations.length-1]
   }
@@ -32,13 +32,13 @@ export class GUpdateComponent implements OnInit {
     g.timeout =  this.timeoutDay*3600*24  ;
     var grocery= this.formatService.Tobought(g)
     console.log(grocery);
-    this.GListService.UpdateStatus(grocery,"bought");
+    this.web.UpdateStatus(grocery,"bought");
   }
   
   //Needed Logic
   Needed(g:Grocery){//(click) Needed button
     this.boughtClicked=!this.boughtClicked
     var grocery= this.formatService.Toneed(g,g.basic,g.timeout,this.lastmoreInformations);
-    this.GListService.UpdateStatus(grocery,"needed");
+    this.web.UpdateStatus(grocery,"needed");
   }
 }

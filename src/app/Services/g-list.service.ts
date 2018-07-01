@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 
 import { HttpClient  } from '@angular/common/http';
 
-import { Observable } from 'rxjs';
+import { Observable,Subject } from 'rxjs';
 import {map} from 'rxjs/operators';
 import { MatSnackBar } from '@angular/material';
 
@@ -13,6 +13,10 @@ export const BASRURL = "https://linux-docker-4.herokuapp.com/api/GroceriesApi";
 export class GListService {
 constructor(private http: HttpClient,public snackBar: MatSnackBar) { }
 
+
+Glist$:Subject<any>=new Subject;
+
+public Glist:Grocery[];
 
 //===== Gets
 getGroceries(): Observable<Grocery[]>{
@@ -46,7 +50,7 @@ UpdateStatus(grocery:Grocery,req:string){
 }
 
 //===== Updatessubscribe
-UpdateStatusObservable(grocery:Grocery,req:string){
+request(grocery:Grocery,req:string){
   console.log("=======>");
   console.log("==Sending UpdateStatus:");
   console.log(req);
@@ -55,16 +59,6 @@ UpdateStatusObservable(grocery:Grocery,req:string){
   console.log(BASRURL+"/request/"+req);
   console.log("<=======");
   return this.http.post(BASRURL+"/request/"+req ,grocery)
-  /*
-  .subscribe( (response) =>{ 
-    console.log("=======>");
-    console.log("==Response:");
-    console.log(response);
-    console.log("<=======");
-    this.snackBar.open(""+response, "X", {duration: 2000,});
-    }
-  );
-  */
 }
 
 

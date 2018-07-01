@@ -29,7 +29,7 @@ export class CardButtonsComponent implements OnInit {
   removeConfirmForId:string=this.TheRandomString;
   
   //R
-  constructor(private GListService:GListService,private formatService:FormatService,
+  constructor(private web:GListService,private formatService:FormatService,
     public snackBar: MatSnackBar,private helper:HelpersService) { }
 
   ngOnInit() {
@@ -40,7 +40,7 @@ export class CardButtonsComponent implements OnInit {
     //->bad code
     g.timeout =  this.timeoutDay*3600*24 +(Date.now()/1000)
     //bad code<-
-    this.GListService.UpdateStatus(g,"edit")
+    this.web.UpdateStatus(g,"edit")
     this.buttonClick=false; 
   }
 
@@ -51,7 +51,7 @@ export class CardButtonsComponent implements OnInit {
         $(this.removeIdConfirm).modal('hide');
         return
     }
-    this.GListService.UpdateStatus(grocery,"remove");
+    this.web.UpdateStatus(grocery,"remove");
     //Close Dialog
     $(this.removeIdConfirm).modal('hide');
   }
@@ -59,7 +59,7 @@ export class CardButtonsComponent implements OnInit {
   DELETE(Item:Grocery){
           //sendDelete
           var grocery =Item;
-          this.GListService.UpdateStatus(grocery,"delete");
+          this.web.UpdateStatus(grocery,"delete");
           //Close Dialog
           $(this.removeIdConfirm).modal('hide');
   }
@@ -68,7 +68,7 @@ export class CardButtonsComponent implements OnInit {
     //Send Bought
     var grocery= this.formatService.Tobought(Item)
     console.log(grocery);
-    this.GListService.UpdateStatus(grocery,"bought");
+    this.web.UpdateStatus(grocery,"bought");
   }
   
   //Needed Logic
@@ -76,7 +76,7 @@ export class CardButtonsComponent implements OnInit {
     this.NeededClicked=!this.NeededClicked
     g.timeout =  this.timeoutDay*3600*24     
     var grocery= this.formatService.Toneed(g,g.basic,g.timeout,this.lastmoreInformations);
-    this.GListService.UpdateStatus(grocery,"needed");
+    this.web.UpdateStatus(grocery,"needed");
   }
   
 
