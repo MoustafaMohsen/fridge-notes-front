@@ -45,6 +45,29 @@ UpdateStatus(grocery:Grocery,req:string){
   );
 }
 
+//===== Updatessubscribe
+UpdateStatusObservable(grocery:Grocery,req:string){
+  console.log("=======>");
+  console.log("==Sending UpdateStatus:");
+  console.log(req);
+  console.log(grocery);
+  console.log("==To:");
+  console.log(BASRURL+"/request/"+req);
+  console.log("<=======");
+  return this.http.post(BASRURL+"/request/"+req ,grocery)
+  /*
+  .subscribe( (response) =>{ 
+    console.log("=======>");
+    console.log("==Response:");
+    console.log(response);
+    console.log("<=======");
+    this.snackBar.open(""+response, "X", {duration: 2000,});
+    }
+  );
+  */
+}
+
+
 //===== Services
 isGroceryNameExsits(name:string){
   return this.http.get<any>(BASRURL+"/name/"+name);

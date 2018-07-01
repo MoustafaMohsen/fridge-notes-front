@@ -1,9 +1,8 @@
-import { HelpersService } from '../Services/helpers.service';
-import { element } from 'protractor';
 import { GListService } from '../Services/g-list.service';
 import { Component, OnInit } from '@angular/core';
 import { Grocery, MoreInformation } from '../Grocery';
 import { HttpClient  } from '@angular/common/http';
+import {MatSnackBar} from '@angular/material'
 
 @Component({
   selector: 'app-g-list',
@@ -16,7 +15,7 @@ export class GListComponent implements OnInit {
   GList:Grocery[];
   NeededOnly:Grocery[]=this.GListService.GetNeededOnly();
       
-  constructor(private GListService:GListService,private http: HttpClient) { }
+  constructor(private GListService:GListService,private http: HttpClient,private snackBar:MatSnackBar) { }
 
   ngOnInit() {    
     this.getList();
@@ -25,8 +24,13 @@ export class GListComponent implements OnInit {
   //GET All  from Api
   getList(){
      this.GListService.getGroceries().subscribe( (response)=>
-     { 
+      { 
        this.GList=response; 
+      },
+      (e)=>{
+         this.snackBar.open( "Faild to connect to the Server","X" );
+      },
+      ()=> {console.log("Completed");
       }
     );
   }

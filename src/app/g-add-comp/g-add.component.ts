@@ -2,6 +2,7 @@ import { FormatService } from '../Services/frormat.service';
 import { Grocery, MoreInformation } from './../Grocery';
 import { Component, OnInit,Input } from '@angular/core';
 import { GListService } from '../Services/g-list.service';
+import { MatSnackBar } from '@angular/material';
 
 @Component({
   selector: 'app-g-add',
@@ -19,7 +20,7 @@ export class GAddComponent implements OnInit {
 
   @Input() lastmoreInformations:MoreInformation={bought:false  ,no:1 ,typeOfNo :""};
 
-  constructor(private GListService:GListService,private formatService:FormatService) { }
+  constructor(  private GListService:GListService,private formatService:FormatService,private snackBar:MatSnackBar ){ }
   ngOnInit() {
   }
 
@@ -44,14 +45,24 @@ export class GAddComponent implements OnInit {
       if(!res){
         g.timeout =  this.timeoutDay*3600*24 
         var grocery =this.formatService.Toadd(g,g.name,g.basic,g.timeout,this.lastmoreInformations);
-        this.GListService.UpdateStatus(grocery,"add");
-        this.GList.push(grocery)
+        this.GListService.UpdateStatusObservable(grocery,"add")
+        //this.GList.push(grocery)
+          
+        //GET All  from Api
+        .subscribe(
+          ()=>{
+          this.GListService.getGroceries().subscribe( (response)=>
+          {this.GList=response; }
+        );}
+      )
+      
       }
     })
 
   }
 
   
+
   //Needed Logic
   Needed(g:Grocery){   //(click) Needed button
     g.timeout =  this.timeoutDay*3600*24 
