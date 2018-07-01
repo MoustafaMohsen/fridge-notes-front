@@ -1,18 +1,18 @@
 <div class="container">
-<app-g-add [GList]="GList" ></app-g-add>
+<app-g-add [GList]="this.web.Glist" ></app-g-add>
 
 <!-- ========================List Container===========================  -->
 <div class="ListContainer">
 
   <!--Head ToolBar-->
-  <mat-toolbar color="primary" class="container-fluid matbar" >
+  <mat-toolbar color="primary" class="container-fluid matbar" (click)='this.web.Glist$.next();'>
     <mat-toolbar-row>
       <span>the Grocery List</span>
     </mat-toolbar-row>
   </mat-toolbar>
 
 
-  <div *ngFor="let Item of GList;let i = index">
+  <div *ngFor="let Item of this.web.Glist;let i = index">
     <ul class="ul list-unstyled list-group"
     *ngIf="!(Item?.moreInformations[ Item.moreInformations.length-1]?.bought) || Item?.moreInformations[ Item.moreInformations.length-1].bought==null"
     >
@@ -35,7 +35,7 @@
     </mat-toolbar-row>
   </mat-toolbar>
 
-  <div *ngFor="let Item of GList;let i = index" >
+  <div *ngFor="let Item of this.web.Glist;let i = index" >
     <ul class="ul list-unstyled list-group" 
     *ngIf="Item?.moreInformations[ Item.moreInformations.length-1]?.bought">
     

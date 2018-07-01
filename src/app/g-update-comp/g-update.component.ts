@@ -3,6 +3,7 @@ import { Component, OnInit,Input } from '@angular/core';
 import { GListService } from '../Services/g-list.service';
 import { Grocery, MoreInformation } from '../Grocery';
 import { FormatService } from '../Services/frormat.service';
+import { MatSnackBar } from '@angular/material';
 declare var jquery:any;
 declare var $ :any;
 
@@ -12,7 +13,8 @@ declare var $ :any;
   styleUrls: ['./g-update.component.css'],
 })
 export class GUpdateComponent implements OnInit {
-  constructor(private web:GListService,private formatService:FormatService,private helper:HelpersService) { }
+  constructor(private web:GListService,private formatService:FormatService,private helper:HelpersService
+  ,private snack:MatSnackBar) { }
   ngOnInit() {
     this.lastmoreInformations=this.Item.moreInformations[this.Item.moreInformations.length-1]
   }
@@ -32,13 +34,31 @@ export class GUpdateComponent implements OnInit {
     g.timeout =  this.timeoutDay*3600*24  ;
     var grocery= this.formatService.Tobought(g)
     console.log(grocery);
-    this.web.UpdateStatus(grocery,"bought");
+    this.web.request(grocery,"bought")
+    .subscribe(
+      (response)=>{this.snack.open(""+response, "X", {duration: 2000,});},
+      ()=>{this.snack.open("Request failed", "X", {duration: 2000,});console.log("Request failed");}
+    )
+    ;
   }
   
   //Needed Logic
   Needed(g:Grocery){//(click) Needed button
-    this.boughtClicked=!this.boughtClicked
+
+    this.boughtClicked=!this.boughtClicked;
+
     var grocery= this.formatService.Toneed(g,g.basic,g.timeout,this.lastmoreInformations);
-    this.web.UpdateStatus(grocery,"needed");
+    console.log("needed=====");
+    
+    console.log(grocery);
+    console.log("======needed");
+    
+    
+    
+    this.web.request(grocery,"needed").subscribe(
+      (response)=>{this.snack.open(""+response, "X", {duration: 2000,});},
+      ()=>{this.snack.open("Request failed", "X", {duration: 2000,});console.log("Request failed");}
+    );
   }
+
 }

@@ -17,15 +17,18 @@ export class GListComponent implements OnInit {
       
   constructor(private web:GListService,private http: HttpClient,private snackBar:MatSnackBar) { }
 
-  ngOnInit() {    
-    this.getList();
+  ngOnInit() {
+    this.web.Glist$.subscribe(
+      ()=>{this.getList();console.log("$event Emited$");}
+    );
+    this.web.Glist$.next();
   }
 
   //GET All  from Api
   getList(){
      this.web.getGroceries().subscribe( (response)=>
       { 
-       this.GList=response; 
+       this.web.Glist=response; 
       },
       (e)=>{
          this.snackBar.open( "Faild to connect to the Server","X" );

@@ -1,22 +1,20 @@
 import { Grocery } from '../Grocery';
 import { Injectable } from '@angular/core';
-
 import { HttpClient  } from '@angular/common/http';
-
 import { Observable,Subject } from 'rxjs';
 import {map} from 'rxjs/operators';
 import { MatSnackBar } from '@angular/material';
 
-export const BASRURL = "https://linux-docker-4.herokuapp.com/api/GroceriesApi";
+//export const BASRURL = "https://linux-docker-4.herokuapp.com/api/GroceriesApi";
+export const BASRURL = "http://localhost:6292/api/GroceriesApi";
 
 @Injectable()
 export class GListService {
 constructor(private http: HttpClient,public snackBar: MatSnackBar) { }
 
-
 Glist$:Subject<any>=new Subject;
-
 public Glist:Grocery[];
+
 
 //===== Gets
 getGroceries(): Observable<Grocery[]>{
@@ -85,6 +83,7 @@ GetNeededOnly(){  //(click)
         })
     }
   )
+  
   HoldNeeded.shift();
   NeededOnly=HoldNeeded;
   return NeededOnly;

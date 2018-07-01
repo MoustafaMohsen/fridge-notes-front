@@ -50,12 +50,14 @@ export class GAddComponent implements OnInit {
           
         //GET All  from Api
         .subscribe(
-          ()=>{
-          this.web.getGroceries().subscribe( (response)=>
-          {this.GList=response; }
-        );}
+          (r)=>{
+            console.log("===addeubscribe==");
+            console.log(r);
+            console.log("===end addsubscribe==");
+            this.web.Glist$.next();
+        },
+        ()=>this.snackBar.open("Failed to add item","X",{duration:5000})
       )
-      
       }
     })
 

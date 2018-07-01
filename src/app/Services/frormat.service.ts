@@ -47,11 +47,9 @@ Toneed(  g:Grocery,basic:boolean,timeout:number=0,moreInformations:MoreInformati
     bought:false,
     typeOfNo:lasttype,
     lifeTime:0,
-  //  moreInformationsId:null
   };
-    g.moreInformations.push(HoldAddmore);
-    //to needed
-    g.groceryOrBought=false;
+  g.moreInformations.push(HoldAddmore);
+  g.groceryOrBought=false;
   return g;
   }
 
