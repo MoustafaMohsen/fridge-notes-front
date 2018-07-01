@@ -12,10 +12,12 @@ import {MatSnackBar} from '@angular/material'
 
 
 export class GListComponent implements OnInit {
+  web
+  constructor(_web:GListService,private http: HttpClient,private snackBar:MatSnackBar) {this.web=_web }
+
   GList:Grocery[];
   NeededOnly:Grocery[]=this.web.GetNeededOnly();
-      
-  constructor(private web:GListService,private http: HttpClient,private snackBar:MatSnackBar) { }
+  
 
   ngOnInit() {
     this.web.Glist$.subscribe(
