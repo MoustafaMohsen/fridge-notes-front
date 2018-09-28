@@ -15,12 +15,15 @@ export class GAddComponent implements OnInit {
   MakeitNeeded:boolean=false;
   @Input() timeoutDay;
   @Input() Item:Grocery = { name:'',moreInformations:[{bought:false  ,no:1 ,typeOfNo :""}] ,timeout:0};
-  @Input() GList:Grocery[];
   NeededOnly:Grocery[]=[{ name:'',moreInformations:[{bought:false}]}];
 
   @Input() lastmoreInformations:MoreInformation={bought:false  ,no:1 ,typeOfNo :""};
 
-  constructor(  private web:GListService,private formatService:FormatService,private snackBar:MatSnackBar ){ }
+  //public web
+  constructor(  public web:GListService,private formatService:FormatService,private snackBar:MatSnackBar )
+  {
+    //this.web=_web;
+   }
   ngOnInit() {
   }
 
@@ -46,7 +49,6 @@ export class GAddComponent implements OnInit {
         g.timeout =  this.timeoutDay*3600*24 
         var grocery =this.formatService.Toadd(g,g.name,g.basic,g.timeout,this.lastmoreInformations);
         this.web.request(grocery,"add")
-        //this.GList.push(grocery)
           
         //GET All  from Api
         .subscribe(
@@ -54,7 +56,7 @@ export class GAddComponent implements OnInit {
             console.log("===addeubscribe==");
             console.log(r);
             console.log("===end addsubscribe==");
-            this.web.Glist$.next();
+            this.web.UpdateList$.next();
         },
         ()=>this.snackBar.open("Failed to add item","X",{duration:5000})
       )
@@ -73,11 +75,10 @@ export class GAddComponent implements OnInit {
     this.clean()
   }
 
-  GetNeededOnly(){  //(click) Add button
-    this.NeededOnly =this.web.GetNeededOnly();    
-  }
 
   SelectedSuggestion(g:Grocery){  //(click) Suggestion button
+    console.log("SelectedSuggestion()")
+    console.log(g)
     this.lastmoreInformations=g.moreInformations[g.moreInformations.length -2]//last needed status
     this.Item =g;
     this.MakeitNeeded=true

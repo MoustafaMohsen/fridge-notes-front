@@ -6,15 +6,17 @@ import {map} from 'rxjs/operators';
 import { MatSnackBar } from '@angular/material';
 
 //export const BASRURL = "https://linux-docker-4.herokuapp.com/api/GroceriesApi";
-export const BASRURL = "http://localhost:6292/api/GroceriesApi";
+//export const BASRURL = "http://localhost:6291/api/GroceriesApi";
+export const BASRURL = "https://linux-docker-5.herokuapp.com/api/GroceriesApi";
 
 @Injectable()
 export class GListService {
 constructor(private http: HttpClient,public snackBar: MatSnackBar) { }
 
-Glist$:Subject<any>=new Subject;
+Glist$:Subject<Grocery[]>=new Subject();
+UpdateList$:Subject<any>=new Subject();
 public Glist:Grocery[];
-
+public NeededOnly:Grocery[]=[{ name:'',moreInformations:[{bought:false}]}];
 
 //===== Gets
 getGroceries(): Observable<Grocery[]>{
@@ -29,33 +31,23 @@ getGroceryDetails(id:number): Observable<any>{
 }
 
 //===== Updates
+//this.web.UpdateList$.next();
 UpdateStatus(grocery:Grocery,req:string){
-  console.log("=======>");
-  console.log("==Sending UpdateStatus:");
-  console.log(req);
-  console.log(grocery);
-  console.log("==To:");
-  console.log(BASRURL+"/request/"+req);
-  console.log("<=======");
   this.http.post(BASRURL+"/request/"+req ,grocery).subscribe( (response) =>{ 
-    console.log("=======>");
-    console.log("==Response:");
-    console.log(response);
-    console.log("<=======");
     this.snackBar.open(""+response, "X", {duration: 2000,});
-    }
-  );
+    this.UpdateList$.next();
+    },
+    (e)=>{
+      console.log("e");
+      this.snackBar.open( "Faild to connect to the Server","X" );
+   },
+   ()=> {console.log("Completed");}
+
+  );//subscirbe
 }
 
 //===== Updatessubscribe
 request(grocery:Grocery,req:string){
-  console.log("=======>");
-  console.log("==Sending UpdateStatus:");
-  console.log(req);
-  console.log(grocery);
-  console.log("==To:");
-  console.log(BASRURL+"/request/"+req);
-  console.log("<=======");
   return this.http.post(BASRURL+"/request/"+req ,grocery)
 }
 
@@ -69,26 +61,28 @@ GuessTimeout(id:number){
   return this.http.get<any>(BASRURL+"/guess/"+id);
 }
 
-
+/*
 //GetNeeded Only
 GetNeededOnly(){  //(click)
-  var NeededOnly:Grocery[]=[{ name:'',moreInformations:[{bought:false}]}];
   var HoldNeeded:Grocery[]=[{name:'',moreInformations:[{bought:false, }]}];
   this.getGroceries().subscribe(
     (respnse) => 
+    //Filter to needed only
     {
+      var HoldNeeded:Grocery[]=[{name:'',moreInformations:[{bought:false, }]}];
       respnse.forEach(item =>{
         if (item.moreInformations[(item.moreInformations.length -1) ].bought)
           HoldNeeded.push(item)
-        })
+        });
+      HoldNeeded.shift();
+      this.NeededOnly=HoldNeeded;
     }
   )
   
-  HoldNeeded.shift();
-  NeededOnly=HoldNeeded;
-  return NeededOnly;
+
+  return this.NeededOnly;
   }
-  
+  */
 
 }//class
 

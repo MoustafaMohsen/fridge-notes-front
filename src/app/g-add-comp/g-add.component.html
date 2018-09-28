@@ -2,7 +2,7 @@
 
 
 
-  <button (click)='buttonClick=!buttonClick;GetNeededOnly();clean();' mat-raised-button class="add">
+  <button (click)='buttonClick=!buttonClick;clean();' mat-raised-button class="add">
     Add</button>
 
   <br>
@@ -30,7 +30,7 @@
 
       <!--Add-->
       <button type="button" (click)="add(Item)" class="add-to-list" mat-raised-button *ngIf="!MakeitNeeded">Add to List</button>
-      
+
       <!--Needed-->
       <button type="button" (click)="Needed(Item)" class="needed" mat-raised-button *ngIf="MakeitNeeded">
         Needed</button>
@@ -40,7 +40,7 @@
 
 
     <!---     Suggestions       -->
-    <div *ngFor="let item of NeededOnly" class="d-inline">
+    <div *ngFor="let item of this.web.NeededOnly" class="d-inline">
       <button *ngIf="item.basic" (click)="SelectedSuggestion(item)" color="acent" mat-button>{{item.name}}</button>
     </div>
   </div>

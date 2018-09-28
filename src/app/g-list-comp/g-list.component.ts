@@ -10,20 +10,22 @@ import {MatSnackBar} from '@angular/material'
   styleUrls: ['./g-list.component.css']
 })
 
-
 export class GListComponent implements OnInit {
-  web
-  constructor(_web:GListService,private http: HttpClient,private snackBar:MatSnackBar) {this.web=_web }
+  //public web;
+  constructor(public web:GListService,private http: HttpClient,private snackBar:MatSnackBar) 
+  { }
 
   GList:Grocery[];
-  NeededOnly:Grocery[]=this.web.GetNeededOnly();
+  NeededOnly:Grocery[]=this.web.NeededOnly;
   
 
   ngOnInit() {
-    this.web.Glist$.subscribe(
-      ()=>{this.getList();console.log("$event Emited$");}
+    this.web.UpdateList$.subscribe(
+      ()=>{
+        this.getList();console.log("$event Emited$");
+      }
     );
-    this.web.Glist$.next();
+    this.web.UpdateList$.next();
   }
 
   //GET All  from Api
@@ -31,6 +33,16 @@ export class GListComponent implements OnInit {
      this.web.getGroceries().subscribe( (response)=>
       { 
        this.web.Glist=response; 
+        //Filter to needed only
+        {
+          var HoldNeeded:Grocery[]=[{name:'',moreInformations:[{bought:false, }]}];
+          response.forEach(item =>{
+            if (item.moreInformations[(item.moreInformations.length -1) ].bought)
+              HoldNeeded.push(item)
+            });
+          HoldNeeded.shift();
+          this.web.NeededOnly=HoldNeeded;
+        }
       },
       (e)=>{
          this.snackBar.open( "Faild to connect to the Server","X" );

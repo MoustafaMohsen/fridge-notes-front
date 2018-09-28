@@ -10,7 +10,8 @@ import { GListService } from '../Services/g-list.service';
 })
 export class ItemCardComponent implements OnInit {
 
-  @Input() Item:Grocery;
+  @Input() ItemOrginal:Grocery;
+  Item:Grocery;
   avrageTimeout:number;
   lastmore:MoreInformation={
     bought:false
@@ -19,6 +20,7 @@ export class ItemCardComponent implements OnInit {
   constructor(private web:GListService,private helper:HelpersService) { }
 
   ngOnInit() {
+    this.Item=this.ItemOrginal;
     this.web.GuessTimeout(this.Item.id).subscribe(
        (response)=>{
          this.avrageTimeout=response; 
