@@ -15,8 +15,8 @@
         {{lastmore.no}} {{lastmore.typeOfNo}}
       </mat-card-subtitle>
       <!--Timeout-->
-      <mat-card-subtitle *ngIf="lastmore.bought" class="card-subtitle">
-        Usually every {{ SecondsToDays(avrageTimeout) }}
+      <mat-card-subtitle *ngIf="Item.groceryOrBought" class="card-subtitle">
+        Usually every {{ this.FormatedTimout }}
       </mat-card-subtitle>
       
     </mat-card-header>

@@ -4,6 +4,7 @@ import { GListService } from '../Services/g-list.service';
 import { Grocery, MoreInformation } from '../Grocery';
 import { FormatService } from '../Services/frormat.service';
 import { MatSnackBar } from '@angular/material';
+import { FormBuilder, Validators } from '@angular/forms';
 declare var jquery:any;
 declare var $ :any;
 
@@ -14,7 +15,10 @@ declare var $ :any;
 })
 export class GUpdateComponent implements OnInit {
   constructor(private web:GListService,private formatService:FormatService,private helper:HelpersService
-  ,private snack:MatSnackBar) { }
+  ,private snack:MatSnackBar) { 
+
+  }
+
   ngOnInit() {
     this.lastmoreInformations=this.Item.moreInformations[this.Item.moreInformations.length-1]
   }
@@ -37,11 +41,13 @@ export class GUpdateComponent implements OnInit {
     this.web.request(grocery,"bought").subscribe(
       (response)=>
       {
-        this.snack.open(""+response, "X", {duration: 2000,});
+        this.snack.open(`${response.statusText}`, "X", {duration: 5000,});
       },
-      ()=>
+      (e)=>
       {
-        this.snack.open("Request failed", "X", {duration: 2000,});console.log("Request failed");
+        console.log(e);
+        
+        this.snack.open("Request failed", "X", {duration: 5000,});console.log("Request failed");
       }
     )
     ;
@@ -55,11 +61,10 @@ export class GUpdateComponent implements OnInit {
     this.web.request(grocery,"needed").subscribe(
       (response)=>
       {
-        this.snack.open(""+response, "X", {duration: 2000,});
+        this.snack.open(`${response.statusText}`, "X", {duration: 2000,});
       },
       ()=>{
         this.snack.open("Request failed", "X", {duration: 2000,});
-        console.log("Request failed");
       }
     );
   }

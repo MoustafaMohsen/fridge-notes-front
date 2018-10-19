@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import {FormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 import { HttpClientModule } from '@angular/common/http';
 
@@ -19,13 +19,17 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {
   MatButtonModule, MatCheckboxModule,MatButtonToggleModule,MatInputModule,MatSliderModule,
   MatCardModule,MatProgressBarModule,MatToolbarModule,MatAutocompleteModule,
-  MatFormFieldModule,MatSlideToggleModule,MatSnackBarModule,MatDividerModule,
+  MatFormFieldModule,MatSlideToggleModule,MatSnackBarModule,MatDividerModule, MatMenuModule,MatIconModule
 } from '@angular/material';
 import { HelpersService } from './Services/helpers.service';
 import { FormatService } from './Services/frormat.service';
 import { ItemCardComponent } from './item-card-comp/item-card.component';
 import { CardButtonsComponent } from './card-buttons-comp/card-buttons.component';
 import { RecomendedItemsComponent } from './recomended-items-comp/recomended-items.component';
+import { MyAuthModule } from './_auth.collection';
+import { LoginComponent } from './login/login.component';
+import { RegisterComponent } from './register/register.component';
+import { UserbarComponent } from './userbar/userbar.component';
 
 
 
@@ -39,6 +43,9 @@ import { RecomendedItemsComponent } from './recomended-items-comp/recomended-ite
     ItemCardComponent,
     CardButtonsComponent,
     RecomendedItemsComponent,
+    LoginComponent,
+    RegisterComponent,
+    UserbarComponent,
 
     
   ],
@@ -47,11 +54,14 @@ import { RecomendedItemsComponent } from './recomended-items-comp/recomended-ite
     FormsModule,
     HttpClientModule,
     RouterModule.forRoot(appRoutes),
+    MyAuthModule,
+    ReactiveFormsModule,
     //matrials
     BrowserAnimationsModule,
     MatButtonModule, MatCheckboxModule,MatButtonToggleModule,MatInputModule,
     MatSliderModule,MatCardModule,MatProgressBarModule,MatToolbarModule,MatAutocompleteModule,
-    MatFormFieldModule,MatSlideToggleModule,MatSnackBarModule,MatDividerModule,
+    MatFormFieldModule,MatSlideToggleModule,MatSnackBarModule,MatDividerModule,MatMenuModule,
+    MatIconModule
     
   ],
   providers: [GListService,HelpersService,FormatService],

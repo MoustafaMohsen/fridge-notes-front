@@ -3,6 +3,7 @@ import { Grocery, MoreInformation } from './../Grocery';
 import { Component, OnInit,Input } from '@angular/core';
 import { GListService } from '../Services/g-list.service';
 import { MatSnackBar } from '@angular/material';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-g-add',
@@ -15,15 +16,23 @@ export class GAddComponent implements OnInit {
   MakeitNeeded:boolean=false;
   @Input() timeoutDay;
   @Input() Item:Grocery = { name:'',moreInformations:[{bought:false  ,no:1 ,typeOfNo :""}] ,timeout:0};
-  NeededOnly:Grocery[]=[{ name:'',moreInformations:[{bought:false}]}];
-
   @Input() lastmoreInformations:MoreInformation={bought:false  ,no:1 ,typeOfNo :""};
 
-  //public web
-  constructor(  public web:GListService,private formatService:FormatService,private snackBar:MatSnackBar )
+  NeededOnly:Grocery[]=[{ name:'',moreInformations:[{bought:false}]}];
+  
+  formItem:FormGroup;
+
+  //---------remove private formBuilder
+  constructor(  public web:GListService,formBuilder:FormBuilder,
+    private formatService:FormatService,private snackBar:MatSnackBar )
   {
-    //this.web=_web;
-   }
+    this.formItem=formBuilder.group({
+      name:[null,[Validators.required] ],
+      no:[1,[Validators.required] ],
+      type:[null,[] ],
+      basic:[false,[] ],
+    })
+  }
   ngOnInit() {
   }
 
@@ -31,12 +40,39 @@ export class GAddComponent implements OnInit {
   add(g:Grocery){  //(click) Add to List button
     if (g.name =='')
     {
-      this.web.snackBar.open(""+"Empty Name", "X", {
-      duration: 2000,
-    });;
-      return}//if the data is empty
+      this.web.snackBar.open(""+"Empty Name", "X", {duration: 2000});;
+      return;
+    }//if the data is empty
+    console.log("sending add");
+    console.log(g);
+    
+      {
+        g.timeout =  this.timeoutDay*3600*24 
+        var grocery =this.formatService.Toadd(g,g.name,g.basic,g.timeout,this.lastmoreInformations);
+        this.web.request(grocery,"add")
+          
+        //GET All  from Api
+        .subscribe(
+          (r)=>{
+            console.log("===addeubscribe==");
+            console.log(r);
+            console.log("===end addsubscribe==");
+            this.web.UpdateList$.next();
+        },
+        (e)=>{
+          console.log("===add Error==");
+          console.log(e);
+          console.log("===add Error==");
+          
+          this.snackBar.open("Failed to add item","X",{duration:5000})
+        }
+      )
+      }
+      /*
     this.web.isGroceryNameExsits(g.name).subscribe(
       (res)=>{
+      console.log("isGroceryNameExsits() add");
+        
       console.log(res);
       if(res){
         this.web.snackBar.open(""+"Item Name already exsits", "X", {
@@ -58,10 +94,17 @@ export class GAddComponent implements OnInit {
             console.log("===end addsubscribe==");
             this.web.UpdateList$.next();
         },
-        ()=>this.snackBar.open("Failed to add item","X",{duration:5000})
+        (e)=>{
+          console.log("===add Error==");
+          console.log(e);
+          console.log("===add Error==");
+          
+          this.snackBar.open("Failed to add item","X",{duration:5000})
+        }
       )
       }
     })
+    */
 
   }
 

@@ -1,31 +1,34 @@
-<div class="spacing">
+<div class="row spacing">
 
 
+  <div class="col">
 
-  <button (click)='buttonClick=!buttonClick;clean();' mat-raised-button class="add">
-    Add</button>
-
-  <br>
-
-
-  <div *ngIf="buttonClick">
-    <!---     Form       -->
-    <form>
+    
+    <button (click)='buttonClick=!buttonClick;clean();' mat-raised-button class="add">
+      Add</button>
+      
+      <br>
+      
+    
+      
+      <div *ngIf="buttonClick">
+        <!---     Form       -->
+    <form [formGroup]="formItem">
       <!--Name-->
       <mat-form-field class="spacing">
-        <input [(ngModel)]='Item.name' placeholder="Name" name="Name" matInput>
+        <input formControlName="name" placeholder="Name" name="Name" matInput>
       </mat-form-field>
 
       <!--No.-->
       <mat-form-field class="spacing">
-        <input [(ngModel)]='lastmoreInformations.no' placeholder="No." name="No" matInput type="number">
+        <input formControlName="no"  placeholder="No." name="No" matInput type="number">
       </mat-form-field>
       <!--Type-->
       <mat-form-field class="spacing">
-        <input [(ngModel)]='lastmoreInformations.typeOfNo' placeholder="Type" name="Type" matInput type="text">
+        <input formControlName="type"  placeholder="Type" name="Type" matInput type="text">
       </mat-form-field>
       <!--Basic?-->
-      <mat-checkbox class="spacing" [(ngModel)]='Item.basic' type="number" placeholder="Timeout" name="basic">Basic</mat-checkbox>
+      <mat-checkbox class="spacing" formControlName="basic"  type="number" placeholder="Timeout" name="basic">Basic</mat-checkbox>
 
 
       <!--Add-->
@@ -45,8 +48,11 @@
     </div>
   </div>
 
+  </div>
 
 
-
+  <div class="col">
+    <app-userbar class="left"></app-userbar>
+  </div>
 
 </div>

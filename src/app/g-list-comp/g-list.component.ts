@@ -3,6 +3,8 @@ import { Component, OnInit } from '@angular/core';
 import { Grocery, MoreInformation } from '../Grocery';
 import { HttpClient  } from '@angular/common/http';
 import {MatSnackBar} from '@angular/material'
+import { AuthenticationService } from '../_auth.collection';
+import {  Router } from "@angular/router";
 
 @Component({
   selector: 'app-g-list',
@@ -12,7 +14,9 @@ import {MatSnackBar} from '@angular/material'
 
 export class GListComponent implements OnInit {
   //public web;
-  constructor(public web:GListService,private http: HttpClient,private snackBar:MatSnackBar) 
+  constructor(private authenticationService: AuthenticationService,
+    private router:Router,public web:GListService,
+    private http: HttpClient,private snack:MatSnackBar) 
   { }
 
   GList:Grocery[];
@@ -22,7 +26,7 @@ export class GListComponent implements OnInit {
   ngOnInit() {
     this.web.UpdateList$.subscribe(
       ()=>{
-        this.getList();console.log("$event Emited$");
+        this.getList();
       }
     );
     this.web.UpdateList$.next();
@@ -31,21 +35,24 @@ export class GListComponent implements OnInit {
   //GET All  from Api
   getList(){
      this.web.getGroceries().subscribe( (response)=>
-      { 
-       this.web.Glist=response; 
+      {
+       let groceries = response.value;
+       this.web.Glist=groceries; 
         //Filter to needed only
-        {
-          var HoldNeeded:Grocery[]=[{name:'',moreInformations:[{bought:false, }]}];
-          response.forEach(item =>{
-            if (item.moreInformations[(item.moreInformations.length -1) ].bought)
-              HoldNeeded.push(item)
-            });
-          HoldNeeded.shift();
-          this.web.NeededOnly=HoldNeeded;
+        var HoldNeeded:Grocery[]=[{name:'',moreInformations:[{bought:false, }]}];
+
+        for (let index = 0; index < groceries.length; index++) {
+          const item = groceries[index];
+          if (item.moreInformations[(item.moreInformations.length -1) ].bought)
+            HoldNeeded.push(item)
         }
+
+        HoldNeeded.shift();
+        this.web.NeededOnly=HoldNeeded;
       },
       (e)=>{
-         this.snackBar.open( "Faild to connect to the Server","X" );
+        console.log("g-list error");
+        console.error(e);
       },
       ()=> {console.log("Completed");
       }
@@ -64,6 +71,7 @@ export class GListComponent implements OnInit {
       return ""+Math.floor(s)+" Days"
     }
   }
-
-}
+  
+  
+}//class
 

@@ -12,7 +12,7 @@ export class ItemCardComponent implements OnInit {
 
   @Input() ItemOrginal:Grocery;
   Item:Grocery;
-  avrageTimeout:number;
+  //FormatedTimout:string;
   lastmore:MoreInformation={
     bought:false
 
@@ -21,13 +21,19 @@ export class ItemCardComponent implements OnInit {
 
   ngOnInit() {
     this.Item=this.ItemOrginal;
+    console.log(this.Item);
+    //this.FormatedTimout=this.SecondsToDays(this.Item.timeout) ;
+    /*
     this.web.GuessTimeout(this.Item.id).subscribe(
        (response)=>{
          this.avrageTimeout=response; 
         this. GEtLastMore();
     })
+    */
   }
 
+  get FormatedTimout(){return this.SecondsToDays(this.Item.timeout)}
+  
     //Get Details
     GetDetails(index){    
       this.web.getGroceryDetails(index).subscribe(res=>{console.log(res);})

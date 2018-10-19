@@ -1,0 +1,23 @@
+
+<div class="userbar" *ngIf="auth.CurrentUser">
+
+  {{auth.CurrentUser.firstname}} 
+  <button mat-button [matMenuTriggerFor]="menu">
+    <span>Account Options</span>
+  </button>
+  <mat-menu #menu="matMenu">
+    <button mat-menu-item>
+      <span>Add Friend</span>
+    </button>
+    <button mat-menu-item (click)="GenInvitaion()">
+      <span>Invite Friend</span>
+    </button>
+    <button mat-menu-item>
+        <span>Friends List</span>
+    </button>
+    <button mat-menu-item (click)="logoutUser()">
+      <span>Logout</span>
+    </button>
+  </mat-menu>
+
+</div>
