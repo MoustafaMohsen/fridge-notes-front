@@ -6,13 +6,7 @@
     <span>Account Options</span>
   </button>
   <mat-menu #menu="matMenu">
-    <button mat-menu-item>
-      <span>Add Friend</span>
-    </button>
-    <button mat-menu-item (click)="GenInvitaion()">
-      <span>Invite Friend</span>
-    </button>
-    <button mat-menu-item>
+    <button mat-menu-item routerLink="/account">
         <span>Friends List</span>
     </button>
     <button mat-menu-item (click)="logoutUser()">

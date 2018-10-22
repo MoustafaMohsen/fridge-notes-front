@@ -26,7 +26,7 @@ export class ErrorInterceptor implements HttpInterceptor {
 
             //console.log(err);
             //const error =  err.statusText ||err.error.message ; 
-            return Observable.throw(err);
+            return throwError(err);
         }))
         //return next.handle(request)
     }

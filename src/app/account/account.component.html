@@ -1,0 +1,58 @@
+<div class="container">
+
+  <div class="row">
+
+    <mat-toolbar>
+      <h3>Add a Friend</h3>
+
+
+      <mat-form-field class="example-full-width">
+        <input matInput placeholder="Invitation Code" value="" [(ngModel)]="friendCode">
+      </mat-form-field>
+
+      <button mat-raised-button (click)="AddFriend(friendCode)">Add</button>
+
+      <button mat-button (click)="GenInvitaion()">
+        <span>Invite Friend</span>
+      </button>
+    </mat-toolbar>
+
+
+    <mat-accordion class="w-100">
+      <mat-expansion-panel>
+
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Friends List
+          </mat-panel-title>
+          <mat-panel-description>
+            Show Friends
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+
+
+        <div *ngFor="let friend of friends;let index">
+
+          <mat-list-item role="listitem" class="clearfix">
+
+            <p class="lead float-left"> {{friend.friendUsername}} </p>
+
+            <button mat-button (click)="DeleteFriend(friend)" class="float-right">
+              Delete Friend
+            </button>
+
+
+          </mat-list-item>
+
+        </div>
+
+
+        <button mat-raised-button (click)="updateList()">Update List</button>
+      </mat-expansion-panel>
+
+    </mat-accordion>
+
+
+  </div>
+
+</div>

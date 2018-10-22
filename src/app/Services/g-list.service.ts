@@ -1,4 +1,4 @@
-import { Grocery, ResponseDto } from '../Grocery';
+import { Grocery, ResponseDto, GroceryDto } from '../Grocery';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders  } from '@angular/common/http';
 import { Observable,Subject, BehaviorSubject } from 'rxjs';
@@ -13,7 +13,7 @@ import { AuthenticationService } from '../_auth.collection/_services/authenticat
 export class GListService {
 URL=`${_BaseUrl}/api/GroceriesApi`;
 
-constructor(private http: HttpClient,public snackBar: MatSnackBar) {
+constructor(private http: HttpClient,private snackBar: MatSnackBar,private auth:AuthenticationService) {
 
 }
 
@@ -34,10 +34,20 @@ getGroceryDetails(id:number): Observable<any>{
 
 //===== Updates
 //this.web.UpdateList$.next();
-UpdateStatus(grocery:Grocery,req:string){
-  this.http.post(`${this.URL}/request/${req}`,grocery).subscribe(
+UpdateStatus(grocery:Grocery,req:string,id?){
+  console.log("UpdateStatus()");
+  console.log(this.auth.CurrentUser.id);
+  
+  console.log(id?id:this.auth.CurrentUser.id);
+  
+  
+  var groceryDto:GroceryDto={
+    grocery:grocery,
+    userId:id?id:this.auth.CurrentUser.id
+  }
+  this.http.post<ResponseDto<object>>(`${this.URL}/request/${req}`,groceryDto).subscribe(
     (response) =>{
-    this.snackBar.open(""+response, "X", {duration: 2000,});
+    this.snackBar.open(""+response.statusText, "X", {duration: 2000,});
     this.UpdateList$.next();
     },
     (e)=>{
@@ -49,8 +59,12 @@ UpdateStatus(grocery:Grocery,req:string){
 }
 
 //===== Updatessubscribe
-request(grocery:Grocery,req:string){
-  return this.http.post<ResponseDto<string>>(`${this.URL}/request/${req}` ,grocery)
+request(grocery:Grocery,req:string,id?){
+  var groceryDto:GroceryDto={
+    grocery:grocery,
+    userId:id?id:this.auth.CurrentUser.id
+  }
+  return this.http.post<ResponseDto<string>>(`${this.URL}/request/${req}` ,groceryDto)
 }
 
 

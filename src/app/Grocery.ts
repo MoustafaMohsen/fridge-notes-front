@@ -6,7 +6,7 @@ export interface Grocery{
         timeout?:number;//input
         moreInformations:MoreInformation[];
         groceryOrBought?:boolean;//server
-        owner?:number;
+        owner?:string;
 }
 export interface MoreInformation {
 
@@ -23,4 +23,10 @@ export interface MoreInformation {
 export interface ResponseDto<T>{
         value:T,
         statusText:string
+}
+
+export class GroceryDto
+{
+        grocery:Grocery;
+        userId:number;
 }

@@ -25,11 +25,5 @@ export class UserbarComponent implements OnInit {
     this.router.navigate(['/login']);
   }
 
-  GenInvitaion(){
-    var resonse =this.usersSrv.GenerateInvitaionCode().subscribe(r=>{
-      var code = r.value
-      console.log(code);
-      
-    });
-  }
+
 }

@@ -7,13 +7,13 @@
     <!--Head ToolBar-->
     <mat-toolbar color="primary" class="container-fluid matbar">
       <mat-toolbar-row>
-        <span>the Grocery List</span>
+        <span>the Grocery List</span> <button mat-button (click)="this.web.UpdateList$.next();">Refresh</button>
       </mat-toolbar-row>
     </mat-toolbar>
 
 
     <div *ngFor="let Item of this.web.Glist;let i = index">
-      <ul class="ul list-unstyled list-group" *ngIf="!(Item?.moreInformations[ Item.moreInformations.length-1]?.bought) || Item?.moreInformations[ Item.moreInformations.length-1].bought==null">
+      <ul class="ul list-unstyled list-group" *ngIf="!Item.groceryOrBought">
         <app-item-card [ItemOrginal]='Item'></app-item-card>
       </ul>
     </div>
@@ -34,7 +34,7 @@
   </mat-toolbar>
 
   <div *ngFor="let Item of this.web.Glist;let i = index">
-    <ul class="ul list-unstyled list-group" *ngIf="Item?.moreInformations[ Item.moreInformations.length-1]?.bought">
+    <ul class="ul list-unstyled list-group" *ngIf="Item.groceryOrBought">
 
       <app-item-card [ItemOrginal]='Item'></app-item-card>
 

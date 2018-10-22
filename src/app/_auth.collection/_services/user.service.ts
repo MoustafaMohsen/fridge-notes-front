@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import {_BASEURL} from '../_services/authentication.service';
-import { UserDto } from '../_models/user';
+import { UserDto, FriendRequestDto, UserFriend } from '../_models/user';
 import { ResponseDto } from '../../Grocery';
 @Injectable({
   providedIn: 'root'
@@ -16,7 +16,7 @@ export class UserService {
   }
   
   GetById(id:number){
-    return this.http.get<UserDto[]>(`${this.BASEURL}/api/users/${id}`);
+    return this.http.get<ResponseDto<UserDto>>(`${this.BASEURL}/api/users/${id}`);
   }
 
   Update(user:UserDto){
@@ -33,6 +33,14 @@ export class UserService {
 
   GenerateInvitaionCode(){
     return this.http.get<ResponseDto<string>>(`${this.BASEURL}/api/users/generateinvitation`)
+  }
+
+  AddFriend(FriendRequestDto:FriendRequestDto){
+    return this.http.post<ResponseDto<UserFriend>>(`${this.BASEURL}/api/users/addfriend`,FriendRequestDto)
+  }
+
+  DeleteFriendship(FriendRequestDto:FriendRequestDto){
+    return this.http.post<ResponseDto<UserFriend>>(`${this.BASEURL}/api/users/deletefriendship`,FriendRequestDto)
   }
   
 }//class

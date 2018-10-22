@@ -5,6 +5,7 @@ import { map } from 'rxjs/operators';
 import { _BaseUrl } from "../../config";
 import { Subject, BehaviorSubject } from 'rxjs';
 import { UserDto } from '../_models/user';
+import { ResponseDto } from '../../Grocery';
 
 export const _BASEURL = _BaseUrl;
 
@@ -17,17 +18,34 @@ export class AuthenticationService {
   BASEURL = _BASEURL;
   constructor(private http:HttpClient) {
 
-    let storageUser =JSON.parse( localStorage.getItem('currentuser') );
-
-      if (storageUser && storageUser.token) {
-        this.CurrentUser=storageUser;
-        this.user$.next(storageUser);
-      }
-      this.user$.subscribe((u)=>{
-        this.CurrentUser=u;
-      });
+    this.user$.subscribe((u)=>{
+      this.CurrentUser=u;
+    });
+    this.updateCurrentUser();
 
    }//constructor
+
+   updateCurrentUser(sendevent=true,user=null){
+    var storageUser =JSON.parse( localStorage.getItem('currentuser') );
+    
+    if(user){
+
+      localStorage.setItem('currentuser',JSON.stringify(user));
+      storageUser =JSON.parse( localStorage.getItem('currentuser') );
+    }
+    console.log("updateCurrentUser()");
+    
+    console.log(storageUser);
+    
+    if (storageUser && storageUser.token) {
+      this.CurrentUser=storageUser;
+      if(sendevent)
+      this.user$.next(storageUser);
+    }
+
+    console.log(storageUser);
+    
+   }
 
   login(username:string,password:string){
     console.log(username,password);
@@ -48,6 +66,10 @@ export class AuthenticationService {
 
   logout(){
     localStorage.removeItem('currentuser');
+  }
+
+  ReAuthenticate(){
+     return this.http.get<ResponseDto<UserDto>>(`${this.BASEURL}/api/users/GetUserId`)
   }
 
 }//class

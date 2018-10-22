@@ -43,7 +43,7 @@ export class GListComponent implements OnInit {
 
         for (let index = 0; index < groceries.length; index++) {
           const item = groceries[index];
-          if (item.moreInformations[(item.moreInformations.length -1) ].bought)
+          if (item.groceryOrBought)
             HoldNeeded.push(item)
         }
 
@@ -53,6 +53,7 @@ export class GListComponent implements OnInit {
       (e)=>{
         console.log("g-list error");
         console.error(e);
+        this.snack.open("Connection Error, Server Disconnected","X",{duration:10000})
       },
       ()=> {console.log("Completed");
       }

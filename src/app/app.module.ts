@@ -19,7 +19,7 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {
   MatButtonModule, MatCheckboxModule,MatButtonToggleModule,MatInputModule,MatSliderModule,
   MatCardModule,MatProgressBarModule,MatToolbarModule,MatAutocompleteModule,
-  MatFormFieldModule,MatSlideToggleModule,MatSnackBarModule,MatDividerModule, MatMenuModule,MatIconModule
+  MatFormFieldModule,MatSlideToggleModule,MatSnackBarModule,MatDividerModule, MatMenuModule,MatIconModule, MatExpansionModule, MatListModule
 } from '@angular/material';
 import { HelpersService } from './Services/helpers.service';
 import { FormatService } from './Services/frormat.service';
@@ -30,6 +30,7 @@ import { MyAuthModule } from './_auth.collection';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { UserbarComponent } from './userbar/userbar.component';
+import { AccountComponent } from './account/account.component';
 
 
 
@@ -46,6 +47,7 @@ import { UserbarComponent } from './userbar/userbar.component';
     LoginComponent,
     RegisterComponent,
     UserbarComponent,
+    AccountComponent,
 
     
   ],
@@ -61,7 +63,7 @@ import { UserbarComponent } from './userbar/userbar.component';
     MatButtonModule, MatCheckboxModule,MatButtonToggleModule,MatInputModule,
     MatSliderModule,MatCardModule,MatProgressBarModule,MatToolbarModule,MatAutocompleteModule,
     MatFormFieldModule,MatSlideToggleModule,MatSnackBarModule,MatDividerModule,MatMenuModule,
-    MatIconModule
+    MatIconModule,MatExpansionModule,MatListModule
     
   ],
   providers: [GListService,HelpersService,FormatService],

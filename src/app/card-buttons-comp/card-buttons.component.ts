@@ -20,10 +20,9 @@ export class CardButtonsComponent implements OnInit {
   MoreButton:boolean=false;
 
   //R
-  @Input() lastmoreInformations:MoreInformation={bought:false  ,no:1 ,typeOfNo :""};
+  lastmoreInformations:MoreInformation={bought:false  ,no:1 ,typeOfNo :""};
   NeededClicked:boolean=false;
   @Input() Item:Grocery;
-  @Input() bought:boolean;//Determin What button to show Needed or Bought
   TheRandomString: string=this.helper.randomString();
   removeIdConfirm:string="#"+this.TheRandomString;
   removeConfirmForId:string=this.TheRandomString;

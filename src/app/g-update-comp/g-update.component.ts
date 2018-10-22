@@ -24,9 +24,8 @@ export class GUpdateComponent implements OnInit {
   }
   @Input() Item:Grocery;
 
-  @Input() lastmoreInformations:MoreInformation={bought:false  ,no:1 ,typeOfNo :""};
-  @Input() timeoutDay=0;
-  @Input() bought:boolean;//Determin What button to show Needed or Bought
+  lastmoreInformations:MoreInformation={bought:false  ,no:1 ,typeOfNo :""};
+  timeoutDay=0;
   boughtClicked:boolean=false;
   //Remove
   TheRandomString: string=this.helper.randomString();

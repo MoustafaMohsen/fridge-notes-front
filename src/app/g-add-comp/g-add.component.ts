@@ -27,9 +27,9 @@ export class GAddComponent implements OnInit {
     private formatService:FormatService,private snackBar:MatSnackBar )
   {
     this.formItem=formBuilder.group({
-      name:[null,[Validators.required] ],
+      name:["",[Validators.required] ],
       no:[1,[Validators.required] ],
-      type:[null,[] ],
+      type:["",[] ],
       basic:[false,[] ],
     })
   }
@@ -38,9 +38,15 @@ export class GAddComponent implements OnInit {
 
   //add method
   add(g:Grocery){  //(click) Add to List button
+    g.name = this.f.name.value;
+    g.moreInformations[0].no=this.f.no.value;
+    g.basic=this.f.basic.value;
+    g.moreInformations[0].typeOfNo=this.f.type.value
+    console.log(g);
+    
     if (g.name =='')
     {
-      this.web.snackBar.open(""+"Empty Name", "X", {duration: 2000});;
+      this.snackBar.open(""+"Empty Name", "X", {duration: 2000});;
       return;
     }//if the data is empty
     console.log("sending add");
@@ -108,7 +114,7 @@ export class GAddComponent implements OnInit {
 
   }
 
-  
+  get f(){return this.formItem.controls}
 
   //Needed Logic
   Needed(g:Grocery){   //(click) Needed button
