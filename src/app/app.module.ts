@@ -31,6 +31,7 @@ import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { UserbarComponent } from './userbar/userbar.component';
 import { AccountComponent } from './account/account.component';
+import { TopnavComponent } from './topnav/topnav.component';
 
 
 
@@ -48,6 +49,7 @@ import { AccountComponent } from './account/account.component';
     RegisterComponent,
     UserbarComponent,
     AccountComponent,
+    TopnavComponent,
 
     
   ],
