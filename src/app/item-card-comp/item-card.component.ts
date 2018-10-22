@@ -25,7 +25,6 @@ export class ItemCardComponent implements OnInit {
 
   ngOnInit() {
     this.Item = this.ItemOrginal;
-    console.log(this.Item);
     this.GEtLastMore();
     //this.FormatedTimout=this.SecondsToDays(this.Item.timeout) ;
     /*
@@ -58,7 +57,6 @@ export class ItemCardComponent implements OnInit {
   }
   GetDetails(index) {
     this.web.getGroceryDetails(index).subscribe(res => {
-      console.log(res);
     });
   }
 
@@ -93,8 +91,5 @@ export class ItemCardComponent implements OnInit {
       this.Item.moreInformations.length - 1
     ];
     this.lastmore = lastmoreServer ? lastmoreServer : this.lastmore;
-    console.log("GEtLastMore()");
-    console.log(lastmoreServer);
-    console.log(this.lastmore);
   }
 }

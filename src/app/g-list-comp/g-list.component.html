@@ -1,44 +1,51 @@
 <div class="container">
-  <app-g-add></app-g-add>
+
+  <mat-progress-bar mode="buffer" *ngIf="this.loading"></mat-progress-bar>
+
+  <div *ngIf="this.web.Glist">
+
+    <app-g-add></app-g-add>
+
+    <!-- ========================List Container===========================  -->
+    <div class="ListContainer">
+
+      <!--Head ToolBar-->
+      <mat-toolbar color="primary" class="container-fluid matbar">
+        <mat-toolbar-row>
+          <span>the Grocery List</span> <button mat-button (click)="this.web.UpdateList$.next();">Refresh</button>
+        </mat-toolbar-row>
+      </mat-toolbar>
+
+
+      <div *ngFor="let Item of this.web.Glist;let i = index">
+        <ul class="ul list-unstyled list-group" *ngIf="!Item.groceryOrBought">
+          <app-item-card [ItemOrginal]='Item'></app-item-card>
+        </ul>
+      </div>
+
+
+    </div>
+  </div>
 
   <!-- ========================List Container===========================  -->
-  <div class="ListContainer">
+  <mat-divider class="mat-divider"></mat-divider>
 
+  <div class="NeededListContainer container" *ngIf="NeededOnly?.length!=0">
     <!--Head ToolBar-->
-    <mat-toolbar color="primary" class="container-fluid matbar">
+    <mat-toolbar color="primary" class="container-fluid matbar2">
       <mat-toolbar-row>
-        <span>the Grocery List</span> <button mat-button (click)="this.web.UpdateList$.next();">Refresh</button>
+        <span>the Bought List</span>
       </mat-toolbar-row>
     </mat-toolbar>
 
-
     <div *ngFor="let Item of this.web.Glist;let i = index">
-      <ul class="ul list-unstyled list-group" *ngIf="!Item.groceryOrBought">
+      <ul class="ul list-unstyled list-group" *ngIf="Item.groceryOrBought">
+
         <app-item-card [ItemOrginal]='Item'></app-item-card>
+
       </ul>
     </div>
 
-
-  </div>
-</div>
-
-<!-- ========================List Container===========================  -->
-<mat-divider class="mat-divider"></mat-divider>
-
-<div class="NeededListContainer container" *ngIf="NeededOnly?.length!=0">
-  <!--Head ToolBar-->
-  <mat-toolbar color="primary" class="container-fluid matbar2">
-    <mat-toolbar-row>
-      <span>the Bought List</span>
-    </mat-toolbar-row>
-  </mat-toolbar>
-
-  <div *ngFor="let Item of this.web.Glist;let i = index">
-    <ul class="ul list-unstyled list-group" *ngIf="Item.groceryOrBought">
-
-      <app-item-card [ItemOrginal]='Item'></app-item-card>
-
-    </ul>
   </div>
 
 

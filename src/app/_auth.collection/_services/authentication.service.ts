@@ -33,28 +33,20 @@ export class AuthenticationService {
       localStorage.setItem('currentuser',JSON.stringify(user));
       storageUser =JSON.parse( localStorage.getItem('currentuser') );
     }
-    console.log("updateCurrentUser()");
-    
-    console.log(storageUser);
     
     if (storageUser && storageUser.token) {
       this.CurrentUser=storageUser;
       if(sendevent)
       this.user$.next(storageUser);
     }
-
-    console.log(storageUser);
     
    }
 
-  login(username:string,password:string){
-    console.log(username,password);
-    
+  login(username:string,password:string){    
     return this.http.post<any>(`${this.BASEURL}/api//users/authenticate`,{username:username,password:password})
     .pipe(map(user=>{
 
       if (user && user.token) {
-        console.log(user);
         localStorage.setItem('currentuser',JSON.stringify(user));
         this.user$.next(user)
 

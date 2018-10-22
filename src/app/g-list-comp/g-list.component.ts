@@ -19,11 +19,17 @@ export class GListComponent implements OnInit {
     private http: HttpClient,private snack:MatSnackBar) 
   { }
 
-  GList:Grocery[];
   NeededOnly:Grocery[]=this.web.NeededOnly;
   
 
+  loading:boolean;
   ngOnInit() {
+    this.web.Loading$.subscribe(
+      d=>{
+        this.loading=d;
+        console.log("loading$",d)}
+      
+    )
     this.web.UpdateList$.subscribe(
       ()=>{
         this.getList();
@@ -34,8 +40,11 @@ export class GListComponent implements OnInit {
 
   //GET All  from Api
   getList(){
-     this.web.getGroceries().subscribe( (response)=>
+     this.web.Loading$.next(true);
+     this.web.getGroceries().subscribe( 
+       (response)=>
       {
+      this.web.Loading$.next(false);
        let groceries = response.value;
        this.web.Glist=groceries; 
         //Filter to needed only
@@ -51,6 +60,7 @@ export class GListComponent implements OnInit {
         this.web.NeededOnly=HoldNeeded;
       },
       (e)=>{
+        this.web.Loading$.next(false);
         console.log("g-list error");
         console.error(e);
         this.snack.open("Connection Error, Server Disconnected","X",{duration:10000})

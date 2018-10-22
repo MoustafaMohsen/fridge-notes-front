@@ -53,19 +53,19 @@ export class GAddComponent implements OnInit {
     console.log(g);
     
       {
-        g.timeout =  this.timeoutDay*3600*24 
+        g.timeout =  this.timeoutDay*3600*24;
+        this.web.Loading$.next(true);
         var grocery =this.formatService.Toadd(g,g.name,g.basic,g.timeout,this.lastmoreInformations);
         this.web.request(grocery,"add")
           
         //GET All  from Api
         .subscribe(
           (r)=>{
-            console.log("===addeubscribe==");
-            console.log(r);
-            console.log("===end addsubscribe==");
+            this.web.Loading$.next(false);
             this.web.UpdateList$.next();
         },
         (e)=>{
+          this.web.Loading$.next(false);
           console.log("===add Error==");
           console.log(e);
           console.log("===add Error==");

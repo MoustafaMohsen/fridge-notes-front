@@ -1,4 +1,4 @@
-export interface Grocery{
+export class Grocery{
 
         id?:number;//server
         name:string;//input
