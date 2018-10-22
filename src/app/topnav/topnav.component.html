@@ -1,3 +1,21 @@
-<p>
-  topnav works!
-</p>
+<mat-toolbar>
+  <mat-toolbar-row class="row">
+
+    <div class="col">
+
+      <span class="float-left">Friedge Notes</span>
+
+    </div>
+
+    <div class="col">
+
+      <div class="float-right" *ngIf="auth.CurrentUser.username">
+
+        <app-userbar class="left"></app-userbar>
+
+      </div>
+
+    </div>
+
+  </mat-toolbar-row>
+</mat-toolbar>

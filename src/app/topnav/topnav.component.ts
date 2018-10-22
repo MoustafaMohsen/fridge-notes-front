@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthenticationService } from '../_auth.collection/_services/authentication.service';
 
 @Component({
   selector: 'app-topnav',
@@ -7,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TopnavComponent implements OnInit {
 
-  constructor() { }
+  constructor(public auth:AuthenticationService) { }
 
   ngOnInit() {
   }
