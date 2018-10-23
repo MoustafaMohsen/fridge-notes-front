@@ -34,17 +34,14 @@ getGroceryDetails(id:number): Observable<any>{
 
 //===== Updates
 //this.web.UpdateList$.next();
-UpdateStatus(grocery:Grocery,req:string,id?){
-  console.log("UpdateStatus()");
-  console.log(this.auth.CurrentUser.id);
-  
-  console.log(id?id:this.auth.CurrentUser.id);
-  
-  
+UpdateStatus(grocery:Grocery,req:string){
+  let id=this.GetUserIdByGroceryOwner(grocery.owner)
   var groceryDto:GroceryDto={
     grocery:grocery,
-    userId:id?id:this.auth.CurrentUser.id
+    userId:id
   }
+  console.log(groceryDto);
+  
   this.http.post<ResponseDto<object>>(`${this.URL}/request/${req}`,groceryDto).subscribe(
     (response) =>{
     this.snack.open(""+response.statusText, "X", {duration: 2000,});
@@ -59,16 +56,34 @@ UpdateStatus(grocery:Grocery,req:string,id?){
 }
 
 //===== Updatessubscribe
-request(grocery:Grocery,req:string,id?){
+request(grocery:Grocery,req:string){
+  let id=this.GetUserIdByGroceryOwner(grocery.owner)
   var groceryDto:GroceryDto={
     grocery:grocery,
-    userId:id?id:this.auth.CurrentUser.id
+    userId:id
   }
+  console.log(groceryDto);
+
   return this.http.post<ResponseDto<string>>(`${this.URL}/request/${req}` ,groceryDto)
 }
 
 
 //===== Services
+GetUserIdByGroceryOwner(owner:string):number{
+  if (this.auth.CurrentUser.username==owner) {
+    return this.auth.CurrentUser.id;
+  }
+
+  //if Owner not CurrentUser
+  let friendsList = this.auth.CurrentUser.userFriends;
+  for (let i = 0; i < friendsList.length; i++) {
+    const friend = friendsList[i];
+    if (friend.friendUsername==owner) {
+      return friend.friendUserId;
+    }
+  }
+
+}
 isGroceryNameExsits(name:string){
   return this.http.post<boolean>(`${this.URL}/nameExists/`,{value:name});
 }

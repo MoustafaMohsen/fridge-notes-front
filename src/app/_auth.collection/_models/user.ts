@@ -6,7 +6,7 @@ export class UserDto {
     lastname?: string;
     token?:string;
 
-    userFriends?:any;
+    userFriends?:UserFriend[];
     invitationcode?:string;
 }
 
