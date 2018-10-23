@@ -32,43 +32,13 @@ export class GListComponent implements OnInit {
     )
     this.web.UpdateList$.subscribe(
       ()=>{
-        this.getList();
+        this.web.getList();
       }
     );
     this.web.UpdateList$.next();
   }
 
-  //GET All  from Api
-  getList(){
-     this.web.Loading$.next(true);
-     this.web.getGroceries().subscribe( 
-       (response)=>
-      {
-      this.web.Loading$.next(false);
-       let groceries = response.value;
-       this.web.Glist=groceries; 
-        //Filter to needed only
-        var HoldNeeded:Grocery[]=[{name:'',moreInformations:[{bought:false, }]}];
 
-        for (let index = 0; index < groceries.length; index++) {
-          const item = groceries[index];
-          if (item.groceryOrBought)
-            HoldNeeded.push(item)
-        }
-
-        HoldNeeded.shift();
-        this.web.NeededOnly=HoldNeeded;
-      },
-      (e)=>{
-        this.web.Loading$.next(false);
-        console.log("g-list error");
-        console.error(e);
-        this.snack.open("Connection Error, Server Disconnected","X",{duration:10000})
-      },
-      ()=> {console.log("Completed");
-      }
-    );
-  }
  
   SecondsToDays(s:number):string{
     if(s<3600*24){

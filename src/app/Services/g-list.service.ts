@@ -13,7 +13,7 @@ import { AuthenticationService } from '../_auth.collection/_services/authenticat
 export class GListService {
 URL=`${_BaseUrl}/api/GroceriesApi`;
 
-constructor(private http: HttpClient,private snackBar: MatSnackBar,private auth:AuthenticationService) {
+constructor(private http: HttpClient,private snack: MatSnackBar,private auth:AuthenticationService) {
 
 }
 Loading$:Subject<boolean>=new Subject();
@@ -47,11 +47,11 @@ UpdateStatus(grocery:Grocery,req:string,id?){
   }
   this.http.post<ResponseDto<object>>(`${this.URL}/request/${req}`,groceryDto).subscribe(
     (response) =>{
-    this.snackBar.open(""+response.statusText, "X", {duration: 2000,});
+    this.snack.open(""+response.statusText, "X", {duration: 2000,});
     this.UpdateList$.next();
     },
     (e)=>{
-      this.snackBar.open( "Faild to connect to the Server","X" );
+      this.snack.open( "Faild to connect to the Server","X" );
    },
    ()=> {console.log("Completed");}
 
@@ -77,5 +77,36 @@ GuessTimeout(id:number){
   return this.http.get<any>(`${this.URL}/guess/${id}`);
 }
 
+  //GET All  from Api
+  getList(){
+    this.Loading$.next(true);
+    this.getGroceries().subscribe( 
+      (response)=>
+     {
+     this.Loading$.next(false);
+      let groceries = response.value;
+      this.Glist=groceries; 
+       //Filter to needed only
+       var HoldNeeded:Grocery[]=[{name:'',moreInformations:[{bought:false, }]}];
+
+       for (let index = 0; index < groceries.length; index++) {
+         const item = groceries[index];
+         if (item.groceryOrBought)
+           HoldNeeded.push(item)
+       }
+
+       HoldNeeded.shift();
+       this.NeededOnly=HoldNeeded;
+     },
+     (e)=>{
+       this.Loading$.next(false);
+       console.log("g-list error");
+       console.error(e);
+       this.snack.open("Connection Error, Server Disconnected","X",{duration:10000})
+     },
+     ()=> {console.log("Completed");
+     }
+   );
+ }
 
 }//class
