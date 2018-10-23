@@ -1,6 +1,6 @@
 <div class="container">
 
-  <mat-progress-bar mode="buffer" *ngIf="this.loading"></mat-progress-bar>
+  <mat-progress-bar mode="buffer" *ngIf="(this.web.Loading$ | async) as boolean"></mat-progress-bar>
 
   <div *ngIf="this.web.Glist">
 
@@ -12,7 +12,7 @@
       <!--Head ToolBar-->
       <mat-toolbar color="primary" class="container-fluid matbar">
         <mat-toolbar-row>
-          <span>the Grocery List</span> <button mat-button (click)="this.web.UpdateList$.next();">Refresh</button>
+          <span>the Grocery List</span> <button mat-button [disabled]="(this.web.Loading$ | async)" (click)="this.web.UpdateList$.next();">Refresh</button>
         </mat-toolbar-row>
       </mat-toolbar>
 
@@ -47,6 +47,12 @@
     </div>
 
   </div>
+  <!--
+
+    <input type="number" placeholder="requestsNumber" value="50" [(ngModel)]="num" style="position: sticky;bottom: 0;">
+    <button mat-raised-button style="position: sticky;bottom: 0;" (click)="testRefresh(num)">Test Refresh Batch</button>
+    <button mat-raised-button style="position: sticky;bottom: 0;" (click)="testRefresh(num,true)">Test Refresh Sequential</button>
+  -->
 
 
 </div>

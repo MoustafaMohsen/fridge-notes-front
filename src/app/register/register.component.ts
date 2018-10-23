@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { UserService, AlertService } from '../_auth.collection';
@@ -9,7 +9,7 @@ import { first } from 'rxjs/operators';
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.css']
 })
-export class RegisterComponent implements OnInit {
+export class RegisterComponent implements OnInit,OnDestroy {
   registerForm: FormGroup;
   loading = false;
   submitted = false;
@@ -51,5 +51,9 @@ export class RegisterComponent implements OnInit {
                   this.alertService.error(error);
                   this.loading = false;
               });
+  }
+
+  ngOnDestroy(){
+      //location.reload()
   }
 }

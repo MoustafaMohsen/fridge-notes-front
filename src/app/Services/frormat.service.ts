@@ -4,12 +4,12 @@ import { GListService } from "./g-list.service";
 
 @Injectable()
 export class FormatService {
-  [x: string]: any;
-
   grocery: Grocery;
   constructor(private GListService: GListService) {}
 
-  Tobought(g: Grocery): Grocery {
+  Tobought(gPara: Grocery): Grocery {
+    let g={...gPara}
+    //g.moreInformations={...gPara.moreInformations}
     if (g.basic) {
     } else {
       g.timeout = 0; //to force gussing timeout
@@ -33,11 +33,20 @@ export class FormatService {
   }
 
   Toneed(
-    g: Grocery,
+    gPara: Grocery,
     basic: boolean,
     timeout: number = 0,
     moreInformations: MoreInformation
   ): Grocery {
+    let g:Grocery={
+      basic:gPara.basic,
+      groceryOrBought:gPara.groceryOrBought,
+      id:gPara.id,
+      moreInformations:gPara.moreInformations,
+      name:gPara.name,
+      owner:gPara.owner,
+      timeout:gPara.timeout
+    }
     var lastno = moreInformations.no;
     var lasttype = moreInformations.typeOfNo;
     g.timeout = 0; //to make sure no one add a timeout to a needed item
@@ -52,13 +61,14 @@ export class FormatService {
     return g;
   }
 
-  Toremove(g: Grocery) {
+  Toremove(gPara: Grocery) {
+    let g={...gPara}
     //remember to SendDelete() or edit
     if (g.moreInformations.length <= 1) {
       return g;
     } else {
       g.moreInformations.pop();
-
+      g.groceryOrBought=g.moreInformations[g.moreInformations.length-1].bought;
       return g;
     }
   }

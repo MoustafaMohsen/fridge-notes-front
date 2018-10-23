@@ -15,7 +15,7 @@ declare var $: any;
 })
 export class GUpdateComponent implements OnInit {
   constructor(
-    private web: GListService,
+    public web: GListService,
     private formatService: FormatService,
     private helper: HelpersService,
     private snack: MatSnackBar
@@ -43,18 +43,19 @@ export class GUpdateComponent implements OnInit {
 
   Bought() {
     //(click) Bought button
-    let g: Grocery = { ...this.Item };
+    var g: Grocery = { ...this.Item };
     // g.timeout =  this.timeoutDay*3600*24  ;
     var grocery = this.formatService.Tobought(g);
     this.web.Loading$.next(true);
     this.web.request(grocery, "bought").subscribe(
       response => {
         this.snack.open(`${response.statusText}`, "X", { duration: 5000 });
-        this.web.UpdateList$.next();
+        this.web.UpdateList$.next(false);
+        this.web.Loading$.next(false);
       },
       e => {
         console.log(e);
-
+        this.web.Loading$.next(false);
         this.snack.open("Request failed", "X", { duration: 5000 });
         console.log("Request failed");
       }
@@ -65,7 +66,7 @@ export class GUpdateComponent implements OnInit {
   Needed() {
     this.web.Loading$.next(true);
     //(click) Needed button
-    let g: Grocery = { ...this.Item };
+    var g: Grocery = { ...this.Item };
     this.boughtClicked = !this.boughtClicked;
     var grocery = this.formatService.Toneed(
       g,
@@ -77,10 +78,12 @@ export class GUpdateComponent implements OnInit {
     this.web.request(grocery, "needed").subscribe(
       response => {
         this.snack.open(`${response.statusText}`, "X", { duration: 2000 });
-        this.web.UpdateList$.next();
+        this.web.UpdateList$.next(false);
+        this.web.Loading$.next(false);
       },
       () => {
         this.snack.open("Request failed", "X", { duration: 2000 });
+        this.web.Loading$.next(false);
       }
     );
   }

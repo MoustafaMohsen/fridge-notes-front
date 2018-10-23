@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { AuthenticationService } from '../_auth.collection/_services/authentication.service';
 import { UserDto, FriendRequestDto, UserFriend } from '../_auth.collection/_models/user';
 import { UserService } from '../_auth.collection/_services/user.service';
@@ -9,7 +9,7 @@ import { MatSnackBar } from '@angular/material';
   templateUrl: './account.component.html',
   styleUrls: ['./account.component.css']
 })
-export class AccountComponent implements OnInit {
+export class AccountComponent implements OnInit,OnDestroy {
 
   friends:UserFriend[];
   friendCode:string;
@@ -77,5 +77,9 @@ export class AccountComponent implements OnInit {
       console.log(code);
       
     });
+  }
+
+  ngOnDestroy(){
+    
   }
 }

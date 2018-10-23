@@ -3,50 +3,55 @@
 
   <div class="col">
 
-    
-    <button (click)='buttonClick=!buttonClick;clean();' mat-raised-button class="add">
+
+    <button (click)='buttonClick=!buttonClick;this.clean();' [disabled]="(this.web.Loading$ | async)" mat-raised-button class="add">
       Add</button>
-      
-      <br>
-      
-    
-      
-      <div *ngIf="buttonClick">
-        <!---     Form       -->
-    <form [formGroup]="formItem">
-      <!--Name-->
-      <mat-form-field class="spacing">
-        <input formControlName="name" placeholder="Name" name="Name" matInput>
-      </mat-form-field>
 
-      <!--No.-->
-      <mat-form-field class="spacing">
-        <input formControlName="no"  placeholder="No." name="No" matInput type="number">
-      </mat-form-field>
-      <!--Type-->
-      <mat-form-field class="spacing">
-        <input formControlName="type"  placeholder="Type" name="Type" matInput type="text">
-      </mat-form-field>
-      <!--Basic?-->
-      <mat-checkbox class="spacing" formControlName="basic"  type="number" placeholder="Timeout" name="basic">Basic</mat-checkbox>
+    <br>
 
 
-      <!--Add-->
-      <button type="button" (click)="add(Item)" class="add-to-list" mat-raised-button *ngIf="!MakeitNeeded">Add to List</button>
 
-      <!--Needed-->
-      <button type="button" (click)="Needed(Item)" class="needed" mat-raised-button *ngIf="MakeitNeeded">
-        Needed</button>
+    <div *ngIf="buttonClick">
+      <!---     Form       -->
+      <form [formGroup]="formItem">
+        <!--Name-->
+        <mat-form-field class="spacing">
+          <input formControlName="name" placeholder="Name" name="Name" matInput>
+        </mat-form-field>
+
+        <!--No.-->
+        <mat-form-field class="spacing">
+          <input formControlName="no" placeholder="No." name="No" matInput type="number">
+        </mat-form-field>
+        <!--Type-->
+        <mat-form-field class="spacing">
+          <input formControlName="type" placeholder="Type" name="Type" matInput type="text">
+        </mat-form-field>
+        <!--Basic?-->
+        <mat-checkbox class="spacing" formControlName="basic" placeholder="Timeout" name="basic">Basic</mat-checkbox>
 
 
-    </form>
+        <!--Add-->
+        <button type="button" [disabled]="(this.web.Loading$ | async)" (click)="add()" class="add-to-list"
+          mat-raised-button *ngIf="!MakeitNeeded">Add to List</button>
+
+        <!--Needed-->
+        <button type="button" [disabled]="(this.web.Loading$ | async)" (click)="Needed()" class="needed"
+          mat-raised-button *ngIf="MakeitNeeded">
+          Needed</button>
 
 
-    <!---     Suggestions       -->
-    <div *ngFor="let item of this.web.NeededOnly" class="d-inline">
-      <button *ngIf="item.basic" (click)="SelectedSuggestion(item)" color="acent" mat-button>{{item.name}}</button>
+      </form>
+
+
+      <!---     Suggestions     
+        <div *ngFor="let item of this.web.NeededOnly" class="d-inline">
+          <button *ngIf="item.basic" (click)="SelectedSuggestion(item)" [disabled]="(this.web.Loading$ | async)" color="acent"
+          mat-button>{{item.name}}</button>
+        </div>
+      -->
+
     </div>
-  </div>
 
   </div>
 

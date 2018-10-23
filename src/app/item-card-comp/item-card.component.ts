@@ -37,7 +37,7 @@ export class ItemCardComponent implements OnInit {
   }
 
   get FormatedTimout() {
-    return this.SecondsToDays(this.Item.timeout);
+    return this.helper.SecodsToDate(this.Item.timeout);
   }
 
   get ItemOwner(): { own: boolean; username: string } {
@@ -57,39 +57,17 @@ export class ItemCardComponent implements OnInit {
   }
   GetDetails(index) {
     this.web.getGroceryDetails(index).subscribe(res => {
+      console.log(res);
+      
     });
   }
 
   //--------------Helper Methods
-
-  //---HELPERS
-  ToDate(s) {
-    return this.helper.formatDate(s);
-  }
-
-  SecondsToDays(s: number): string {
-    if (s < 3600 * 24) {
-      if (s < 3600) {
-        if (s < 60) {
-          return "" + Math.floor(s) + " secounds !";
-        }
-
-        return "" + Math.floor(s / 60) + " Minutes";
-      }
-
-      return "" + Math.floor(s / (60 * 60)) + " Hours";
-    }
-    return "" + Math.floor(s / (3600 * 24)) + " Days";
-  }
-
-  PersentageTimeout(timeout): number {
-    return this.helper.PersentageTimeout(timeout);
-  }
-
   GEtLastMore() {
     let lastmoreServer = this.Item.moreInformations[
       this.Item.moreInformations.length - 1
     ];
     this.lastmore = lastmoreServer ? lastmoreServer : this.lastmore;
   }
+
 }

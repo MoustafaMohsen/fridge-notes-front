@@ -28,7 +28,7 @@ export class CardButtonsComponent implements OnInit {
   removeConfirmForId:string=this.TheRandomString;
   
   //R
-  constructor(private web:GListService,private formatService:FormatService,
+  constructor(public web:GListService,private formatService:FormatService,
     public snackBar: MatSnackBar,private helper:HelpersService) { }
 
   ngOnInit() {
@@ -44,12 +44,15 @@ export class CardButtonsComponent implements OnInit {
   }
 
   remove(grocery:Grocery):void{
+    console.log(grocery);
+    
     //checking
+    //var groceryRequest=this.formatService.Toremove(grocery)
     if (grocery.moreInformations.length <= 1 ) {
         this.snackBar.open("Item doesn't have any history To undo", "X", {duration: 9000,});
         $(this.removeIdConfirm).modal('hide');
         return
-    }
+    }    
     this.web.UpdateStatus(grocery,"remove");
     //Close Dialog
     $(this.removeIdConfirm).modal('hide');

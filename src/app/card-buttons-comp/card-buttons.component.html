@@ -6,11 +6,11 @@
 
 <div *ngIf="MoreButton" class="MoreSection">
 <!--====================Edit-->
-<button (click)='buttonClick=!buttonClick' mat-button>
+<button (click)='buttonClick=!buttonClick' [disabled]="(this.web.Loading$ | async)" mat-button>
   Edit</button>
 <!--Edit=====================-->
 <!--Delete===================-->
-<button mat-button color="warn" class="remove" data-toggle="modal" [attr.data-target]="removeIdConfirm">
+<button mat-button color="warn" class="remove" [disabled]="(this.web.Loading$ | async)" data-toggle="modal" [attr.data-target]="removeIdConfirm">
   Delete</button>
 <!--===================Delete-->
 </div>
@@ -35,7 +35,7 @@
         <input [(ngModel)]='timeoutDay' type="number" placeholder="Days" name="Hours" matInput>
       </mat-form-field>
   
-    <button (click)="Edit(Item)" color="primary" mat-raised-button>Edit Item</button>
+    <button (click)="Edit(Item)" [disabled]="(this.web.Loading$ | async)" color="primary" mat-raised-button>Edit Item</button>
       
 
   </div>
@@ -53,9 +53,9 @@
         <p>If item was bought then click the bought button and don't delete it</p>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button (click)='remove(Item)' type="button" class="btn btn-danger">Remove</button>
-        <button (click)='DELETE(Item)' type="button" class="btn btn-danger">Delete</button>
+        <button type="button" class="btn btn-secondary"  data-dismiss="modal">Close</button>
+        <button (click)='remove(Item)' type="button"  [disabled]="(this.web.Loading$ | async)" class="btn btn-danger">Remove</button>
+        <button (click)='DELETE(Item)' type="button" [disabled]="(this.web.Loading$ | async)" class="btn btn-danger">Delete</button>
       </div>
     </div>
   </div>

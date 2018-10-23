@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import {AuthenticationService, AlertService} from '../_auth.collection';
 import {UserDto} from '../_auth.collection';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
@@ -9,7 +9,7 @@ import { ActivatedRoute, Router } from '@angular/router';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent implements OnInit,OnDestroy {
 
   loginform:FormGroup;
   submitted = false;
@@ -58,5 +58,9 @@ export class LoginComponent implements OnInit {
     );
 
   }//onSubmit()
+
+  ngOnDestroy(){
+    location.reload()
+  }
 
 }//class
