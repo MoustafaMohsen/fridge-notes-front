@@ -19,7 +19,8 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {
   MatButtonModule, MatCheckboxModule,MatButtonToggleModule,MatInputModule,MatSliderModule,
   MatCardModule,MatProgressBarModule,MatToolbarModule,MatAutocompleteModule,
-  MatFormFieldModule,MatSlideToggleModule,MatSnackBarModule,MatDividerModule, MatMenuModule,MatIconModule, MatExpansionModule, MatListModule
+  MatFormFieldModule,MatSlideToggleModule,MatSnackBarModule,MatDividerModule, MatMenuModule,
+  MatIconModule, MatExpansionModule, MatListModule,MatTooltipModule
 } from '@angular/material';
 import { HelpersService } from './Services/helpers.service';
 import { FormatService } from './Services/frormat.service';
@@ -63,7 +64,7 @@ import { TopnavComponent } from './topnav/topnav.component';
     MatButtonModule, MatCheckboxModule,MatButtonToggleModule,MatInputModule,
     MatSliderModule,MatCardModule,MatProgressBarModule,MatToolbarModule,MatAutocompleteModule,
     MatFormFieldModule,MatSlideToggleModule,MatSnackBarModule,MatDividerModule,MatMenuModule,
-    MatIconModule,MatExpansionModule,MatListModule
+    MatIconModule,MatExpansionModule,MatListModule,MatTooltipModule
     
   ],
   providers: [GListService,HelpersService,FormatService],

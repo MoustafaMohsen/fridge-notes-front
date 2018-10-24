@@ -2,10 +2,13 @@
 <div class="userbar" *ngIf="auth.CurrentUser">
 
   {{auth.CurrentUser.firstname}} 
-  <button mat-button [matMenuTriggerFor]="menu">
-    <span>Account Options</span>
+  <button mat-icon-button  [matMenuTriggerFor]="userMenu" class="block"  >
+    <i mat-icon-button [ngClass]="setClasses()"></i>
   </button>
-  <mat-menu #menu="matMenu">
+
+
+
+  <mat-menu #userMenu="matMenu" class="block" >
     <button mat-menu-item routerLink="/account">
         <span>Friends List</span>
     </button>
@@ -13,5 +16,6 @@
       <span>Logout</span>
     </button>
   </mat-menu>
+
 
 </div>

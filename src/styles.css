@@ -10,3 +10,41 @@ body{
 
 }
 
+md-icon{
+    font-family: 'Material Icons' !important;
+}
+
+.rotate-45 {
+    -webkit-transform: rotate(45deg);
+    -moz-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    -o-transform: rotate(45deg);
+    transform: rotate(45deg);
+}
+
+.rotate-90 {
+    -webkit-transform: rotate(90deg);
+    -moz-transform: rotate(90deg);
+    -ms-transform: rotate(90deg);
+    -o-transform: rotate(90deg);
+    transform: rotate(90deg);
+}
+
+.rotate{
+    -moz-transition: all 200ms ease;
+    -webkit-transition: all 200ms ease;
+    transition: all 200ms ease;
+}
+
+.rotate.rotate-down{
+    -ms-transform: rotate(180deg);
+    -moz-transform: rotate(180deg);
+    -webkit-transform: rotate(180deg);
+    transform: rotate(180deg);
+}
+
+/*remove blue outline bootstrap and matrial*/
+.btn:focus,.btn:active,button:focus,button {
+    outline: none !important;
+    box-shadow: none;
+ }
