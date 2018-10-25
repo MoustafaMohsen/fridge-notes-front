@@ -1,7 +1,6 @@
 
 import { Routes} from '@angular/router'; 
 import { GListComponent } from './g-list-comp/g-list.component';
-import { GAddComponent } from './g-add-comp/g-add.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { AuthGuard } from './_auth.collection';

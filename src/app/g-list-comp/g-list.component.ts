@@ -14,7 +14,10 @@ export class GListComponent implements OnInit, OnDestroy {
   NeededOnly: Grocery[] = this.web.NeededOnly;
 
   num;
-  ngOnInit() {}
+  ngOnInit() {
+    this.web.UpdateList$.next();
+
+  }
 
   testRefresh(num: number, sequential = false) {
     var t0 = performance.now();

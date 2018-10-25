@@ -15,7 +15,7 @@ export class GListService {
   URL = `${_BaseUrl}/api/GroceriesApi`;
 
 
-  Lastdate = 0;
+  Lastdate = -1;
   showAddCard:boolean=false;
   AddFromItem: Grocery = {
     name: "",
@@ -39,24 +39,24 @@ export class GListService {
     public auth: AuthenticationService,
     formBuilder: FormBuilder,
   ) {
-    this.Loading$.subscribe(l=>this.Loading=l)
-    this.UpdateList$.asObservable().subscribe(HandlLoading => {
-      var now = Date.now() / 1000;
-      var diff = now - this.Lastdate;
-
-      if (diff > 1 || this.Lastdate == 0) {
-        this.Lastdate = Date.now() / 1000;
-        this.getList(HandlLoading);
-      }
-    });
-    this.UpdateList$.next();
-
     this.formItem = formBuilder.group({
       name: ["", [Validators.required]],
       no: [1, [Validators.required]],
       type: ["", []],
       basic: [false, [Validators.required]]
     });
+    this.Loading$.subscribe(l=>this.Loading=l)
+    this.UpdateList$.asObservable().subscribe(HandlLoading => {
+      var now = Date.now() / 1000;
+      var diff = now - this.Lastdate;
+
+      if (diff > 1 || this.Lastdate == -1) {
+        this.Lastdate = Date.now() / 1000;
+        this.getList(HandlLoading);
+      }
+    });
+
+
   }
   //===== Gets
   getGroceries(): Observable<ResponseDto<Grocery[]>> {

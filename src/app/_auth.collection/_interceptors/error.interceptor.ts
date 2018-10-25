@@ -14,6 +14,7 @@ export class ErrorInterceptor implements HttpInterceptor {
         return next.handle(request).pipe(
             catchError((err: HttpErrorResponse) => {
             console.log("Error Interceptor");
+            console.error(err);
             
             if (err.status === 401) {
                 this.snack.open("Please Login Or Register","x",{duration:3000})

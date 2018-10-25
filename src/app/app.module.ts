@@ -7,7 +7,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppComponent } from './boot/app.component';
 import { GListComponent } from './g-list-comp/g-list.component';
 import { GListService } from './Services/g-list.service';
-import { GAddComponent } from './g-add-comp/g-add.component';
+//import { GAddComponent } from './g-add-comp/g-add.component';
 import { GUpdateComponent } from './g-update-comp/g-update.component';
 
 import { RouterModule } from '@angular/router'; 
@@ -15,7 +15,7 @@ import { appRoutes } from './app.routing';
 //import { GEditComponent } from './g-edit/g-edit.component';
 
 //materials
-import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations'; 
 import {
   MatButtonModule, MatCheckboxModule,MatButtonToggleModule,MatInputModule,MatSliderModule,
   MatCardModule,MatProgressBarModule,MatToolbarModule,MatAutocompleteModule,
@@ -41,7 +41,7 @@ import { AddButtonComponent } from './add-button/add-button.component';
   declarations: [
     AppComponent,
     GListComponent,
-    GAddComponent,
+    //GAddComponent,
     GUpdateComponent,
    // GEditComponent,
     ItemCardComponent,
@@ -58,18 +58,18 @@ import { AddButtonComponent } from './add-button/add-button.component';
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     FormsModule,
     HttpClientModule,
     RouterModule.forRoot(appRoutes),
     MyAuthModule,
     ReactiveFormsModule,
     //matrials
-    BrowserAnimationsModule,
     MatButtonModule, MatCheckboxModule,MatButtonToggleModule,MatInputModule,
     MatSliderModule,MatCardModule,MatProgressBarModule,MatToolbarModule,MatAutocompleteModule,
     MatFormFieldModule,MatSlideToggleModule,MatSnackBarModule,MatDividerModule,MatMenuModule,
-    MatIconModule,MatExpansionModule,MatListModule,MatTooltipModule
-    
+    MatIconModule,MatExpansionModule,MatListModule,MatTooltipModule,
+
   ],
   providers: [GListService,HelpersService,FormatService],
   bootstrap: [AppComponent]

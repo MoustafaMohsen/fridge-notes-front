@@ -1,5 +1,7 @@
 <button mat-fab class="z-index-24 add-grocery-button" 
 (click)='web.showAddCard=!web.showAddCard;this.web.clean();' 
-[disabled]="(web.Loading$ | async)">
-  <mat-icon>add</mat-icon>
+[disabled]="(web.Loading$ | async)"
+
+(click)="styler.scrollById('Scrolltarget_1')">
+  <mat-icon [ngClass]="loadingSpin()">add</mat-icon>
 </button>

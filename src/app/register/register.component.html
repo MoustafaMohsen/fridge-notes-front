@@ -1,5 +1,10 @@
 <!---     Form       -->
 <form [formGroup]="registerForm">
+  <!--Username-->
+  <mat-form-field class="spacing">
+    <input formControlName="username" placeholder="Username"type="text" matInput>
+  </mat-form-field>
+
   <!--FirstName-->
   <mat-form-field class="spacing">
     <input formControlName="firstName" placeholder="First Name" type="text" matInput>
@@ -8,11 +13,6 @@
   <!--LastName-->
   <mat-form-field class="spacing">
     <input formControlName="lastName" placeholder="Last Name" type="text" matInput>
-  </mat-form-field>
-
-  <!--Username-->
-  <mat-form-field class="spacing">
-    <input formControlName="username" placeholder="Username"type="text" matInput>
   </mat-form-field>
 
   <!--Password-->
