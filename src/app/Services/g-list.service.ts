@@ -8,6 +8,7 @@ import { MatSnackBar } from "@angular/material";
 import { _BaseUrl } from "../config";
 import { UserDto } from "../_auth.collection/_models/user";
 import { AuthenticationService } from "../_auth.collection/_services/authentication.service";
+import { Validators, FormBuilder, FormGroup } from "@angular/forms";
 
 @Injectable()
 export class GListService {
@@ -15,6 +16,12 @@ export class GListService {
 
 
   Lastdate = 0;
+  showAddCard:boolean=false;
+  AddFromItem: Grocery = {
+    name: "",
+    moreInformations: [{ bought: false, no: 1, typeOfNo: "" }],
+    timeout: 0
+  };
   Loading$: Subject<boolean> = new Subject();
   Loading:boolean=false;
   Glist$: Subject<Grocery[]> = new Subject();
@@ -23,11 +30,14 @@ export class GListService {
   public NeededOnly: Grocery[] = [
     { name: "", moreInformations: [{ bought: false }] }
   ];
+  formItem: FormGroup;
+
 
   constructor(
     private http: HttpClient,
     private snack: MatSnackBar,
-    public auth: AuthenticationService
+    public auth: AuthenticationService,
+    formBuilder: FormBuilder,
   ) {
     this.Loading$.subscribe(l=>this.Loading=l)
     this.UpdateList$.asObservable().subscribe(HandlLoading => {
@@ -40,6 +50,13 @@ export class GListService {
       }
     });
     this.UpdateList$.next();
+
+    this.formItem = formBuilder.group({
+      name: ["", [Validators.required]],
+      no: [1, [Validators.required]],
+      type: ["", []],
+      basic: [false, [Validators.required]]
+    });
   }
   //===== Gets
   getGroceries(): Observable<ResponseDto<Grocery[]>> {
@@ -146,5 +163,22 @@ export class GListService {
         console.log("Completed");
       }
     );
+  }
+  clean() {
+    //(click) Add button
+    this.AddFromItem = {
+      name: "",
+      moreInformations: [{ bought: false, no: 1, typeOfNo: "" }],
+      basic:false,
+      timeout: 0,
+      owner:this.auth.CurrentUser.username,
+      groceryOrBought:false
+    };
+    this.formItem.controls.name.setValue("", [Validators.required]);
+    this.formItem.controls.no.setValue(1, [Validators.required]);
+    this.formItem.controls.type.setValue("");
+    this.formItem.controls.basic.setValue(false);
+    this.formItem.enable();
+    this.formItem.markAsUntouched();
   }
 } //class

@@ -33,6 +33,7 @@ import { UserbarComponent } from './userbar/userbar.component';
 import { AccountComponent } from './account/account.component';
 import { TopnavComponent } from './topnav/topnav.component';
 import { AddCardComponent } from './add-card/add-card.component';
+import { AddButtonComponent } from './add-button/add-button.component';
 
 
 
@@ -51,6 +52,7 @@ import { AddCardComponent } from './add-card/add-card.component';
     AccountComponent,
     TopnavComponent,
     AddCardComponent,
+    AddButtonComponent,
 
     
   ],
