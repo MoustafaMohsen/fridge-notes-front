@@ -3,7 +3,8 @@
 
   {{auth.CurrentUser.firstname}} 
   <button mat-icon-button  [matMenuTriggerFor]="userMenu" class="block"  >
-    <i mat-icon-button [ngClass]="setClasses()"></i>
+    <!--i mat-icon-button [ngClass]="setClasses()"></i-->
+    <i [ngClass]="SetLoadingAndellipsis()"></i>
   </button>
 
 

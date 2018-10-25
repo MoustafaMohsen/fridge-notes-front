@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthenticationService } from '../_auth.collection/_services/authentication.service';
+import { GListService } from '../Services/g-list.service';
 
 @Component({
   selector: 'app-topnav',
@@ -8,9 +9,23 @@ import { AuthenticationService } from '../_auth.collection/_services/authenticat
 })
 export class TopnavComponent implements OnInit {
 
-  constructor(public auth:AuthenticationService) { }
+  constructor(public auth:AuthenticationService,private web:GListService) { }
 
   ngOnInit() {
   }
 
+  test(){
+    if(this.web.Loading==false){
+      this.web.Loading$.next(true);
+      console.log(true,"start");
+      return;
+    }
+
+    if(this.web.Loading==true){
+      this.web.Loading$.next(false);
+      console.log(false,"ended");
+      return;
+    }
+    
+  }
 }

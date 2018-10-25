@@ -8,7 +8,7 @@ export class Grocery{
         groceryOrBought?:boolean;//server
         owner?:string;
 }
-export interface MoreInformation {
+export class MoreInformation {
 
         moreInformationsId?:number//server
         date?:number        //the date in which the item have been bought or added/Needed to note

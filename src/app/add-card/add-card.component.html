@@ -1,0 +1,55 @@
+<button mat-fab class="z-index-24 add-grocery-button" 
+(click)='buttonClick=!buttonClick;this.clean();' 
+[disabled]="(this.web.Loading$ | async)">
+  <mat-icon>add</mat-icon>
+</button>
+
+<div *ngIf="buttonClick">
+  <!---     Form       -->
+  <mat-card class="card">
+
+    <form class="row justify-content-around" [formGroup]="formItem">
+
+      <!--===================Title & subtitle===================-->
+      <mat-card-header class="col-sm-auto mr-auto">
+
+        <!--Title-->
+        <mat-card-title>
+          <mat-form-field class="spacing">
+            <input formControlName="name" placeholder="Name" name="Item Name" matInput>
+            <mat-error *ngIf="this.formItem.get('name').hasError('required')">Required</mat-error>
+          </mat-form-field>
+        </mat-card-title>
+
+      </mat-card-header>
+
+      <!--Content (empty)-->
+      <mat-card-content class="type1">
+        <mat-form-field class="spacing">
+          <input formControlName="type" placeholder="Type" name="Type" matInput type="text">
+        </mat-form-field>
+
+        <mat-form-field class="spacing">
+          <input formControlName="no" placeholder="No." name="No" matInput type="number">
+          <mat-error *ngIf="this.formItem.get('no').hasError('required')">Required</mat-error>
+        </mat-form-field>
+
+      </mat-card-content>
+
+      <!--=================Buttons======================-->
+      <div class="col-sm-auto">
+        <!--add button-->
+        <mat-checkbox class="spacing" formControlName="basic" placeholder="Timeout" name="basic">Basic</mat-checkbox>
+
+        <button type="submit" [disabled]="(this.web.Loading$ | async)||this.formItem.invalid" (click)="add()" class="add-to-list"
+          mat-raised-button *ngIf="!MakeitNeeded">Add to List</button>
+
+      </div>
+
+    </form>
+
+  </mat-card>
+
+
+
+</div>

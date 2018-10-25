@@ -13,11 +13,23 @@ import { AuthenticationService } from "../_auth.collection/_services/authenticat
 export class GListService {
   URL = `${_BaseUrl}/api/GroceriesApi`;
 
+
+  Lastdate = 0;
+  Loading$: Subject<boolean> = new Subject();
+  Loading:boolean=false;
+  Glist$: Subject<Grocery[]> = new Subject();
+  UpdateList$: Subject<any> = new Subject();
+  public Glist: Grocery[];
+  public NeededOnly: Grocery[] = [
+    { name: "", moreInformations: [{ bought: false }] }
+  ];
+
   constructor(
     private http: HttpClient,
     private snack: MatSnackBar,
     public auth: AuthenticationService
   ) {
+    this.Loading$.subscribe(l=>this.Loading=l)
     this.UpdateList$.asObservable().subscribe(HandlLoading => {
       var now = Date.now() / 1000;
       var diff = now - this.Lastdate;
@@ -29,15 +41,6 @@ export class GListService {
     });
     this.UpdateList$.next();
   }
-  Lastdate = 0;
-  Loading$: Subject<boolean> = new Subject();
-  Glist$: Subject<Grocery[]> = new Subject();
-  UpdateList$: Subject<any> = new Subject();
-  public Glist: Grocery[];
-  public NeededOnly: Grocery[] = [
-    { name: "", moreInformations: [{ bought: false }] }
-  ];
-
   //===== Gets
   getGroceries(): Observable<ResponseDto<Grocery[]>> {
     return this.http.get<ResponseDto<Grocery[]>>(this.URL);

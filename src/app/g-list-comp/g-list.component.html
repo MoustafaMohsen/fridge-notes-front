@@ -1,10 +1,10 @@
-<div class="container">
+<div class="container position-relative">
 
-  <mat-progress-bar mode="buffer" *ngIf="(this.web.Loading$ | async) as boolean"></mat-progress-bar>
+  <!--mat-progress-bar-- mode="buffer" *ngIf="(this.web.Loading$ | async) as boolean"></mat-progress-bar-->
 
   <div *ngIf="this.web.Glist">
 
-    <app-g-add></app-g-add>
+    <!---app-g-add></app-g-add-->
 
     <!-- ========================List Container===========================  -->
     <div class="ListContainer">
@@ -15,6 +15,12 @@
           <span>the Grocery List</span> <button mat-button [disabled]="(this.web.Loading$ | async)" (click)="this.web.UpdateList$.next();">Refresh</button>
         </mat-toolbar-row>
       </mat-toolbar>
+
+      <div>
+        <ul class="ul list-unstyled list-group">
+          <app-add-card></app-add-card>
+        </ul>
+      </div>
 
 
       <div *ngFor="let Item of this.web.Glist;let i = index">

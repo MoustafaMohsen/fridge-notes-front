@@ -83,6 +83,7 @@ export class FormatService {
     g.name = name;
     g.basic = basic;
     g.timeout = 0;
+    let lastMore=this.lastmoteInfo(g)
 
     g.moreInformations[g.moreInformations.length - 1] = {
       bought: false,
@@ -92,6 +93,16 @@ export class FormatService {
 
     return g;
   }
+  lastmoteInfo(g: Grocery):MoreInformation{
+    let valid = g&&g.moreInformations?true:false
+    if(!valid)
+      return null;
+    let i = g.moreInformations.length-1;
+    let last=new MoreInformation();
+    last =g.moreInformations[i];
+    return last;
+  }
+  
 } //class
 
 // <summary>
