@@ -1,11 +1,21 @@
 import { Component, OnDestroy, OnInit } from "@angular/core";
 import { Grocery } from "../Grocery";
 import { GListService } from "../Services/g-list.service";
+import {trigger,state,style,animate, transition,group,keyframes} from "@angular/animations";
 
+const slidWidth=[trigger('widthSlider',[
+  state('true',style({width: '100%!important', padding: '1rem',opacity: '1'})),//start
+  state('false',style({width: '0%!important', padding: '0!important',opacity: '0!important'})),//end
+  transition('true<=>false',[animate('1000ms',keyframes([
+    style({width: '100%!important', padding: '1rem',opacity: '1',offset:0}),//shown
+    style({width: '0%!important', padding: '0!important',opacity: '0!important',offset:1}),//hidden
+]))])
+])]
 @Component({
   selector: "app-g-list",
   templateUrl: "./g-list.component.html",
-  styleUrls: ["./g-list.component.css"]
+  styleUrls: ["./g-list.component.css"],
+  animations:[slidWidth]
 })
 export class GListComponent implements OnInit, OnDestroy {
   //public web;

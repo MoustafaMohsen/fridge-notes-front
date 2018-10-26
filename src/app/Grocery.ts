@@ -7,6 +7,8 @@ export class Grocery{
         moreInformations:MoreInformation[];
         groceryOrBought?:boolean;//server
         owner?:string;
+        ownerid?:number;
+        category?:string;
 }
 export class MoreInformation {
 

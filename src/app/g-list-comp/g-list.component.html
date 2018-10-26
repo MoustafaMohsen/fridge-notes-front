@@ -35,11 +35,12 @@
   </div>
 
   <!-- ========================List Container===========================  -->
-  <mat-divider class="mat-divider"></mat-divider>
 
-  <div class="NeededListContainer container" *ngIf="NeededOnly?.length!=0">
+  <div class="NeededListContainer container" *ngIf="this.web.NeededOnly&&this.web.NeededOnly?.length>0"
+      [@widthSlider]='"this.web.NeededOnly&&this.web.NeededOnly?.length>0"'
+    >
     <!--Head ToolBar-->
-    <mat-toolbar color="primary" class="container-fluid matbar2">
+    <mat-toolbar color="primary" class="container-fluid matbar2" >
       <mat-toolbar-row>
         <span>the Bought List</span>
       </mat-toolbar-row>

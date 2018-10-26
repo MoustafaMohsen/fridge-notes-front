@@ -50,7 +50,7 @@ export class GUpdateComponent implements OnInit {
     this.web.request(grocery, "bought").subscribe(
       response => {
         this.snack.open(`${response.statusText}`, "X", { duration: 5000 });
-        this.web.UpdateList$.next(false);
+        this.web.UpdateList$.next({loading:false,refresh:true});
         this.web.Loading$.next(false);
       },
       e => {
@@ -78,7 +78,7 @@ export class GUpdateComponent implements OnInit {
     this.web.request(grocery, "needed").subscribe(
       response => {
         this.snack.open(`${response.statusText}`, "X", { duration: 2000 });
-        this.web.UpdateList$.next(false);
+        this.web.UpdateList$.next({loading:false,refresh:true});
         this.web.Loading$.next(false);
       },
       () => {

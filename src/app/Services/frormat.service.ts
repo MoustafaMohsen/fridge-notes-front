@@ -45,6 +45,7 @@ export class FormatService {
       moreInformations:gPara.moreInformations,
       name:gPara.name,
       owner:gPara.owner,
+      ownerid:gPara.ownerid,
       timeout:gPara.timeout
     }
     var lastno = moreInformations.no;

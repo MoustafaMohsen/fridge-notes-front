@@ -1,11 +1,12 @@
 import { FormatService } from "../Services/frormat.service";
 import { Grocery, MoreInformation } from "./../Grocery";
-import { Component, OnInit, Input } from "@angular/core";
+import { Component, OnInit, Input, ViewChild, ElementRef } from "@angular/core";
 import { GListService } from "../Services/g-list.service";
 import { MatSnackBar } from "@angular/material";
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { AuthenticationService } from "../_auth.collection";
 import {trigger,state,style,animate, transition,group,keyframes} from "@angular/animations";
+import { StylerService } from "../Services/styler.service";
 
 const anim3=[trigger('YCardSlide', [
   state('*', style({'overflow-y': 'hidden',height: '*',opacity:1 })),//shown state
@@ -38,7 +39,6 @@ const anim3=[trigger('YCardSlide', [
 })
 export class AddCardComponent implements OnInit {
   timeoutDay;
-
   NeededOnly: Grocery[] = [{ name: "", moreInformations: [{ bought: false }] }];
 
   //---------remove private formBuilder
@@ -46,9 +46,17 @@ export class AddCardComponent implements OnInit {
     private formatService: FormatService,
     public web: GListService,
     private snackBar: MatSnackBar,
-    private auth: AuthenticationService
+    private auth: AuthenticationService,
+    private style:StylerService
   ) {}
-  ngOnInit() {}
+  ngOnInit() {
+    this.web.showAddCard$.subscribe(s=>{
+      if (s=true) {
+        this.style.scrollById("Scrolltarget_1")
+        this.style.focusById("NameFieldEl")
+      }
+    })
+  }
 
   //add method
   add() {
@@ -67,6 +75,7 @@ export class AddCardComponent implements OnInit {
       basic: basic,
       timeout: timeout,
       owner: this.auth.CurrentUser.username,
+      ownerid: this.auth.CurrentUser.id,
       groceryOrBought: bought
     };
 
@@ -74,7 +83,7 @@ export class AddCardComponent implements OnInit {
     this.web.request(g, "add").subscribe(
       r => {
         this.web.Loading$.next(false);
-        this.web.UpdateList$.next(false);
+        this.web.UpdateList$.next({Loading:false});
         this.web.showAddCard = false;
         this.web.clean();
       },

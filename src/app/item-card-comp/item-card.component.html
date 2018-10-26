@@ -11,18 +11,19 @@
       </mat-card-title>
 
       <!--Type-->
-      <mat-card-subtitle  [ngClass]="setClasses()">
-        {{ItemOwner.username}}
-      </mat-card-subtitle>
-
-      <mat-card-subtitle *ngIf="Item.groceryOrBought" class="card-subtitle">
+      <mat-card-subtitle *ngIf="!Item.groceryOrBought" class="card-subtitle">
         {{lastmore?.no}} {{lastmore?.typeOfNo}}
       </mat-card-subtitle>
+
+      <mat-card-subtitle [ngClass]="setClasses()">
+          <i class="fas fa-user-circle"></i> {{ItemOwner.username}}
+      </mat-card-subtitle>
+
       <!--Timeout-->
       <mat-card-subtitle *ngIf="Item.groceryOrBought" class="card-subtitle">
         Usually every {{ this.FormatedTimout }}
       </mat-card-subtitle>
-      
+
     </mat-card-header>
 
     <!--Content (empty)-->

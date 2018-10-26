@@ -17,6 +17,8 @@ export class GListService {
 
   Lastdate = -1;
   showAddCard:boolean=false;
+  showAddCard$:Subject<boolean>=new Subject();
+  
   AddFromItem: Grocery = {
     name: "",
     moreInformations: [{ bought: false, no: 1, typeOfNo: "" }],
@@ -27,9 +29,9 @@ export class GListService {
   Glist$: Subject<Grocery[]> = new Subject();
   UpdateList$: Subject<any> = new Subject();
   public Glist: Grocery[];
-  public NeededOnly: Grocery[] = [
+  public NeededOnly: Grocery[] /*= [
     { name: "", moreInformations: [{ bought: false }] }
-  ];
+  ];*/
   formItem: FormGroup;
 
 
@@ -46,18 +48,25 @@ export class GListService {
       basic: [false, [Validators.required]]
     });
     this.Loading$.subscribe(l=>this.Loading=l)
-    this.UpdateList$.asObservable().subscribe(HandlLoading => {
+    this.UpdateList$.asObservable().subscribe((options) => {
       var now = Date.now() / 1000;
       var diff = now - this.Lastdate;
 
-      if (diff > 1 || this.Lastdate == -1) {
+      let _loading=options?options.Loading:false
+      let _refresh=options?options.refresh:false
+      if (diff > 1 || this.Lastdate == -1||_refresh) {
         this.Lastdate = Date.now() / 1000;
-        this.getList(HandlLoading);
+        this.getList(_loading);
       }
     });
 
+    this.showAddCard$.subscribe(s=>this.showAddCard=s)
+
 
   }
+
+
+  //get isThereNeeded(){ this.NeededOnly.}
   //===== Gets
   getGroceries(): Observable<ResponseDto<Grocery[]>> {
     return this.http.get<ResponseDto<Grocery[]>>(this.URL);
@@ -69,7 +78,7 @@ export class GListService {
 
   //===== Updates
   UpdateStatus(grocery: Grocery, req: string) {
-    let id = this.GetUserIdByGroceryOwner(grocery.owner);
+    let id = this.GetUserIdByGroceryId(grocery.ownerid);
     var groceryDto: GroceryDto = {
       grocery: grocery,
       userId: id
@@ -94,7 +103,7 @@ export class GListService {
 
   //===== Updatessubscribe
   request(grocery: Grocery, req: string) {
-    let id = this.GetUserIdByGroceryOwner(grocery.owner);
+    let id = this.GetUserIdByGroceryId(grocery.ownerid);
     var groceryDto: GroceryDto = {
       grocery: grocery,
       userId: id
@@ -108,19 +117,16 @@ export class GListService {
   }
 
   //===== Services
-  GetUserIdByGroceryOwner(owner: string): number {
-    if (this.auth.CurrentUser.username == owner) {
+  GetUserIdByGroceryId(ownerid:number): number {
+    console.log(ownerid);
+    console.log(this.auth.CurrentUser.username);
+    
+    if (this.auth.CurrentUser.id == ownerid) {
       return this.auth.CurrentUser.id;
+    }else{
+      return ownerid
     }
 
-    //if Owner not CurrentUser
-    let friendsList = this.auth.CurrentUser.userFriends;
-    for (let i = 0; i < friendsList.length; i++) {
-      const friend = friendsList[i];
-      if (friend.friendUsername == owner) {
-        return friend.friendUserId;
-      }
-    }
   }
   isGroceryNameExsits(name: string) {
     return this.http.post<boolean>(`${this.URL}/nameExists/`, { value: name });
