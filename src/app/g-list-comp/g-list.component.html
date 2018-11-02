@@ -8,12 +8,12 @@
     <!---app-g-add></app-g-add-->
 
     <!-- ========================List Container===========================  -->
-    <div class="ListContainer">
+    <div class="ListContainer" [@listAnimate]="this.web.Glist.length">
 
       <!--Head ToolBar-->
       <mat-toolbar color="primary" class="container-fluid matbar">
         <mat-toolbar-row>
-          <span>the Grocery List</span> <button mat-button [disabled]="(this.web.Loading$ | async)" (click)="this.web.UpdateList$.next();">Refresh</button>
+          <span>the Grocery List</span> <button mat-button [disabled]="(this.web.Loading$ | async)" (click)="this.web.UpdateList$.next({loading:true});">Refresh</button>
         </mat-toolbar-row>
       </mat-toolbar>
 
@@ -24,21 +24,20 @@
       </div>
 
 
-      <div *ngFor="let Item of this.web.Glist;let i = index">
-        <ul class="ul list-unstyled list-group" *ngIf="!Item.groceryOrBought">
-          <app-item-card [ItemOrginal]='Item'></app-item-card>
+      <div  >
+        <ul class="ul list-unstyled list-group"  >
+          <div *ngFor="let Item of this.web.Glist;let i = index" class="card_item">
+            <app-item-card  *ngIf="!Item.groceryOrBought"   [ItemOrginal]='Item'></app-item-card>
+          </div>
         </ul>
       </div>
 
 
     </div>
   </div>
-
   <!-- ========================List Container===========================  -->
 
-  <div class="NeededListContainer container" *ngIf="this.web.NeededOnly&&this.web.NeededOnly?.length>0"
-      [@widthSlider]='"this.web.NeededOnly&&this.web.NeededOnly?.length>0"'
-    >
+  <div class="NeededListContainer container" *ngIf="this.web.NeededOnly&&this.web.NeededOnly?.length>0"    >
     <!--Head ToolBar-->
     <mat-toolbar color="primary" class="container-fluid matbar2" >
       <mat-toolbar-row>
@@ -46,10 +45,10 @@
       </mat-toolbar-row>
     </mat-toolbar>
 
-    <div *ngFor="let Item of this.web.Glist;let i = index">
-      <ul class="ul list-unstyled list-group" *ngIf="Item.groceryOrBought">
+    <div *ngFor="let Item of this.web.Glist;let i = index" >
+      <ul class="ul list-unstyled list-group" *ngIf="Item.groceryOrBought"  >
 
-        <app-item-card [ItemOrginal]='Item'></app-item-card>
+        <app-item-card [ItemOrginal]='Item' ></app-item-card>
 
       </ul>
     </div>

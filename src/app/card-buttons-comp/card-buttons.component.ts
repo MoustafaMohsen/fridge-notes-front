@@ -4,20 +4,26 @@ import { HelpersService } from '../Services/helpers.service';
 import { Grocery, MoreInformation } from '../Grocery';
 import { FormatService } from '../Services/frormat.service';
 import { MatSnackBar } from '@angular/material';
-
-declare var jquery:any;
+import { EditAnimation,FadeAnimationIn } from "../animations/animations";
+import { Subject } from 'rxjs';
 declare var $ :any;
+
+
+
+
 
 @Component({
   selector: 'app-card-buttons',
   templateUrl: './card-buttons.component.html',
-  styleUrls: ['./card-buttons.component.css']
+  styleUrls: ['./card-buttons.component.css'],
+  animations:[EditAnimation,FadeAnimationIn]
 })
 
 export class CardButtonsComponent implements OnInit {
   @Input() timeoutDay ;
   buttonClick:boolean;
   MoreButton:boolean=false;
+  MoreButton$:Subject<boolean>=new Subject()
 
   //R
   lastmoreInformations:MoreInformation={bought:false  ,no:1 ,typeOfNo :""};
@@ -32,6 +38,11 @@ export class CardButtonsComponent implements OnInit {
     public snackBar: MatSnackBar,private helper:HelpersService) { }
 
   ngOnInit() {
+    this.MoreButton$.subscribe(b=>{
+      this.MoreButton=b;
+      if(!b){
+      this.buttonClick=b;
+    }})
   }
 
   Edit(g:Grocery){

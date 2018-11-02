@@ -3,11 +3,12 @@ import { Grocery, MoreInformation } from "../Grocery";
 import { HelpersService } from "../Services/helpers.service";
 import { GListService } from "../Services/g-list.service";
 import { AuthenticationService } from "../_auth.collection/_services/authentication.service";
-
+import { list,simp,Mylist } from "../animations/animations";
 @Component({
   selector: "app-item-card",
   templateUrl: "./item-card.component.html",
-  styleUrls: ["./item-card.component.css"]
+  styleUrls: ["./item-card.component.css"],
+  animations:[simp,Mylist]
 })
 export class ItemCardComponent implements OnInit {
   @Input()
@@ -18,7 +19,7 @@ export class ItemCardComponent implements OnInit {
     bought: false
   };
   constructor(
-    private web: GListService,
+    public web: GListService,
     private helper: HelpersService,
     private auth: AuthenticationService
   ) {}
@@ -40,6 +41,7 @@ export class ItemCardComponent implements OnInit {
     return this.helper.SecodsToDate(this.Item.timeout);
   }
 
+  
   get ItemOwner(): { own: boolean; username: string } {
     let obj: { own: boolean; username: string } = { own: false, username: "" };
     if (this.auth.CurrentUser.username == this.Item.owner) {

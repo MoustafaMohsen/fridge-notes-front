@@ -1,58 +1,117 @@
 <div class="container">
 
-  <div class="row">
+    <app-edit-user></app-edit-user>
 
-    <mat-toolbar>
-      <h3>Add a Friend</h3>
-
-
-      <mat-form-field class="example-full-width">
-        <input matInput placeholder="Invitation Code" value="" [(ngModel)]="friendCode">
-      </mat-form-field>
-
-      <button mat-raised-button (click)="AddFriend(friendCode)">Add</button>
-
-      <button mat-button (click)="GenInvitaion()">
-        <span>Invite Friend</span>
-      </button>
-    </mat-toolbar>
+    <br>
+  <div class="row justify-content-center">
 
 
-    <mat-accordion class="w-100">
-      <mat-expansion-panel>
+    <mat-card class="col-md-10">
 
-        <mat-expansion-panel-header>
-          <mat-panel-title>
-            Friends List
-          </mat-panel-title>
-          <mat-panel-description>
-            Show Friends
-          </mat-panel-description>
-        </mat-expansion-panel-header>
+      <div class="row">
 
-
-        <div *ngFor="let friend of friends;let index">
-
-          <mat-list-item role="listitem" class="clearfix">
-
-            <p class="lead float-left"> {{friend.friendUsername}} </p>
-
-            <button mat-button (click)="DeleteFriend(friend)" class="float-right">
-              Delete Friend
-            </button>
-
-
-          </mat-list-item>
+        <div class="col-md-3 col-sm-4">
+          <h4>Invite a Friend</h4>
+          <p class="text-secondary">Create an Invetation code to a Friend to pair Grocery list with</p>
 
         </div>
 
+        <div class="col-md-9 col-sm-8">
 
-        <button mat-raised-button (click)="updateList()">Update List</button>
-      </mat-expansion-panel>
+          <div class="invite-friend">
+            <button mat-raised-button (click)="GenInvitaion()" [disabled]="GenInvitaionBtn">
+              <span>Generate Invitation Code</span>
+            </button>
+          </div>
 
-    </mat-accordion>
+          <div class="invetaion-code-row">
 
+
+            <div class="invetaion-code-area" *ngIf="invetationCode">
+            
+              <code [innerHTML]="invetationCode" id="invetaion-code-area"></code>
+              <button mat-button class="invetaion-code-button"
+              (click)="this.styler.CopyToClipboardById('invetaion-code-area')">Copy</button>
+              
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+      <mat-divider></mat-divider>
+
+      <div class="row input-row">
+        <div class="col-md-3 col-sm-4">
+          <h4>Add A Friend</h4>
+          <p class="text-secondary">Enter The invetation code of the user who you want to add to pair Grocery list with</p>
+
+
+        </div>
+
+        <div class="col-md-9 col-sm-8">
+          <div class="add-friend row justify-content-between">
+            <mat-form-field class="example-full-width col">
+              <input matInput placeholder="Invitation Code" value="" [(ngModel)]="friendCode">
+              <button mat-button matSuffix (click)="this.pasteTofriendCode()">Paste</button>
+            </mat-form-field>
+            <button mat-raised-button (click)="AddFriend(friendCode)" [disabled]="AddfriendBtn" class="col-2">Add</button>
+          </div>
+        </div>
+      </div>
+
+      <mat-divider></mat-divider>
+
+      <div class="row input-row">
+
+        <div class="col-md-3 col-sm-4">
+          <h4>Friends List</h4>
+          <p class="text-secondary">Controll who have access to your Grocery List</p>
+        </div>
+        <div class="col-md-9 col-sm-8">
+
+          <mat-accordion class="">
+            <mat-expansion-panel>
+
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  Show Friends
+                </mat-panel-title>
+                <mat-panel-description>
+
+                </mat-panel-description>
+              </mat-expansion-panel-header>
+
+
+              <div *ngFor="let friend of friends;let index">
+
+                <mat-list-item role="listitem" class="clearfix">
+
+                  <p class="lead float-left"> {{friend.friendUsername}} </p>
+
+                  <button mat-button (click)="DeleteFriend(friend)" class="float-right">
+                    Delete Friend
+                  </button>
+
+
+                </mat-list-item>
+
+              </div>
+
+
+              <button mat-raised-button (click)="updateList()">Update List</button>
+            </mat-expansion-panel>
+
+          </mat-accordion>
+        </div>
+
+      </div>
+
+    </mat-card>
 
   </div>
+
 
 </div>

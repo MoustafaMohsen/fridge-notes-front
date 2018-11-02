@@ -26,16 +26,23 @@ export class AuthenticationService {
    }//constructor
 
    updateCurrentUser(sendevent=true,user=null){
+     console.log("updateCurrentUser()");
+     
     var storageUser =JSON.parse( localStorage.getItem('currentuser') );
     
     if(user){
-
       localStorage.setItem('currentuser',JSON.stringify(user));
       storageUser =JSON.parse( localStorage.getItem('currentuser') );
+      console.log("user");
+      console.log(storageUser);
+      
     }
     
     if (storageUser && storageUser.token) {
       this.CurrentUser=storageUser;
+      console.log("storageUser && storageUser.token");
+      console.log(this.CurrentUser);
+      
       if(sendevent)
       this.user$.next(storageUser);
     }

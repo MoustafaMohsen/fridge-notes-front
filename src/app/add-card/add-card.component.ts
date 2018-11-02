@@ -7,40 +7,19 @@ import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { AuthenticationService } from "../_auth.collection";
 import {trigger,state,style,animate, transition,group,keyframes} from "@angular/animations";
 import { StylerService } from "../Services/styler.service";
-
-const anim3=[trigger('YCardSlide', [
-  state('*', style({'overflow-y': 'hidden',height: '*',opacity:1 })),//shown state
-  state('void', style({ 'overflow-y': 'hidden' ,height: '0',opacity:0})),//hidden state
-
-  transition('void => *', [//Show
-    style({ }),
-    animate('150ms ease-in',keyframes([
-      style({'transform':'translateY(100%) scale(0)',opacity:0,height: '0',offset:0}),//hidden
-      style({'transform': "translateY(0%) scale(1)",opacity:1,height: '*',offset:1}),//shown
-    ]))
-  ]),
-  transition('* => void', [//Hide
-      style({  }),
-      animate('150ms ease-out', keyframes([
-        style({'transform':'translateY(0%) scale(1)',opacity:1,height: '*',offset:0}),//shown
-        style({'transform': "translateY(100%) scale(0)",opacity:0,height: '0',offset:1}),//hidden
-      ]))
-  ])
-
-])];
-
-
+import { CardAnimation } from "../animations/animations";
 
 @Component({
   selector: "app-add-card",
   templateUrl: "./add-card.component.html",
-  animations: [anim3],
+  animations: [CardAnimation],
   styleUrls: ["./add-card.component.css"]
 })
 export class AddCardComponent implements OnInit {
   timeoutDay;
   NeededOnly: Grocery[] = [{ name: "", moreInformations: [{ bought: false }] }];
 
+  lastAdded
   //---------remove private formBuilder
   constructor(
     private formatService: FormatService,
@@ -78,12 +57,14 @@ export class AddCardComponent implements OnInit {
       ownerid: this.auth.CurrentUser.id,
       groceryOrBought: bought
     };
+    this.lastAdded={...g}
 
     this.web.Loading$.next(true);
     this.web.request(g, "add").subscribe(
       r => {
+        let options={scrollId:this.web.ViewIdByname(this.lastAdded.name),Loading:false}
         this.web.Loading$.next(false);
-        this.web.UpdateList$.next({Loading:false});
+        this.web.UpdateList$.next(options);
         this.web.showAddCard = false;
         this.web.clean();
       },

@@ -1,9 +1,12 @@
-<mat-card class="card grocery-card">
+<mat-card [@simp]="this.web.Glist.length"  class="card grocery-card" [id]="this.web.ViewIdByname(this.Item.name)">
 
-  <li class="row">
+  <div class="row justify-content-between">
 
     <!--===================Title & subtitle===================-->
-    <mat-card-header class="col-sm-auto mr-auto">
+    <div class="col-sm-auto">
+
+    
+    <mat-card-header>
 
       <!--Title-->
       <mat-card-title>
@@ -29,13 +32,13 @@
     <!--Content (empty)-->
     <mat-card-content class="type1">
     </mat-card-content>
-
+  </div>
     <!--=================Buttons======================-->
-    <div class="col-sm-auto">
+    <div class="col-sm-auto align-self-end">
       <app-card-buttons [Item]='Item'>
       </app-card-buttons>
     </div>
 
-  </li>
+  </div>
 
 </mat-card>

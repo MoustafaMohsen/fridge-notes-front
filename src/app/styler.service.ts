@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 
 @Injectable()
 
-export class StylerService {
+export class StylerServiceOld {
 
   constructor() { }
 }

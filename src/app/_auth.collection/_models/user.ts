@@ -25,3 +25,10 @@ export class UserFriend
     AreFriends:boolean;
     Userid:number;
 }
+
+export class ChangePassword
+{
+    id:number;
+    oldpassword:string;
+    newpassword:string;
+}

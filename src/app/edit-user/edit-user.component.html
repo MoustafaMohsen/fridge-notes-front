@@ -1,0 +1,97 @@
+<div class="row justify-content-center">
+
+  <mat-card class="col-md-10">
+
+    <div class="row">
+
+      <div class="col-md-3 col-sm-4">
+        <h4>Account Informations</h4>
+        <p class="text-secondary">View or Edit account informations</p>
+
+      </div>
+
+      <div class="col-md-9 col-sm-8">
+
+        <form action="" class="" [formGroup]="userForm">
+
+          <div class="row">
+
+          <mat-form-field class="spacing">
+            <input formControlName="username" placeholder="username (not editable)" type="text" matInput>
+          </mat-form-field>
+
+          <mat-form-field class="spacing">
+            <input formControlName="firstname" placeholder="first name" type="text" matInput>
+            <button matSuffix mat-icon-button (click)="enableControl(f['firstname'])"
+            *ngIf="f['firstname'].value == this.currentUser.firstname"
+            ><i class="fas fa-edit"></i></button>
+
+          </mat-form-field>
+
+          <mat-form-field class="spacing">
+            <input formControlName="lastname" placeholder="last name" type="text" matInput>
+            <button matSuffix mat-icon-button (click)="enableControl(f['lastname'])"
+            *ngIf="f['lastname'].value == this.currentUser.lastname"
+            ><i class="fas fa-edit"></i></button>
+
+          </mat-form-field>
+        </div>
+
+          <div class="row">
+
+            <button mat-raised-button
+            [disabled]="usrFBtn" (click)="editUser()">Edit info</button>
+            
+          </div>
+
+        </form>
+
+
+      </div>
+
+    </div>
+
+    <mat-divider></mat-divider>
+
+    <div class="row input-row">
+      <div class="col-md-3 col-sm-4">
+        <p class="text-secondary">Change Password</p>
+
+
+      </div>
+
+      <div class="col-md-9 col-sm-8">
+
+          <form action="" class="" [formGroup]="passwordform">
+
+              <div class="row">
+    
+              <mat-form-field class="spacing">
+                <input formControlName="oldpassword" placeholder="Old Password" type="password" matInput>
+              </mat-form-field>
+    
+              <mat-form-field class="spacing">
+                <input formControlName="newpassword" placeholder="New Password" type="password" matInput>    
+              </mat-form-field>
+    
+              <mat-form-field class="spacing">
+                <input formControlName="conpassword" placeholder="Confirm Passwrod" type="password" matInput>    
+              </mat-form-field>
+            </div>
+    
+              <div class="row">
+    
+                <button mat-raised-button
+                [disabled]="pfButton" (click)="changepassword()">Change Password</button>
+                
+              </div>
+    
+            </form>
+
+      </div>
+    </div>
+
+
+  </mat-card>
+
+</div>

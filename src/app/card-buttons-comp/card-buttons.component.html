@@ -1,49 +1,60 @@
-
-<div class="row">
-
-
-<button mat-button (click)='MoreButton=!MoreButton' >More</button>
-
-<div *ngIf="MoreButton" class="MoreSection">
-<!--====================Edit-->
-<button (click)='buttonClick=!buttonClick' [disabled]="(this.web.Loading$ | async)" mat-button>
-  Edit</button>
-<!--Edit=====================-->
-<!--Delete===================-->
-<button mat-button color="warn" class="remove" [disabled]="(this.web.Loading$ | async)" data-toggle="modal" [attr.data-target]="removeIdConfirm">
-  Delete</button>
-<!--===================Delete-->
-</div>
+<div class="">
 
 
-<!--Updat===================-->
-<app-g-update [Item]='Item'></app-g-update>
-<!--===================Update-->
+  <app-g-update *ngIf="!buttonClick" [Item]='Item' class="app-g-update" [@FadeAnimationIn]></app-g-update>
 
-</div>
+  <button mat-icon-button [matMenuTriggerFor]="userMenu" *ngIf="!buttonClick" [@FadeAnimationIn]>
+    <i class="fas fa-ellipsis-v"></i>
+  </button>
 
-<!--EditSection===-->
-<div *ngIf="buttonClick&&MoreButton" class="EditSection">
-    <mat-form-field class="spacing">
-      <input [(ngModel)]='Item.name' placeholder="Name" name="Name" matInput>
-    </mat-form-field>
-  
-    <mat-checkbox class="spacing" [(ngModel)]='Item.basic' placeholder="Timeout" name="basic">Basic</mat-checkbox>
-    
-    <!--Timeout (bad code,needs EDiting)-->
-    <mat-form-field class="spacing" *ngIf='Item.basic&&this.Item.moreInformations[this.Item.moreInformations.length-1].bought'>
-        <input [(ngModel)]='timeoutDay' type="number" placeholder="Days" name="Hours" matInput>
-      </mat-form-field>
-  
-    <button (click)="Edit(Item)" [disabled]="(this.web.Loading$ | async)" color="primary" mat-raised-button>Edit Item</button>
+
+
+  <mat-menu #userMenu="matMenu" class="block">
+    <button mat-menu-item (click)='buttonClick=true' [disabled]="(this.web.Loading$ | async)">
+      Edit</button>
+    <button mat-menu-item color="warn" class="remove" [disabled]="(this.web.Loading$ | async)" data-toggle="modal"
+      [attr.data-target]="removeIdConfirm">
+      Delete</button>
+  </mat-menu>
+
+
+
+
+  <!--EditSection===-->
+  <div *ngIf="buttonClick" class="row justify-content-center" [@FadeAnimationIn]>
+    <div class="col-md-6 col-sm-12">
+
+      <div class="row justify-content-around">
+
+
+        <mat-form-field class="col-9">
+          <input [(ngModel)]='Item.name' placeholder="Name" name="Name" matInput>
+        </mat-form-field>
+
+        <mat-checkbox class="col-2" [(ngModel)]='Item.basic' placeholder="Timeout" name="basic">Basic</mat-checkbox>
+        <button class="col-1" (click)="buttonClick=false" color="primary" mat-icon-button> <i class="fas fa-times"></i></button>
       
+      </div>
+    </div>
+    <!--Timeout (bad code,needs EDiting)-->
+    <mat-form-field class="col-md-3 col-sm-12" *ngIf='Item.basic&&this.Item.moreInformations[this.Item.moreInformations.length-1].bought'>
+      <input [(ngModel)]='timeoutDay' type="number" placeholder="Days" name="Hours" matInput>
+    </mat-form-field>
+
+    <button class="col-md-3" (click)="Edit(Item)" [disabled]="(this.web.Loading$ | async)" color="primary"
+      mat-raised-button>Edit Item</button>
+
+
 
   </div>
-<!--===EditSection-->
+  <!--===EditSection-->
+
+</div>
 
 
 <!-- =====Modal======= -->
-<div class="modal fade" [id]="removeConfirmForId" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" [id]="removeConfirmForId" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -53,8 +64,8 @@
         <p>If item was bought then click the bought button and don't delete it</p>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary"  data-dismiss="modal">Close</button>
-        <button (click)='remove(Item)' type="button"  [disabled]="(this.web.Loading$ | async)" class="btn btn-danger">Remove</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button (click)='remove(Item)' type="button" [disabled]="(this.web.Loading$ | async)" class="btn btn-danger">Remove</button>
         <button (click)='DELETE(Item)' type="button" [disabled]="(this.web.Loading$ | async)" class="btn btn-danger">Delete</button>
       </div>
     </div>

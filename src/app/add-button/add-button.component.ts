@@ -2,17 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { GListService } from '../Services/g-list.service';
 import { StylerService } from '../Services/styler.service';
 import {trigger,state,style,animate, transition,group,keyframes} from "@angular/animations";
+import { plusToCross } from '../animations/animations';
 
 declare var $: any;
-const plusToCross=[
-  trigger('plussToCross',[
-    state('true',style({'transform':'rotate(45deg)'})),//when showcard is true
-    state('false',style({'transform':'rotate(0deg)'})),
-    transition('true<=>false',[
-      animate('200ms')
-    ])
-  ])
-];
+
 @Component({
   selector: 'app-add-button',
   templateUrl: './add-button.component.html',

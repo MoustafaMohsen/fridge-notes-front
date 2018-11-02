@@ -9,12 +9,14 @@ import { _BaseUrl } from "../config";
 import { UserDto } from "../_auth.collection/_models/user";
 import { AuthenticationService } from "../_auth.collection/_services/authentication.service";
 import { Validators, FormBuilder, FormGroup } from "@angular/forms";
+import { StylerService } from "./styler.service";
 
 @Injectable()
 export class GListService {
   URL = `${_BaseUrl}/api/GroceriesApi`;
 
 
+  globalRandom:string
   Lastdate = -1;
   showAddCard:boolean=false;
   showAddCard$:Subject<boolean>=new Subject();
@@ -40,6 +42,7 @@ export class GListService {
     private snack: MatSnackBar,
     public auth: AuthenticationService,
     formBuilder: FormBuilder,
+    private styler:StylerService
   ) {
     this.formItem = formBuilder.group({
       name: ["", [Validators.required]],
@@ -54,14 +57,15 @@ export class GListService {
 
       let _loading=options?options.Loading:false
       let _refresh=options?options.refresh:false
+      let scrollId=options?options.scrollId:""
       if (diff > 1 || this.Lastdate == -1||_refresh) {
         this.Lastdate = Date.now() / 1000;
-        this.getList(_loading);
+        this.getList(_loading,scrollId);
       }
     });
 
     this.showAddCard$.subscribe(s=>this.showAddCard=s)
-
+    this.globalRandom=this.randomStr(5)
 
   }
 
@@ -137,13 +141,52 @@ export class GListService {
   }
 
   //GET All  from Api
-  getList(HandlLoading = true) {
+  getList(HandlLoading = true,scrollId="") {
     if (HandlLoading) this.Loading$.next(true);
     this.getGroceries().subscribe(
       response => {
+        if(scrollId) this.styler.scrollById(scrollId,500);
         if (HandlLoading) this.Loading$.next(false);
         let groceries = response.value;
-        this.Glist = groceries;
+        if(!this.Glist){
+          this.Glist = groceries
+        }else{
+          console.log("Updatng values");
+        //remove deprecated items
+          for (let i = 0; i < this.Glist.length; i++) {
+            const G = this.Glist[i];
+            var IsG = (g)=>{
+              return (g.id == G.id&&
+                g.moreInformations.length == G.moreInformations.length&&
+                g.groceryOrBought == G.groceryOrBought&&
+                g.ownerid == G.ownerid)
+            };
+            var exsists = groceries.find(IsG)?true:false
+            if (!exsists) {
+              console.log("removed "+i);
+              console.log(this.Glist[i]);
+              this.Glist.splice(i,1)
+            }
+          }
+          //add deffrent elements only
+          for (let i = 0; i < groceries.length; i++) {
+            const item = groceries[i];
+            var IsG = (g)=>{
+              return (g.id == item.id&&
+                g.moreInformations.length ==item.moreInformations.length&&
+                g.groceryOrBought == item.groceryOrBought&&
+                g.ownerid == item.ownerid)
+            };
+            var exsists = this.Glist.find(IsG)?true:false
+            if (!exsists) {
+              console.log("added "+i);
+              console.log(item);
+              
+              this.Glist.push(item);
+            }
+          }
+        }
+
         //Filter to needed only
         var HoldNeeded: Grocery[] = [
           { name: "", moreInformations: [{ bought: false }] }
@@ -186,5 +229,28 @@ export class GListService {
     this.formItem.controls.basic.setValue(false);
     this.formItem.enable();
     this.formItem.markAsUntouched();
+  }
+  ViewIdByname(name){
+    name=name.toLowerCase().replace(/[\s ]/g,"");
+    return "card"+name+this.globalRandom
+  }
+
+  randomId(index: number, index2: number) {
+    var r = "yXqEyfZDpOLvPWhdcKzqTomGQYXqxutkyGElskQANcxFkDxNYWgIKhr";
+    var s = "";
+    for (var i = 0; i < 5; i++) {
+      s += r.charAt(index + i + index2);
+    }
+    return s;
+  }
+
+  randomStr(m) {
+    var m = m || 9;
+    var s = "",
+      r = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+    for (var i = 0; i < m; i++) {
+      s += r.charAt(Math.floor(Math.random() * r.length));
+    }
+    return s;
   }
 } //class

@@ -3,7 +3,7 @@ import { AuthenticationService } from '../_auth.collection/_services/authenticat
 import { UserDto, FriendRequestDto, UserFriend } from '../_auth.collection/_models/user';
 import { UserService } from '../_auth.collection/_services/user.service';
 import { MatSnackBar } from '@angular/material';
-
+import { StylerService } from '../Services/styler.service';
 @Component({
   selector: 'app-account',
   templateUrl: './account.component.html',
@@ -13,10 +13,15 @@ export class AccountComponent implements OnInit,OnDestroy {
 
   friends:UserFriend[];
   friendCode:string;
-  constructor(private auth:AuthenticationService,private userSrv:UserService,private snack:MatSnackBar) { }
+  invetationCode:string;
+  GenInvitaionBtn:boolean=false;
+  AddfriendBtn:boolean=false;
+  constructor(private auth:AuthenticationService,private userSrv:UserService,private snack:MatSnackBar
+    ,public styler:StylerService) { }
 
   ngOnInit() {
     this.friends=this.auth.CurrentUser.userFriends
+    this.invetationCode="";
   }
   
   DeleteFriend(friend:UserFriend){
@@ -38,6 +43,7 @@ export class AccountComponent implements OnInit,OnDestroy {
   }
 
   AddFriend(invCode:string){
+    this.AddfriendBtn=true;
     console.log("AddFriend()");
     
     console.log(invCode);
@@ -50,9 +56,13 @@ export class AccountComponent implements OnInit,OnDestroy {
     
     this.userSrv.AddFriend(friendRequestDto).subscribe(
       f=>{
+        this.AddfriendBtn=false;
         this.snack.open(`${f.statusText}`,"x",{duration:3000})
         console.log(f);
         this.updateList(false);
+      },
+      e=>{
+        this.AddfriendBtn=false;
       }
     )
   }
@@ -72,11 +82,28 @@ export class AccountComponent implements OnInit,OnDestroy {
   }
   
   GenInvitaion(){
+    this.GenInvitaionBtn=true;
     var resonse =this.userSrv.GenerateInvitaionCode().subscribe(r=>{
       var code = r.value
+      this.invetationCode=code;
       console.log(code);
-      
+      this.GenInvitaionBtn=false;
+    },
+    e=>{
+      this.GenInvitaionBtn=false;
     });
+  }
+  
+
+  pasteTofriendCode(){
+    navigator.clipboard.readText()
+  .then(text => {
+    this.friendCode = text
+  })
+  .catch(err => {
+    // maybe user didn't grant access to read from clipboard
+    console.log('Something went wrong', err);
+  });
   }
 
   ngOnDestroy(){

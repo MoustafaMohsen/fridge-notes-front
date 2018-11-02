@@ -1,32 +1,31 @@
 import { Component, OnDestroy, OnInit } from "@angular/core";
 import { Grocery } from "../Grocery";
 import { GListService } from "../Services/g-list.service";
-import {trigger,state,style,animate, transition,group,keyframes} from "@angular/animations";
+import { ListAnimation,simp,GListAnimation,GListItemAnimation,list, Mylist,working } from "../animations/animations";
+import { trigger,state, style,animate, transition,group,keyframes,query,animateChild,stagger } from "@angular/animations";
+//import { jos } from "../myanimations";
 
-const slidWidth=[trigger('widthSlider',[
-  state('true',style({width: '100%!important', padding: '1rem',opacity: '1'})),//start
-  state('false',style({width: '0%!important', padding: '0!important',opacity: '0!important'})),//end
-  transition('true<=>false',[animate('1000ms',keyframes([
-    style({width: '100%!important', padding: '1rem',opacity: '1',offset:0}),//shown
-    style({width: '0%!important', padding: '0!important',opacity: '0!important',offset:1}),//hidden
-]))])
-])]
+
+
+
 @Component({
   selector: "app-g-list",
   templateUrl: "./g-list.component.html",
   styleUrls: ["./g-list.component.css"],
-  animations:[slidWidth]
+  animations: [working]
 })
 export class GListComponent implements OnInit, OnDestroy {
   //public web;
   constructor(public web: GListService) {}
 
   NeededOnly: Grocery[] = this.web.NeededOnly;
-
+  Show = false;
   num;
+  loaded=false;
   ngOnInit() {
-    this.web.UpdateList$.next();
 
+    this.loaded=true;
+    this.web.UpdateList$.next({loading:true});
   }
 
   testRefresh(num: number, sequential = false) {
@@ -90,7 +89,6 @@ export class GListComponent implements OnInit, OnDestroy {
       batch();
     }
   }
-  
 
   ngOnDestroy() {
     console.log("glist Destroyed");

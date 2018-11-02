@@ -1,0 +1,108 @@
+@keyframes slideInDown {
+  from {
+    transform: translate3d(0, -100%, 0);
+    visibility: visible;
+    height: 0;
+  }
+
+  to {
+    transform: translate3d(0, 0, 0);
+    height: "*";
+  }
+}
+
+@keyframes slideInup {
+  from {
+    transform: translate3d(0, -100%, 0);
+    visibility: visible;
+    height: 0;
+
+  }
+
+  to {
+    transform: translate3d(0, 0, 0);
+    height: "*";
+
+  }
+}
+
+
+
+
+@keyframes increaseHeight {
+  from {
+    transform: translateY(100%) scale(0);
+    opacity: 0;
+    height: 0;
+  }
+  to {
+    transform: translateY(0%) scale(1);
+    opacity: 1;
+    height: "*";
+  }
+}
+
+@keyframes FadeIn_IncreaseHeight {
+  from {
+    opacity: 0;
+    height: 0;
+  }
+  to {
+    height: "*";    
+    opacity: 1;
+
+  }
+}
+@keyframes FadeOut_DecreaseHeight {
+  from {
+    opacity: 1;
+    height: "*";
+  }
+  to {
+    height: 0;
+    opacity: 0;
+  }
+}
+
+
+@keyframes decreaseHeight {
+  from {
+    transform: translateY(0%) scale(1);
+    opacity: 1;
+    height: "*";
+  }
+  to {
+    transform: translateY(100%) scale(0);
+    opacity: 0;
+    height: 0;
+  }
+}
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+
+}
+
+/**
+===========Animation Classes================
+**/
+
+.height-100 {
+  height: "*";
+}
+.height-0 {
+  height: 0;
+}

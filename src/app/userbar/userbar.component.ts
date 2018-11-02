@@ -12,7 +12,7 @@ import { GListService } from '../Services/g-list.service';
 })
 export class UserbarComponent implements OnInit {
 
-  @ViewChild(MatMenuTrigger) userMenu: MatMenuTrigger;
+  //@ViewChild(MatMenuTrigger) userMenu: MatMenuTrigger;
   rotate=false;
   constructor(public auth:AuthenticationService,
     private snack:MatSnackBar,private router:Router,
@@ -20,25 +20,23 @@ export class UserbarComponent implements OnInit {
     public web:GListService) { }
 
   ngOnInit() {
-    console.log( this.userMenu?this.userMenu.menuOpen:false );
 
     
   }
 
-
-  setClasses(){
-    let classes={
-      "rotate-down":this.userMenu?this.userMenu.menuOpen:false,
-      "rotate":true,
-      "fas":true,
-      "fa-angle-down":true
-    }
-    return classes;
-  }
   SetLoadingAndellipsis(){
     let classes={
       "fas":true,
       "fa-ellipsis-v":true,
+      "loading-rotate-start":this.web.Loading,
+      "loading-rotate":true,
+    }
+    return classes;
+  }
+  SetLoadingAndrefresh(){
+    let classes={
+      "fas":true,
+      "fa-sync-alt":true,
       "loading-rotate-start":this.web.Loading,
       "loading-rotate":true,
     }

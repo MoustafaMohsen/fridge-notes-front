@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import {_BASEURL} from '../_services/authentication.service';
-import { UserDto, FriendRequestDto, UserFriend } from '../_models/user';
+import { UserDto, FriendRequestDto, UserFriend, ChangePassword } from '../_models/user';
 import { ResponseDto } from '../../Grocery';
 @Injectable({
   providedIn: 'root'
@@ -20,7 +20,10 @@ export class UserService {
   }
 
   Update(user:UserDto){
-    return this.http.put<any>(`${this.BASEURL}/api/users/`,user);
+    return this.http.put<ResponseDto<UserDto>>(`${this.BASEURL}/api/users/editUser`,user);
+  }
+  ChangePassword(passDto:ChangePassword){
+    return this.http.put<ResponseDto<UserDto>>(`${this.BASEURL}/api/users/changepassword`,passDto);
   }
 
   Delete(id:number){
