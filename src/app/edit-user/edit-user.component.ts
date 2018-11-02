@@ -19,7 +19,9 @@ export class EditUserComponent implements OnInit {
     this.userForm=formbuilder.group({
       username:[""],
       firstname:[""],
-      lastname:[""]
+      lastname:[""],
+      oldpassword:[""],
+      email:["",Validators.email]
     });
 
     this.passwordform=formbuilder.group({
@@ -36,6 +38,7 @@ export class EditUserComponent implements OnInit {
     this.f.firstname.setValue(this.auth.CurrentUser.firstname);
     this.f.lastname.setValue(this.auth.CurrentUser.lastname);
     this.f.username.setValue(this.auth.CurrentUser.username);
+    this.f.email.setValue(this.auth.CurrentUser.email);
     this.userForm.disable();
 
     this.passwordform.statusChanges.subscribe(d=>{
@@ -49,8 +52,11 @@ export class EditUserComponent implements OnInit {
     this.userForm.statusChanges.subscribe(d=>{
       let fn=this.f['firstname'].value != this.currentUser.firstname;
       let ln=this.f['lastname'].value != this.currentUser.lastname;
-      let all=!(fn||ln)
-      this.usrFBtn=all
+      let en=this.f['email'].value != this.currentUser.email;
+      let all=!(fn||ln||en)
+      this.usrFBtn=all;
+      if(all)
+        this.f['email'].disable()
     })
   }
 

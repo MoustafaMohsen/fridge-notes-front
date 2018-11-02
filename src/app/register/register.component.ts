@@ -25,7 +25,8 @@ export class RegisterComponent implements OnInit,OnDestroy {
           firstName: ['', Validators.required],
           lastName: ['', Validators.required],
           username: ['', Validators.required],
-          password: ['', Validators.required]
+          password: ['', Validators.required],
+          email:['', Validators.compose([Validators.required, Validators.email])]
       });
   }
 
@@ -52,6 +53,8 @@ export class RegisterComponent implements OnInit,OnDestroy {
                   this.loading = false;
               });
   }
+
+  
 
   ngOnDestroy(){
       //location.reload()

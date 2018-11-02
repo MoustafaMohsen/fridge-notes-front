@@ -1,117 +1,188 @@
-<div class="container">
+<div class="container account-page">
 
-    <app-edit-user></app-edit-user>
+  <section class="app-edit-user">
 
-    <br>
-  <div class="row justify-content-center">
+    <div class="row justify-content-center">
+      <div class="col-md-10">
+
+        <div class="row">
+
+          <div class="col-md-5">
+            <h2>Manage People</h2>
+            <p class="text-secondary">View people your share the list with, Add new person to sync grocery with or
+              invite
+              a person to sync grocery with
+            </p>
+          </div>
 
 
-    <mat-card class="col-md-10">
-
-      <div class="row">
-
-        <div class="col-md-3 col-sm-4">
-          <h4>Invite a Friend</h4>
-          <p class="text-secondary">Create an Invetation code to a Friend to pair Grocery list with</p>
 
         </div>
 
-        <div class="col-md-9 col-sm-8">
-
-          <div class="invite-friend">
-            <button mat-raised-button (click)="GenInvitaion()" [disabled]="GenInvitaionBtn">
-              <span>Generate Invitation Code</span>
-            </button>
-          </div>
-
-          <div class="invetaion-code-row">
 
 
-            <div class="invetaion-code-area" *ngIf="invetationCode">
-            
-              <code [innerHTML]="invetationCode" id="invetaion-code-area"></code>
-              <button mat-button class="invetaion-code-button"
-              (click)="this.styler.CopyToClipboardById('invetaion-code-area')">Copy</button>
-              
+      </div>
+    </div>
+
+    <div class="row justify-content-center">
+
+
+      <mat-card class="col-md-10">
+
+        <div class="card-section">
+
+          <div class="row input-row">
+
+            <div class="col-md-3 col-sm-4">
+              <h4>Friends List</h4>
+              <p class="text-secondary">Controll who have access to your Grocery List</p>
+            </div>
+            <div class="col-md-9 col-sm-8">
+
+              <mat-accordion class="">
+                <mat-expansion-panel>
+
+                  <mat-expansion-panel-header>
+                    <mat-panel-title>
+                      Show Friends
+                    </mat-panel-title>
+                    <mat-panel-description>
+
+                    </mat-panel-description>
+                  </mat-expansion-panel-header>
+
+
+                  <div *ngFor="let friend of friends;let index">
+
+                    <mat-list-item role="listitem" class="clearfix">
+
+                      <p class="lead float-left"> {{friend.friendUsername}} </p>
+
+                      <button mat-button (click)="DeleteFriend(friend)" class="float-right">
+                        Delete Friend
+                      </button>
+
+
+                    </mat-list-item>
+
+                  </div>
+
+
+                  <button mat-raised-button (click)="updateList()">Update List</button>
+                </mat-expansion-panel>
+
+              </mat-accordion>
             </div>
 
           </div>
 
         </div>
 
-      </div>
-
-      <mat-divider></mat-divider>
-
-      <div class="row input-row">
-        <div class="col-md-3 col-sm-4">
-          <h4>Add A Friend</h4>
-          <p class="text-secondary">Enter The invetation code of the user who you want to add to pair Grocery list with</p>
 
 
-        </div>
 
-        <div class="col-md-9 col-sm-8">
-          <div class="add-friend row justify-content-between">
-            <mat-form-field class="example-full-width col">
-              <input matInput placeholder="Invitation Code" value="" [(ngModel)]="friendCode">
-              <button mat-button matSuffix (click)="this.pasteTofriendCode()">Paste</button>
-            </mat-form-field>
-            <button mat-raised-button (click)="AddFriend(friendCode)" [disabled]="AddfriendBtn" class="col-2">Add</button>
+
+        <mat-divider></mat-divider>
+
+        <div class="card-section">
+
+          <div class="row input-row">
+            <div class="col-md-3 col-sm-4">
+              <h4>Add A Friend</h4>
+              <p class="text-secondary">Enter The invetation code of the user who you want to add to pair Grocery list
+                with</p>
+
+
+            </div>
+
+            <div class="col-md-9 col-sm-8">
+              <div class="add-friend row justify-content-between">
+                <mat-form-field class="example-full-width col">
+                  <input matInput placeholder="Invitation Code" value="" [(ngModel)]="friendCode">
+                  <button mat-button matSuffix (click)="this.pasteTofriendCode()">Paste</button>
+                </mat-form-field>
+                <button mat-raised-button (click)="AddFriend(friendCode)" [disabled]="AddfriendBtn" class="col-2">Add</button>
+              </div>
+            </div>
           </div>
         </div>
-      </div>
 
-      <mat-divider></mat-divider>
+        <mat-divider></mat-divider>
 
-      <div class="row input-row">
+        <div class="card-section">
 
-        <div class="col-md-3 col-sm-4">
-          <h4>Friends List</h4>
-          <p class="text-secondary">Controll who have access to your Grocery List</p>
-        </div>
-        <div class="col-md-9 col-sm-8">
+          <div class="row input-row">
 
-          <mat-accordion class="">
-            <mat-expansion-panel>
+            <div class="col-md-3 col-sm-4">
+              <h4>Invite a Friend</h4>
+              <p class="text-secondary">Create an Invetation code to a Friend to pair Grocery list with</p>
 
-              <mat-expansion-panel-header>
-                <mat-panel-title>
-                  Show Friends
-                </mat-panel-title>
-                <mat-panel-description>
+            </div>
 
-                </mat-panel-description>
-              </mat-expansion-panel-header>
+            <div class="col-md-9 col-sm-8">
 
+              <div class="invite-friend">
+                <button mat-raised-button (click)="GenInvitaion()" [disabled]="GenInvitaionBtn">
+                  <span>Generate Invitation Code</span>
+                </button>
+              </div>
 
-              <div *ngFor="let friend of friends;let index">
-
-                <mat-list-item role="listitem" class="clearfix">
-
-                  <p class="lead float-left"> {{friend.friendUsername}} </p>
-
-                  <button mat-button (click)="DeleteFriend(friend)" class="float-right">
-                    Delete Friend
-                  </button>
+              <div class="invetaion-code-row">
 
 
-                </mat-list-item>
+                <div class="invetaion-code-area" *ngIf="invetationCode">
+
+                  <code [innerHTML]="invetationCode" id="invetaion-code-area"></code>
+                  <button mat-button class="invetaion-code-button" (click)="this.styler.CopyToClipboardById('invetaion-code-area')">Copy</button>
+
+                </div>
 
               </div>
 
+            </div>
 
-              <button mat-raised-button (click)="updateList()">Update List</button>
-            </mat-expansion-panel>
-
-          </mat-accordion>
+          </div>
         </div>
 
+
+      </mat-card>
+
+    </div>
+
+
+  </section>
+
+  <mat-divider></mat-divider>
+
+  <section class="app-edit-user">
+
+    <div class="row justify-content-center">
+      <div class="col-md-10">
+
+        <div class="row">
+
+          <div class="col-md-5">
+            <h2>Your account info</h2>
+            <p class="text-secondary">View you account info or update them, your first name and last name are what appears
+              in your grocery to other people you share the list with
+            </p>
+          </div>
+
+
+
+        </div>
+
+
+
       </div>
+    </div>
 
-    </mat-card>
 
-  </div>
 
+
+    <app-edit-user></app-edit-user>
+
+
+  </section>
 
 </div>
