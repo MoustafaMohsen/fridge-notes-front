@@ -87,6 +87,30 @@ button {
 .max-height-button{
     max-height: 36px;
 }
+.active-link{
+  display: none !important
+}
+a{
+  text-decoration: none !important;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /* Preset Styles*/
 .z-index-1 {
   z-index: 1;

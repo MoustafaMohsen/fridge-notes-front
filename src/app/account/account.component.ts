@@ -87,7 +87,6 @@ export class AccountComponent implements OnInit,OnDestroy {
       var code = r.value
       this.invetationCode=code;
       console.log(code);
-      this.GenInvitaionBtn=false;
     },
     e=>{
       this.GenInvitaionBtn=false;

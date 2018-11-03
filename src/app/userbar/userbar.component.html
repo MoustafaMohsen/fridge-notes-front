@@ -3,20 +3,27 @@
 
   {{auth.CurrentUser.firstname}} 
 
-  <button mat-icon-button class="block"  
+  <button mat-icon-button class="block" [disabled]="(this.web.Loading$ | async)"
   (click)="this.web.UpdateList$.next({loading:true});">
       <i [ngClass]="SetLoadingAndrefresh()"></i>
     </button>
 
   <button mat-icon-button  [matMenuTriggerFor]="userMenu" class="block"  >
-    <!--i mat-icon-button [ngClass]="setClasses()"></i-->
     <i [ngClass]="SetLoadingAndellipsis()"></i>
   </button>
 
 
   
   <mat-menu #userMenu="matMenu" class="block" >
-    <button mat-menu-item routerLink="/account">
+
+      <button mat-menu-item  routerLinkActive='active-link'
+      [routerLinkActiveOptions]="{exact: true}" 
+     routerLink="/">
+        <span>Home</span>
+    </button>
+
+    <button mat-menu-item routerLink="/account" routerLinkActive='active-link'
+    [routerLinkActiveOptions]="{exact: true}" >
         <span>Friends List</span>
     </button>
     <button mat-menu-item (click)="logoutUser()">

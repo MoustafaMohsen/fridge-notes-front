@@ -134,7 +134,8 @@
 
                   <code [innerHTML]="invetationCode" id="invetaion-code-area"></code>
                   <button mat-button class="invetaion-code-button" (click)="this.styler.CopyToClipboardById('invetaion-code-area')">Copy</button>
-
+                  <button mat-button class="invetaion-code-button" (click)="GenInvitaionBtn=false;invetationCode=''">Close</button>
+                    
                 </div>
 
               </div>
