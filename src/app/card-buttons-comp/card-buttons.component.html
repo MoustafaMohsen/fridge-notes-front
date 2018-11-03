@@ -1,52 +1,76 @@
-<div class="">
+<div class="row justify-content-end no-gutters">
+
+  <div class="" *ngIf="!buttonClick" [@FadeAnimationIn]>
+
+    <app-g-update [Item]='Item' class="app-g-update"></app-g-update>
+
+    <button mat-icon-button [matMenuTriggerFor]="userMenu" *ngIf="!buttonClick" [@FadeAnimationIn]>
+      <i class="fas fa-ellipsis-v"></i>
+    </button>
 
 
-  <app-g-update *ngIf="!buttonClick" [Item]='Item' class="app-g-update" [@FadeAnimationIn]></app-g-update>
+    <mat-menu #userMenu="matMenu" class="block">
+      <button mat-menu-item (click)='buttonClick=true' [disabled]="(this.web.Loading$ | async)">
+        Edit</button>
+      <button mat-menu-item color="warn" class="remove" [disabled]="(this.web.Loading$ | async)" data-toggle="modal"
+        [attr.data-target]="removeIdConfirm">
+        Delete</button>
+    </mat-menu>
 
-  <button mat-icon-button [matMenuTriggerFor]="userMenu" *ngIf="!buttonClick" [@FadeAnimationIn]>
-    <i class="fas fa-ellipsis-v"></i>
-  </button>
-
-
-
-  <mat-menu #userMenu="matMenu" class="block">
-    <button mat-menu-item (click)='buttonClick=true' [disabled]="(this.web.Loading$ | async)">
-      Edit</button>
-    <button mat-menu-item color="warn" class="remove" [disabled]="(this.web.Loading$ | async)" data-toggle="modal"
-      [attr.data-target]="removeIdConfirm">
-      Delete</button>
-  </mat-menu>
-
+  </div>
 
 
 
   <!--EditSection===-->
-  <div *ngIf="buttonClick" class="row justify-content-center" [@FadeAnimationIn]>
-    <div class="col-md-6 col-sm-12">
+  <div class="col-sm">
 
-      <div class="row justify-content-around">
+    <div *ngIf="buttonClick" class="row justify-content-center" [@FadeAnimationIn]>
 
 
-        <mat-form-field class="col-9">
-          <input [(ngModel)]='Item.name' placeholder="Name" name="Name" matInput>
-        </mat-form-field>
+      <div class="col-12">
+        <div class="row justify-content-start">
 
-        <mat-checkbox class="col-2" [(ngModel)]='Item.basic' placeholder="Timeout" name="basic">Basic</mat-checkbox>
-        <button class="col-1" (click)="buttonClick=false" color="primary" mat-icon-button> <i class="fas fa-times"></i></button>
-      
+
+          <mat-form-field class="col-sm-7 col-8">
+            <input [(ngModel)]='Item.name' placeholder="Name" name="Name" matInput>
+          </mat-form-field>
+
+          <mat-checkbox class="col-sm-2  col-4 align-self-center" [(ngModel)]='Item.basic' placeholder="Timeout" name="basic">Basic</mat-checkbox>
+
+
+        </div>
+        <!--row-->
       </div>
+
+      <!--Edit button-->
+      <div class="col-12">
+
+        <div class="row">
+
+          <button class="col-11 max-height-button" (click)="Edit(Item)" [disabled]="(this.web.Loading$ | async)" color="primary"
+            mat-raised-button>Edit Item</button>
+          <button class="col-1" (click)="buttonClick=false" color="primary" mat-icon-button> <i class="fas fa-times"></i></button>
+
+        </div>
+
+      </div>
+
+      <!--Timeout (bad code,needs EDiting)
+        <mat-form-field class="col-md-3 col-sm-12" *ngIf='Item.basic&&this.Item.moreInformations[this.Item.moreInformations.length-1].bought'>
+          <input [(ngModel)]='timeoutDay' type="number" placeholder="Days" name="Hours" matInput>
+        </mat-form-field>
+      -->
+
+
+
+
+
+
     </div>
-    <!--Timeout (bad code,needs EDiting)-->
-    <mat-form-field class="col-md-3 col-sm-12" *ngIf='Item.basic&&this.Item.moreInformations[this.Item.moreInformations.length-1].bought'>
-      <input [(ngModel)]='timeoutDay' type="number" placeholder="Days" name="Hours" matInput>
-    </mat-form-field>
-
-    <button class="col-md-3" (click)="Edit(Item)" [disabled]="(this.web.Loading$ | async)" color="primary"
-      mat-raised-button>Edit Item</button>
-
-
+    <!--row-->
 
   </div>
+
   <!--===EditSection-->
 
 </div>
