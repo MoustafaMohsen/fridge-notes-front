@@ -1,5 +1,7 @@
 <button mat-fab class="z-index-24 add-grocery-button" 
 (click)='web.showAddCard$.next(!web.showAddCard);this.web.clean();' 
-[disabled]="(web.Loading$ | async)" [@plussToCross]='web.showAddCard'>
+[disabled]="(web.Loading$ | async)" [@plussToCross]='web.showAddCard'
+cdkFocusInitial id="home-add-button"
+>
   <mat-icon [ngClass]="loadingSpin()" >add</mat-icon>
 </button>

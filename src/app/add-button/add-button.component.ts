@@ -17,6 +17,7 @@ export class AddButtonComponent implements OnInit {
     constructor(public web: GListService,public styler:StylerService) { }
 
   ngOnInit() {
+    this.styler.focusById("home-add-button")
   }
   loadingSpin(){
     let classes={

@@ -1,7 +1,7 @@
 
 <div class="userbar" *ngIf="auth.CurrentUser">
 
-  {{auth.CurrentUser.firstname}} 
+  
 
   <button mat-icon-button class="block" [disabled]="(this.web.Loading$ | async)"
   (click)="this.web.UpdateList$.next({loading:true});">
@@ -16,18 +16,23 @@
   
   <mat-menu #userMenu="matMenu" class="block" >
 
+      <div class="menu-header" mat-menu-item disabled>
+        <p  class="menu-header-inner">Welcom {{auth.CurrentUser.firstname}} </p>
+      </div>
+
+
       <button mat-menu-item  routerLinkActive='active-link'
       [routerLinkActiveOptions]="{exact: true}" 
      routerLink="/">
-        <span>Home</span>
+        <span class="menu-inner">Home</span>
     </button>
 
     <button mat-menu-item routerLink="/account" routerLinkActive='active-link'
     [routerLinkActiveOptions]="{exact: true}" >
-        <span>Friends List</span>
+        <span class="menu-inner">Friends List</span>
     </button>
     <button mat-menu-item (click)="logoutUser()">
-      <span>Logout</span>
+      <span class="menu-inner">Logout</span>
     </button>
   </mat-menu>
 

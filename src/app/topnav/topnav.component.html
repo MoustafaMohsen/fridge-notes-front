@@ -1,26 +1,33 @@
 <mat-toolbar>
-  <mat-toolbar-row class="row">
+
+  <mat-toolbar-row>
+
     <div class="container">
 
+      <div class="row">
 
-    <div class="col">
+        <div class="col-6">
 
-      <a class="float-left btn btn-link"  routerLink="/" >Fridge Notes</a>
+          <a class="float-left btn btn-link" routerLink="/">Fridge Notes</a>
 
-    </div>
+        </div>
 
-    <div class="col">
+        <div class="col-6">
 
-      <div class="float-right" *ngIf="auth.CurrentUser.username">
+          <div class="float-right" *ngIf="auth.CurrentUser.username">
 
-        <app-userbar class="left"></app-userbar>
+            <app-userbar class="left"></app-userbar>
 
+          </div>
+
+        </div>
       </div>
 
-    </div>
-  </div>
 
+    </div>
+    
   </mat-toolbar-row>
+
 </mat-toolbar>
 
 <!---button mat-raised-button class="fixed-bottom" (click)="animate=!animate" >Test</button-->

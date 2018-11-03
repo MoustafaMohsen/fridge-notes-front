@@ -26,13 +26,13 @@ export class AddCardComponent implements OnInit {
     public web: GListService,
     private snackBar: MatSnackBar,
     private auth: AuthenticationService,
-    private style:StylerService
+    private styler:StylerService
   ) {}
   ngOnInit() {
     this.web.showAddCard$.subscribe(s=>{
       if (s=true) {
-        this.style.scrollById("Scrolltarget_1")
-        this.style.focusById("NameFieldEl")
+        this.styler.scrollById("Scrolltarget_1")
+        this.styler.focusById("NameFieldEl")
       }
     })
   }
@@ -67,6 +67,7 @@ export class AddCardComponent implements OnInit {
         this.web.UpdateList$.next(options);
         this.web.showAddCard = false;
         this.web.clean();
+        this.styler.focusById("home-add-button")
       },
       e => {
         this.web.Loading$.next(false);
