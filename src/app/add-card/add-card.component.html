@@ -6,38 +6,53 @@
     <form class="row justify-content-around" [formGroup]="this.web.formItem">
 
       <!--===================Title & subtitle===================-->
-      <mat-card-header class="col-sm-auto mr-auto">
+      <div class="col-lg-4  col-md-4  col-12">
 
-        <!--Title-->
-        <mat-card-title>
-          <mat-form-field class="spacing">
-            <input formControlName="name" placeholder="Name" id="NameFieldEl" name="Item Name" matInput>
-            <mat-error *ngIf="this.web.formItem.get('name').hasError('required')">Required</mat-error>
-          </mat-form-field>
-        </mat-card-title>
+        <!--Title-->  
+        <div class="row justify-content-center no-gutters">
 
-      </mat-card-header>
+            <mat-form-field class="col-10">
+              <input formControlName="name" placeholder="Name" id="NameFieldEl" name="Item Name" matInput>
+              <mat-error *ngIf="this.web.formItem.get('name').hasError('required')">Required</mat-error>
+            </mat-form-field>
+
+
+          
+        </div>
+      </div>
 
       <!--Content (empty)-->
-      <mat-card-content class="type1">
-        <mat-form-field class="spacing">
-          <input formControlName="type" placeholder="Type" name="Type" matInput type="text">
-        </mat-form-field>
+      <mat-card-content class="col-lg-5 col-md-8 col-12">
+        <div class="row justify-content-center">
 
-        <mat-form-field class="spacing">
-          <input formControlName="no" placeholder="No." name="No" matInput type="number">
-          <mat-error *ngIf="this.web.formItem.get('no').hasError('required')">Required</mat-error>
-        </mat-form-field>
-
-      </mat-card-content>
-
+          <mat-form-field class="col-5 no-gutters">
+            <input formControlName="no" placeholder="No." name="No" matInput type="number">
+            <mat-error *ngIf="this.web.formItem.get('no').hasError('required')">Required</mat-error>
+          </mat-form-field>
+          
+          <mat-form-field class="col-5">
+            <input formControlName="type" placeholder="Type" name="Type" matInput type="text">
+          </mat-form-field>
+          
+          
+        </div>
+        </mat-card-content>
+        
       <!--=================Buttons======================-->
-      <div class="col-sm-auto">
+      <div class="col-lg-3 col-12 align-self-center">
         <!--add button-->
-        <mat-checkbox class="spacing" formControlName="basic" placeholder="Timeout" name="basic">Basic</mat-checkbox>
 
-        <button type="submit" [disabled]="(this.web.Loading$ | async)||this.web.formItem.invalid" (click)="add()" class="add-to-list"
+        <div class="row justify-content-center">
+
+          <mat-checkbox class="col-lg-5 col-md-2 col-5 align-self-center" formControlName="basic" placeholder="Timeout" name="basic">Basic</mat-checkbox>
+          
+          <button class="col-lg-7 col-md-10 col-7"
+           type="submit" [disabled]="(this.web.Loading$ | async)||this.web.formItem.invalid" (click)="add()" class="add-to-list"
           mat-raised-button *ngIf="!MakeitNeeded">Add to List</button>
+
+
+
+        </div>
 
       </div>
 
