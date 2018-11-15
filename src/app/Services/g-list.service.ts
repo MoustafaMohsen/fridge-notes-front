@@ -15,34 +15,32 @@ import { StylerService } from "./styler.service";
 export class GListService {
   URL = `${_BaseUrl}/api/GroceriesApi`;
 
-
-  globalRandom:string
+  globalRandom: string;
   Lastdate = -1;
-  showAddCard:boolean=false;
-  showAddCard$:Subject<boolean>=new Subject();
-  
+  showAddCard: boolean = false;
+  showAddCard$: Subject<boolean> = new Subject();
+
   AddFromItem: Grocery = {
     name: "",
     moreInformations: [{ bought: false, no: 1, typeOfNo: "" }],
     timeout: 0
   };
   Loading$: Subject<boolean> = new Subject();
-  Loading:boolean=false;
-  Glist$: Subject<Grocery[]> = new Subject();
-  UpdateList$: Subject<any> = new Subject();
+  Loading: boolean = false;
+  UpdateList$: Subject<{loading?:boolean,refresh?:boolean,scrollId?:string,ExcuteOnSuccess?:Function}> = new Subject();
   public Glist: Grocery[];
-  public NeededOnly: Grocery[] /*= [
+  public NeededOnly: Grocery[];
+  public BoughtOnly: Grocery[]; /*= [
     { name: "", moreInformations: [{ bought: false }] }
   ];*/
   formItem: FormGroup;
-
 
   constructor(
     private http: HttpClient,
     private snack: MatSnackBar,
     public auth: AuthenticationService,
     formBuilder: FormBuilder,
-    private styler:StylerService
+    private styler: StylerService
   ) {
     this.formItem = formBuilder.group({
       name: ["", [Validators.required]],
@@ -50,25 +48,24 @@ export class GListService {
       type: ["", []],
       basic: [false, [Validators.required]]
     });
-    this.Loading$.subscribe(l=>this.Loading=l)
-    this.UpdateList$.asObservable().subscribe((options) => {
+    this.Loading$.subscribe(l => (this.Loading = l));
+    this.UpdateList$.asObservable().subscribe(options => {
       var now = Date.now() / 1000;
       var diff = now - this.Lastdate;
 
-      let _loading=options?options.Loading:false
-      let _refresh=options?options.refresh:false
-      let scrollId=options?options.scrollId:""
-      if (diff > 1 || this.Lastdate == -1||_refresh) {
+      let _loading = options ? options.loading : false;
+      let _refresh = options ? options.refresh : false;
+      let scrollId = options ? options.scrollId : "";
+      let ExcuteOnSuccess = options ? options.ExcuteOnSuccess:null;
+      if (diff > 1 || this.Lastdate == -1 || _refresh) {
         this.Lastdate = Date.now() / 1000;
-        this.getList(_loading,scrollId);
+        this.getList(_loading, scrollId,ExcuteOnSuccess);
       }
     });
 
-    this.showAddCard$.subscribe(s=>this.showAddCard=s)
-    this.globalRandom=this.randomStr(5)
-
+    this.showAddCard$.subscribe(s => (this.showAddCard = s));
+    this.globalRandom = this.randomStr(5);
   }
-
 
   //get isThereNeeded(){ this.NeededOnly.}
   //===== Gets
@@ -121,16 +118,15 @@ export class GListService {
   }
 
   //===== Services
-  GetUserIdByGroceryId(ownerid:number): number {
+  GetUserIdByGroceryId(ownerid: number): number {
     console.log(ownerid);
     console.log(this.auth.CurrentUser.username);
-    
+
     if (this.auth.CurrentUser.id == ownerid) {
       return this.auth.CurrentUser.id;
-    }else{
-      return ownerid
+    } else {
+      return ownerid;
     }
-
   }
   isGroceryNameExsits(name: string) {
     return this.http.post<boolean>(`${this.URL}/nameExists/`, { value: name });
@@ -141,56 +137,57 @@ export class GListService {
   }
 
   //GET All  from Api
-  getList(HandlLoading = true,scrollId="") {
+  getList(HandlLoading = true, scrollId = "",ExcuteOnSuccess?:Function) {
     if (HandlLoading) this.Loading$.next(true);
     this.getGroceries().subscribe(
       response => {
-        if(scrollId) this.styler.scrollById(scrollId,500);
-        if (HandlLoading) this.Loading$.next(false);
-        let groceries = response.value;
-        if(!this.Glist){
-          this.Glist = groceries
-        }else{
+        var GroceryUpdateList = (MasterGrocery, SlaveGrocery) => {
           console.log("Updatng values");
-        //remove deprecated items
-          for (let i = 0; i < this.Glist.length; i++) {
-            const G = this.Glist[i];
-            var IsG = (g)=>{
-              return (g.id == G.id&&
-                g.moreInformations.length == G.moreInformations.length&&
-                g.groceryOrBought == G.groceryOrBought&&
-                g.ownerid == G.ownerid)
+          for (let i = 0; i < SlaveGrocery.length; i++) {
+            const G = SlaveGrocery[i];
+            var IsG = g => {
+              return (
+                g.id == G.id &&
+                g.moreInformations.length == G.moreInformations.length &&
+                g.groceryOrBought == G.groceryOrBought &&
+                g.ownerid == G.ownerid
+              );
             };
-            var exsists = groceries.find(IsG)?true:false
+            var exsists = MasterGrocery.find(IsG) ? true : false;
             if (!exsists) {
-              console.log("removed "+i);
-              console.log(this.Glist[i]);
-              this.Glist.splice(i,1)
+              console.log("removed " + i);
+              console.log(SlaveGrocery[i]);
+              SlaveGrocery.splice(i, 1);
             }
           }
-          //add deffrent elements only
-          for (let i = 0; i < groceries.length; i++) {
-            const item = groceries[i];
-            var IsG = (g)=>{
-              return (g.id == item.id&&
-                g.moreInformations.length ==item.moreInformations.length&&
-                g.groceryOrBought == item.groceryOrBought&&
-                g.ownerid == item.ownerid)
+          for (let i = 0; i < MasterGrocery.length; i++) {
+            const item = MasterGrocery[i];
+            var IsG = g => {
+              return (
+                g.id == item.id &&
+                g.moreInformations.length == item.moreInformations.length &&
+                g.groceryOrBought == item.groceryOrBought &&
+                g.ownerid == item.ownerid
+              );
             };
-            var exsists = this.Glist.find(IsG)?true:false
+            var exsists = SlaveGrocery.find(IsG) ? true : false;
             if (!exsists) {
-              console.log("added "+i);
+              console.log("added " + i);
               console.log(item);
-              
-              this.Glist.push(item);
+              SlaveGrocery.push(item);
             }
           }
+        };
+        let groceries = response.value;
+
+        if (!this.Glist) {
+          this.Glist = groceries;
+        } else {
+          GroceryUpdateList(groceries, this.Glist);
         }
 
         //Filter to needed only
-        var HoldNeeded: Grocery[] = [
-          { name: "", moreInformations: [{ bought: false }] }
-        ];
+        var HoldNeeded: Grocery[] = [];
 
         for (let index = 0; index < groceries.length; index++) {
           const item = groceries[index];
@@ -198,7 +195,30 @@ export class GListService {
         }
 
         HoldNeeded.shift();
-        this.NeededOnly = HoldNeeded;
+        if (!this.NeededOnly) {
+          this.NeededOnly = HoldNeeded;
+        } else {
+          GroceryUpdateList(HoldNeeded, this.NeededOnly);
+        }
+
+        //Filter to bought only
+        var holdBought: Grocery[] = [];
+
+        for (let index = 0; index < groceries.length; index++) {
+          const item = groceries[index];
+          if (!item.groceryOrBought) holdBought.push(item);
+        }
+        if (!this.BoughtOnly) {
+          this.BoughtOnly = holdBought;
+        } else {
+          GroceryUpdateList(holdBought, this.BoughtOnly);
+        }
+        
+        if(ExcuteOnSuccess) 
+          ExcuteOnSuccess()
+
+        if (scrollId) this.styler.scrollById(scrollId, 500);
+        if (HandlLoading) this.Loading$.next(false);
       },
       e => {
         if (HandlLoading) this.Loading$.next(false);
@@ -218,10 +238,10 @@ export class GListService {
     this.AddFromItem = {
       name: "",
       moreInformations: [{ bought: false, no: 1, typeOfNo: "" }],
-      basic:false,
+      basic: false,
       timeout: 0,
-      owner:this.auth.CurrentUser.username,
-      groceryOrBought:false
+      owner: this.auth.CurrentUser.username,
+      groceryOrBought: false
     };
     this.formItem.controls.name.setValue("", [Validators.required]);
     this.formItem.controls.no.setValue(1, [Validators.required]);
@@ -230,9 +250,9 @@ export class GListService {
     this.formItem.enable();
     this.formItem.markAsUntouched();
   }
-  ViewIdByname(name){
-    name=name.toLowerCase().replace(/[\s ]/g,"");
-    return "card"+name+this.globalRandom
+  ViewIdByname(name) {
+    name = name.toLowerCase().replace(/[\s ]/g, "");
+    return "card" + name + this.globalRandom;
   }
 
   randomId(index: number, index2: number) {

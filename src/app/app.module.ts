@@ -4,7 +4,7 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 import { HttpClientModule } from '@angular/common/http';
 
-import { AppComponent } from './boot/app.component';
+import { AppComponent } from './app.component';
 import { GListComponent } from './g-list-comp/g-list.component';
 import { GListService } from './Services/g-list.service';
 //import { GAddComponent } from './g-add-comp/g-add.component';
@@ -20,7 +20,7 @@ import {
   MatButtonModule, MatCheckboxModule,MatButtonToggleModule,MatInputModule,MatSliderModule,
   MatCardModule,MatProgressBarModule,MatToolbarModule,MatAutocompleteModule,
   MatFormFieldModule,MatSlideToggleModule,MatSnackBarModule,MatDividerModule, MatMenuModule,
-  MatIconModule, MatExpansionModule, MatListModule,MatTooltipModule
+  MatIconModule, MatExpansionModule, MatListModule,MatTooltipModule,MatSidenavModule
 } from '@angular/material';
 import { HelpersService } from './Services/helpers.service';
 import { FormatService } from './Services/frormat.service';
@@ -69,7 +69,7 @@ import { EditUserComponent } from './edit-user/edit-user.component';
     MatButtonModule, MatCheckboxModule,MatButtonToggleModule,MatInputModule,
     MatSliderModule,MatCardModule,MatProgressBarModule,MatToolbarModule,MatAutocompleteModule,
     MatFormFieldModule,MatSlideToggleModule,MatSnackBarModule,MatDividerModule,MatMenuModule,
-    MatIconModule,MatExpansionModule,MatListModule,MatTooltipModule,
+    MatIconModule,MatExpansionModule,MatListModule,MatTooltipModule,MatSidenavModule,
 
   ],
   providers: [GListService,HelpersService,FormatService],

@@ -95,7 +95,8 @@ export class AccountComponent implements OnInit,OnDestroy {
   
 
   pasteTofriendCode(){
-    navigator.clipboard.readText()
+    let Naveigator = (<any>navigator)
+    Naveigator.clipboard.readText()
   .then(text => {
     this.friendCode = text
   })

@@ -12,7 +12,13 @@ body {
 md-icon {
   font-family: "Material Icons" !important;
 }
-
+a{
+  text-decoration: none !important;
+}
+a:hover {
+  color:black!important;
+  text-decoration: none!important;
+}
 .rotate-45 {
   -webkit-transform: rotate(45deg);
   -moz-transform: rotate(45deg);
@@ -90,9 +96,7 @@ button {
 .active-link{
   display: none !important
 }
-a{
-  text-decoration: none !important;
-}
+
 
 .menu-inner{
   margin-left: 15px;
@@ -106,11 +110,37 @@ a{
 }
 .menu-header-inner{
   margin-left: 0px ;
-
+}
+.nav-logo{
+  color: black
 }
 
+.ListContainer{
+  margin-top: 20px;
+  margin-bottom: 40px;
+  
+}
 
+.NeededListContainer{
+  /*border-top: solid 2px ;
+  border-top-color:#333;*/
+  
+  margin-top: 40px;
+}
 
+.g-list-card{
+  padding-top: 0 !important;
+  margin-top: 20px;
+  margin-bottom: 40px;
+}
+
+.navbar-container{
+  background-color: #237d7d;
+  min-height: 55px !important;
+  height: 30px;
+}
+#top-progress-bar{
+}
 
 
 

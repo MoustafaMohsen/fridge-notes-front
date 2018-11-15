@@ -10,17 +10,7 @@
     padding-top: 0;
     height: 40px;
 }
-.ListContainer{
-    margin-top: 20px;
-    margin-bottom: 40px;
-}
 
-.NeededListContainer{
-    /*border-top: solid 2px ;
-    border-top-color:#333;*/
-    
-    margin-top: 40px;
-}
 
 .matbar{
     background-color: #208888;

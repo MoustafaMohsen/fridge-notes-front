@@ -25,7 +25,15 @@ export class GListComponent implements OnInit, OnDestroy {
   ngOnInit() {
 
     this.loaded=true;
-    this.web.UpdateList$.next({loading:true});
+    var ExcuteOnSuccess=()=>{
+      console.log("this.web.Glist");
+      
+      console.log(this.web.Glist);
+      
+      if(!this.web.Glist)
+      this.web.showAddCard$.next(true)
+    }
+    this.web.UpdateList$.next({loading:true,ExcuteOnSuccess:ExcuteOnSuccess});
   }
 
   testRefresh(num: number, sequential = false) {

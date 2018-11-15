@@ -52,7 +52,10 @@ export const ListAnimation = [
 
 export const FadeAnimationIn = [
   trigger("FadeAnimationIn", [
-    transition(`void=>*`, [animate("500ms ease", JSONCSS.Animations.fadeIn)])
+    transition(`void=>*`, 
+    query(".FadeAnimationIn:enter",[animate("500ms ease", JSONCSS.Animations.fadeIn)], { optional: true })
+    
+    )
     //transition(`*=>void`, [animate("100ms ease",JSONCSS.Animations.fadeOut)])
   ])
 ];
@@ -192,7 +195,58 @@ export const simp = [
     ])
   ])
 ];
+
+export const List_Card_Animation = [
+  trigger("ycardlist", [
+    state("void", JSONCSS.class["height-0"]),
+    state("*", JSONCSS.class["height-100"]),
+    transition(`void=>*`, [
+      animate("500ms ease", JSONCSS.Animations.slideInDown)
+    ]),
+    transition(`*=>void`, [
+      animate("350ms ease", JSONCSS.Animations.decreaseHeight)
+    ])
+  ])
+];
+
 export const working = [
+  trigger("listAnimate", [
+    transition("* => *", [
+      query(".card_item:enter", JSONCSS.class["height-0"], { optional: true } ),
+      query(".card_item:leave", JSONCSS.class["height-100"] , { optional: true }),
+
+      query(
+        ".card_item:enter",
+        stagger( "200ms ease",animate("300ms ease", JSONCSS.Animations.slideInDown)
+        ),{ optional: true }
+      ),
+      query(
+        ".card_item:leave",
+        stagger("100ms ease",animate("500ms ease", JSONCSS.Animations.FadeOut_DecreaseHeight)
+        ),{ optional: true }
+      )
+    ])
+  ]),
+  trigger("neededAnimation", [
+    transition("* => *", [
+      query(".card_item:enter", JSONCSS.class["height-0"], { optional: true } ),
+      query(".card_item:leave", JSONCSS.class["height-100"] , { optional: true }),
+
+      query(
+        ".card_item:enter",
+        stagger( "200ms ease",animate("300ms ease", JSONCSS.Animations.slideInDown)
+        ),{ optional: true }
+      ),
+      query(
+        ".card_item:leave",
+        stagger("100ms ease",animate("500ms ease", JSONCSS.Animations.FadeOut_DecreaseHeight)
+        ),{ optional: true }
+      )
+    ])
+  ])
+];
+
+/*export const working = [
   trigger("listAnimate", [
     transition("* => *", [
       query(":enter", style({ opacity: 0, height: 0 }), { optional: true }),
@@ -244,3 +298,4 @@ export const working = [
     ])
   ])
 ];
+*/

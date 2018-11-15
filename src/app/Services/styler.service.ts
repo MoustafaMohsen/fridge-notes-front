@@ -18,14 +18,14 @@ export class StylerService {
     }, delay);
   }
 
-  focusById(elId:string){
+  focusById(elId:string,delay=600){
     setTimeout(() => {
       const elementList = document.querySelectorAll('#' + elId);
       if(elementList.length==0)
         return
       const element = elementList[0] as HTMLElement;
       element.focus();
-    }, 600);
+    }, delay);
   }
   
   

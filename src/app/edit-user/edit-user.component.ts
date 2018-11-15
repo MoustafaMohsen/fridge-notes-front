@@ -39,7 +39,7 @@ export class EditUserComponent implements OnInit {
     this.f.lastname.setValue(this.auth.CurrentUser.lastname);
     this.f.username.setValue(this.auth.CurrentUser.username);
     this.f.email.setValue(this.auth.CurrentUser.email);
-    this.userForm.disable();
+    this.userForm.disable({emitEvent:false});
 
     this.passwordform.statusChanges.subscribe(d=>{
       let op=this.passwordform.controls['oldpassword'].value?true:false;
@@ -56,7 +56,7 @@ export class EditUserComponent implements OnInit {
       let all=!(fn||ln||en)
       this.usrFBtn=all;
       if(all)
-        this.f['email'].disable()
+        this.f['email'].disable({emitEvent:false})
     })
   }
 
@@ -65,10 +65,10 @@ export class EditUserComponent implements OnInit {
 
   enableControl(control:AbstractControl){
     if (control.disabled) {
-      control.enable();
+      control.enable({emitEvent:false});
     }else{
       if (control.enabled) {  
-        control.disable();
+        control.disable({emitEvent:false});
       }
     }
   }//enableControl()
@@ -84,7 +84,7 @@ export class EditUserComponent implements OnInit {
       this.f['firstname'].setValue(user.value.firstname);
       this.f['lastname'].setValue(user.value.lastname);
       this.currentUser=user.value;
-      this.userForm.disable();
+      this.userForm.disable({emitEvent:false});
     },
     e=>{
       this.usrFBtn=false;
@@ -105,7 +105,7 @@ export class EditUserComponent implements OnInit {
     this.user.ChangePassword(passdto).subscribe(user=>{
       this.auth.updateCurrentUser(true,user.value)
       this.currentUser=user.value;
-      this.passwordform.disable();
+      this.passwordform.disable({emitEvent:false});
     });
 
   }//changepassword()

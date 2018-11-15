@@ -31,8 +31,8 @@ export class AddCardComponent implements OnInit {
   ngOnInit() {
     this.web.showAddCard$.subscribe(s=>{
       if (s=true) {
-        this.styler.scrollById("Scrolltarget_1")
-        this.styler.focusById("NameFieldEl")
+        this.styler.scrollById("Scrolltarget_1",600)
+        this.styler.focusById("NameFieldEl",600)
       }
     })
   }
