@@ -1,159 +1,276 @@
-import { Grocery } from '../Grocery';
-import { Injectable } from '@angular/core';
-import { HttpClient  } from '@angular/common/http';
-import { Observable,Subject } from 'rxjs';
-import {map} from 'rxjs/operators';
-import { MatSnackBar } from '@angular/material';
+import { Grocery, ResponseDto, GroceryDto } from "../Grocery";
+import { Injectable } from "@angular/core";
+import { HttpClient, HttpHeaders } from "@angular/common/http";
+import { Observable, Subject, BehaviorSubject } from "rxjs";
+import { map } from "rxjs/operators";
+import { MatSnackBar } from "@angular/material";
 
-//export const BASRURL = "https://linux-docker-4.herokuapp.com/api/GroceriesApi";
-//export const BASRURL = "http://localhost:6291/api/GroceriesApi";
-export const BASRURL = "https://linux-docker-5.herokuapp.com/api/GroceriesApi";
+import { _BaseUrl } from "../config";
+import { UserDto } from "../_auth.collection/_models/user";
+import { AuthenticationService } from "../_auth.collection/_services/authentication.service";
+import { Validators, FormBuilder, FormGroup } from "@angular/forms";
+import { StylerService } from "./styler.service";
 
 @Injectable()
 export class GListService {
-constructor(private http: HttpClient,public snackBar: MatSnackBar) { }
+  URL = `${_BaseUrl}/api/GroceriesApi`;
 
-Glist$:Subject<Grocery[]>=new Subject();
-UpdateList$:Subject<any>=new Subject();
-public Glist:Grocery[];
-public NeededOnly:Grocery[]=[{ name:'',moreInformations:[{bought:false}]}];
+  globalRandom: string;
+  Lastdate = -1;
+  showAddCard: boolean = false;
+  showAddCard$: Subject<boolean> = new Subject();
 
-//===== Gets
-getGroceries(): Observable<Grocery[]>{
-  return this.http.get<Grocery[]>(BASRURL).pipe(
-    map( (response) =>
-    { return response}
-   )
-  );
-}
-getGroceryDetails(id:number): Observable<any>{
-  return this.http.get<any>(BASRURL +"/"+id);
-}
+  AddFromItem: Grocery = {
+    name: "",
+    moreInformations: [{ bought: false, no: 1, typeOfNo: "" }],
+    timeout: 0
+  };
+  Loading$: Subject<boolean> = new Subject();
+  Loading: boolean = false;
+  UpdateList$: Subject<{loading?:boolean,refresh?:boolean,scrollId?:string,ExcuteOnSuccess?:Function}> = new Subject();
+  public Glist: Grocery[];
+  public NeededOnly: Grocery[];
+  public BoughtOnly: Grocery[]; /*= [
+    { name: "", moreInformations: [{ bought: false }] }
+  ];*/
+  formItem: FormGroup;
 
-//===== Updates
-//this.web.UpdateList$.next();
-UpdateStatus(grocery:Grocery,req:string){
-  this.http.post(BASRURL+"/request/"+req ,grocery).subscribe( (response) =>{ 
-    this.snackBar.open(""+response, "X", {duration: 2000,});
-    this.UpdateList$.next();
-    },
-    (e)=>{
-      console.log("e");
-      this.snackBar.open( "Faild to connect to the Server","X" );
-   },
-   ()=> {console.log("Completed");}
-
-  );//subscirbe
-}
-
-//===== Updatessubscribe
-request(grocery:Grocery,req:string){
-  return this.http.post(BASRURL+"/request/"+req ,grocery)
-}
-
-
-//===== Services
-isGroceryNameExsits(name:string){
-  return this.http.get<any>(BASRURL+"/name/"+name);
-}
-
-GuessTimeout(id:number){
-  return this.http.get<any>(BASRURL+"/guess/"+id);
-}
-
-/*
-//GetNeeded Only
-GetNeededOnly(){  //(click)
-  var HoldNeeded:Grocery[]=[{name:'',moreInformations:[{bought:false, }]}];
-  this.getGroceries().subscribe(
-    (respnse) => 
-    //Filter to needed only
-    {
-      var HoldNeeded:Grocery[]=[{name:'',moreInformations:[{bought:false, }]}];
-      respnse.forEach(item =>{
-        if (item.moreInformations[(item.moreInformations.length -1) ].bought)
-          HoldNeeded.push(item)
-        });
-      HoldNeeded.shift();
-      this.NeededOnly=HoldNeeded;
-    }
-  )
-  
-
-  return this.NeededOnly;
-  }
-  */
-
-}//class
-
-
-
-
-/*
-//Add
-addGrocery(item:Grocery):void{
-  var theresponse;
-  this.http.post(BASRURL ,item).subscribe((response) =>
-  { theresponse = response});
-  console.log(item);
-  console.log(theresponse);
-}
-
-Bought(id:number): Observable<any>{
-  var url =BASRURL +"/bought/"+id;
-  return this.http.get<any>(url);
-}
-//Edit
-editG(index){
-  var theresponse;
-  this.http.put(BASRURL+"/putedit/"+index.id,index).subscribe((response) =>
-  { console.log(response);
-    this.snackBar.open(""+response, "X", {
-      duration: 2000,
+  constructor(
+    private http: HttpClient,
+    private snack: MatSnackBar,
+    public auth: AuthenticationService,
+    formBuilder: FormBuilder,
+    private styler: StylerService
+  ) {
+    this.formItem = formBuilder.group({
+      name: ["", [Validators.required]],
+      no: [1, [Validators.required]],
+      type: ["", []],
+      basic: [false, [Validators.required]]
     });
-  });
-}
+    this.Loading$.subscribe(l => (this.Loading = l));
+    this.UpdateList$.asObservable().subscribe(options => {
+      var now = Date.now() / 1000;
+      var diff = now - this.Lastdate;
 
+      let _loading = options ? options.loading : false;
+      let _refresh = options ? options.refresh : false;
+      let scrollId = options ? options.scrollId : "";
+      let ExcuteOnSuccess = options ? options.ExcuteOnSuccess:null;
+      if (diff > 1 || this.Lastdate == -1 || _refresh) {
+        this.Lastdate = Date.now() / 1000;
+        this.getList(_loading, scrollId,ExcuteOnSuccess);
+      }
+    });
 
-//Needed
-NeededPost(grocery:Grocery){
-  var theresponse;
-  this.http.post(BASRURL+"/Needed/" ,grocery).subscribe((response) =>
-  { theresponse = response});
-  console.log(theresponse);
-  
-}
-//Needed
-Needed(id:number,basic:boolean){
-  var theresponse;
-  this.http.get(BASRURL+"/Needed/"+id+"/"+basic).subscribe((response) =>
-  { theresponse = response});
-  console.log(theresponse);
-  
-}
-//Delete
-removeG(index:number):void{
-  var theresponse;
-  this.http.delete(BASRURL+"/"+ index).subscribe((response) =>
-  { theresponse = response});
-}
- * //bought
-/*
-bought(id:number): Observable<any>{
-  var theresponse;
-  this.http.get<any>(BASRURL+"/bought/"+id).subscribe(
-    (response) =>
-    { theresponse = response}
-  );
-  console.log(theresponse);
-}
+    this.showAddCard$.subscribe(s => (this.showAddCard = s));
+    this.globalRandom = this.randomStr(5);
+  }
 
-    // View All:---GET:   api/GroceriesApi
-    // Details:----GET:   api/GroceriesApi/5
-    // Add:--------POST:  api/GroceriesApi
-    // Edit:-------PUT:   api/GroceriesApi/5
-    // Delete:-----DELETE:api/GroceriesApi/5
-    // Needed:------GET :  api/Grpceries/Needed/5  /1760
-    // Bought:-----GET :  api/GroceriesApi/Bought/5
-    // Basic:------GET:   api/GroceriesApi/Basic/5
-*/
+  //get isThereNeeded(){ this.NeededOnly.}
+  //===== Gets
+  getGroceries(): Observable<ResponseDto<Grocery[]>> {
+    return this.http.get<ResponseDto<Grocery[]>>(this.URL);
+  }
+
+  getGroceryDetails(id: number): Observable<any> {
+    return this.http.get<any>(this.URL + "/" + id);
+  }
+
+  //===== Updates
+  UpdateStatus(grocery: Grocery, req: string) {
+    let id = this.GetUserIdByGroceryId(grocery.ownerid);
+    var groceryDto: GroceryDto = {
+      grocery: grocery,
+      userId: id
+    };
+    console.log(groceryDto);
+
+    this.http
+      .post<ResponseDto<object>>(`${this.URL}/request/${req}`, groceryDto)
+      .subscribe(
+        response => {
+          this.snack.open("" + response.statusText, "X", { duration: 2000 });
+          this.UpdateList$.next();
+        },
+        e => {
+          this.snack.open("Faild to connect to the Server", "X");
+        },
+        () => {
+          console.log("Completed");
+        }
+      ); //subscirbe
+  }
+
+  //===== Updatessubscribe
+  request(grocery: Grocery, req: string) {
+    let id = this.GetUserIdByGroceryId(grocery.ownerid);
+    var groceryDto: GroceryDto = {
+      grocery: grocery,
+      userId: id
+    };
+    console.log(groceryDto);
+
+    return this.http.post<ResponseDto<string>>(
+      `${this.URL}/request/${req}`,
+      groceryDto
+    );
+  }
+
+  //===== Services
+  GetUserIdByGroceryId(ownerid: number): number {
+    console.log(ownerid);
+    console.log(this.auth.CurrentUser.username);
+
+    if (this.auth.CurrentUser.id == ownerid) {
+      return this.auth.CurrentUser.id;
+    } else {
+      return ownerid;
+    }
+  }
+  isGroceryNameExsits(name: string) {
+    return this.http.post<boolean>(`${this.URL}/nameExists/`, { value: name });
+  }
+
+  GuessTimeout(id: number) {
+    return this.http.get<any>(`${this.URL}/guess/${id}`);
+  }
+
+  //GET All  from Api
+  getList(HandlLoading = true, scrollId = "",ExcuteOnSuccess?:Function) {
+    if (HandlLoading) this.Loading$.next(true);
+    this.getGroceries().subscribe(
+      response => {
+        var GroceryUpdateList = (MasterGrocery, SlaveGrocery) => {
+          console.log("Updatng values");
+          for (let i = 0; i < SlaveGrocery.length; i++) {
+            const G = SlaveGrocery[i];
+            var IsG = g => {
+              return (
+                g.id == G.id &&
+                g.moreInformations.length == G.moreInformations.length &&
+                g.groceryOrBought == G.groceryOrBought &&
+                g.ownerid == G.ownerid
+              );
+            };
+            var exsists = MasterGrocery.find(IsG) ? true : false;
+            if (!exsists) {
+              console.log("removed " + i);
+              console.log(SlaveGrocery[i]);
+              SlaveGrocery.splice(i, 1);
+            }
+          }
+          for (let i = 0; i < MasterGrocery.length; i++) {
+            const item = MasterGrocery[i];
+            var IsG = g => {
+              return (
+                g.id == item.id &&
+                g.moreInformations.length == item.moreInformations.length &&
+                g.groceryOrBought == item.groceryOrBought &&
+                g.ownerid == item.ownerid
+              );
+            };
+            var exsists = SlaveGrocery.find(IsG) ? true : false;
+            if (!exsists) {
+              console.log("added " + i);
+              console.log(item);
+              SlaveGrocery.push(item);
+            }
+          }
+        };
+        let groceries = response.value;
+
+        if (!this.Glist) {
+          this.Glist = groceries;
+        } else {
+          GroceryUpdateList(groceries, this.Glist);
+        }
+
+        //Filter to needed only
+        var HoldNeeded: Grocery[] = [];
+
+        for (let index = 0; index < groceries.length; index++) {
+          const item = groceries[index];
+          if (item.groceryOrBought) HoldNeeded.push(item);
+        }
+
+        HoldNeeded.shift();
+        if (!this.NeededOnly) {
+          this.NeededOnly = HoldNeeded;
+        } else {
+          GroceryUpdateList(HoldNeeded, this.NeededOnly);
+        }
+
+        //Filter to bought only
+        var holdBought: Grocery[] = [];
+
+        for (let index = 0; index < groceries.length; index++) {
+          const item = groceries[index];
+          if (!item.groceryOrBought) holdBought.push(item);
+        }
+        if (!this.BoughtOnly) {
+          this.BoughtOnly = holdBought;
+        } else {
+          GroceryUpdateList(holdBought, this.BoughtOnly);
+        }
+        
+        if(ExcuteOnSuccess) 
+          ExcuteOnSuccess()
+
+        if (scrollId) this.styler.scrollById(scrollId, 500);
+        if (HandlLoading) this.Loading$.next(false);
+      },
+      e => {
+        if (HandlLoading) this.Loading$.next(false);
+        console.log("g-list error");
+        console.error(e);
+        this.snack.open("Connection Error, Server Disconnected", "X", {
+          duration: 10000
+        });
+      },
+      () => {
+        console.log("Completed");
+      }
+    );
+  }
+  clean() {
+    //(click) Add button
+    this.AddFromItem = {
+      name: "",
+      moreInformations: [{ bought: false, no: 1, typeOfNo: "" }],
+      basic: false,
+      timeout: 0,
+      owner: this.auth.CurrentUser.username,
+      groceryOrBought: false
+    };
+    this.formItem.controls.name.setValue("", [Validators.required]);
+    this.formItem.controls.no.setValue(1, [Validators.required]);
+    this.formItem.controls.type.setValue("");
+    this.formItem.controls.basic.setValue(false);
+    this.formItem.enable();
+    this.formItem.markAsUntouched();
+  }
+  ViewIdByname(name) {
+    name = name.toLowerCase().replace(/[\s ]/g, "");
+    return "card" + name + this.globalRandom;
+  }
+
+  randomId(index: number, index2: number) {
+    var r = "yXqEyfZDpOLvPWhdcKzqTomGQYXqxutkyGElskQANcxFkDxNYWgIKhr";
+    var s = "";
+    for (var i = 0; i < 5; i++) {
+      s += r.charAt(index + i + index2);
+    }
+    return s;
+  }
+
+  randomStr(m) {
+    var m = m || 9;
+    var s = "",
+      r = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+    for (var i = 0; i < m; i++) {
+      s += r.charAt(Math.floor(Math.random() * r.length));
+    }
+    return s;
+  }
+} //class

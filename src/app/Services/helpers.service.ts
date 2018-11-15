@@ -63,6 +63,7 @@ export class HelpersService {
 
 
   //Less Usefull
+  
 
   SecondsToDate(inseconds):string{
     var days = Math.floor(inseconds / ( 60 * 60 * 24));
@@ -79,10 +80,10 @@ export class HelpersService {
   }
   
   SecondsToString(inseconds):string{
-    var days = Math.floor(inseconds / ( 60 * 60 * 24));
-    var hours = Math.floor((inseconds % ( 60 * 60 * 24)) / ( 60 * 60));
-    var minutes = Math.floor((inseconds % ( 60 * 60)) / ( 60));
-    var seconds = Math.floor((inseconds % ( 60)) );
+    var days = Math.floor( inseconds / ( 60 * 60 * 24) );
+    var hours = Math.floor( (inseconds % ( 60 * 60 * 24)) / ( 60 * 60));
+    var minutes = Math.floor( (inseconds % ( 60 * 60)) / ( 60));
+    var seconds = Math.floor( (inseconds % ( 60)) );
     return days + "d " + hours + "h "+ minutes + "m " + seconds + "s ";
   }
 
@@ -91,5 +92,42 @@ export class HelpersService {
     return D*3600*24
   }
 
+  SecondsToDays(s: number): string {
+    if (s < 3600 * 24) {
+      if (s < 3600) {
+        if (s < 60) {
+          return "" + Math.floor(s) + " secounds !";
+        }
+
+        return "" + Math.floor(s / 60) + " Minutes";
+      }
+
+      return "" + Math.floor(s / (60 * 60)) + " Hours";
+    }
+    return "" + Math.floor(s / (3600 * 24)) + " Days";
+  }
+
+ SecodsToDate(inseconds:number){
+  var year = Math.floor( inseconds / 3.154e+7 )
+  var month = Math.floor( inseconds / 2.628e+6 )
+  var day = Math.floor( inseconds / ( 60 * 60 * 24) );
+  var hour = Math.floor( (inseconds % ( 60 * 60 * 24)) / ( 60 * 60));
+  var minute = Math.floor( (inseconds % ( 60 * 60)) / ( 60));
+  var second = Math.floor( (inseconds % ( 60)) );
+
+  if (year>0)
+    return `${year} Years`;
+  if (month>0)
+    return `${month} Month`;
+  if (day>0)
+    return `${day} Day`;
+  if (hour>0)
+    return `${hour} Hours, ${minute} Minutes`; 
+  if (minute>0)
+    return `${minute} Minutes, ${second} Seconds`;  
+  if (second>0)
+    return `${second} Seconds`;
+    
+ }
   
 }//class

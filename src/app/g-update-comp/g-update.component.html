@@ -1,4 +1,4 @@
-<button *ngIf="!bought" (click)='Bought(Item);boughtClicked=!boughtClicked' mat-raised-button class="bought">
+<button *ngIf="!Item.groceryOrBought" [disabled]="(this.web.Loading$ | async)" (click)='Bought();boughtClicked=!boughtClicked' mat-raised-button class="bought">
   Bought</button>
-<button *ngIf="bought" (click)='Needed(Item);' mat-raised-button color="primary" class="needed">
+<button *ngIf="Item.groceryOrBought" [disabled]="(this.web.Loading$ | async)" (click)='Needed();' mat-raised-button color="primary" class="needed">
   Needed</button>

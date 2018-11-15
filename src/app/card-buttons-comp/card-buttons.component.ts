@@ -4,35 +4,45 @@ import { HelpersService } from '../Services/helpers.service';
 import { Grocery, MoreInformation } from '../Grocery';
 import { FormatService } from '../Services/frormat.service';
 import { MatSnackBar } from '@angular/material';
-
-declare var jquery:any;
+import { EditAnimation,FadeAnimationIn } from "../animations/animations";
+import { Subject } from 'rxjs';
 declare var $ :any;
+
+
+
+
 
 @Component({
   selector: 'app-card-buttons',
   templateUrl: './card-buttons.component.html',
-  styleUrls: ['./card-buttons.component.css']
+  styleUrls: ['./card-buttons.component.css'],
+  animations:[EditAnimation,FadeAnimationIn]
 })
 
 export class CardButtonsComponent implements OnInit {
   @Input() timeoutDay ;
   buttonClick:boolean;
   MoreButton:boolean=false;
+  MoreButton$:Subject<boolean>=new Subject()
 
   //R
-  @Input() lastmoreInformations:MoreInformation={bought:false  ,no:1 ,typeOfNo :""};
+  lastmoreInformations:MoreInformation={bought:false  ,no:1 ,typeOfNo :""};
   NeededClicked:boolean=false;
   @Input() Item:Grocery;
-  @Input() bought:boolean;//Determin What button to show Needed or Bought
   TheRandomString: string=this.helper.randomString();
   removeIdConfirm:string="#"+this.TheRandomString;
   removeConfirmForId:string=this.TheRandomString;
   
   //R
-  constructor(private web:GListService,private formatService:FormatService,
+  constructor(public web:GListService,private formatService:FormatService,
     public snackBar: MatSnackBar,private helper:HelpersService) { }
 
   ngOnInit() {
+    this.MoreButton$.subscribe(b=>{
+      this.MoreButton=b;
+      if(!b){
+      this.buttonClick=b;
+    }})
   }
 
   Edit(g:Grocery){
@@ -45,12 +55,15 @@ export class CardButtonsComponent implements OnInit {
   }
 
   remove(grocery:Grocery):void{
+    console.log(grocery);
+    
     //checking
+    //var groceryRequest=this.formatService.Toremove(grocery)
     if (grocery.moreInformations.length <= 1 ) {
         this.snackBar.open("Item doesn't have any history To undo", "X", {duration: 9000,});
         $(this.removeIdConfirm).modal('hide');
         return
-    }
+    }    
     this.web.UpdateStatus(grocery,"remove");
     //Close Dialog
     $(this.removeIdConfirm).modal('hide');

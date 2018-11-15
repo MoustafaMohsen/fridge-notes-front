@@ -1,69 +1,104 @@
-import { GListService } from '../Services/g-list.service';
-import { Component, OnInit } from '@angular/core';
-import { Grocery, MoreInformation } from '../Grocery';
-import { HttpClient  } from '@angular/common/http';
-import {MatSnackBar} from '@angular/material'
+import { Component, OnDestroy, OnInit } from "@angular/core";
+import { Grocery } from "../Grocery";
+import { GListService } from "../Services/g-list.service";
+import { ListAnimation,simp,GListAnimation,GListItemAnimation,list, Mylist,working } from "../animations/animations";
+import { trigger,state, style,animate, transition,group,keyframes,query,animateChild,stagger } from "@angular/animations";
+//import { jos } from "../myanimations";
+
+
+
 
 @Component({
-  selector: 'app-g-list',
-  templateUrl: './g-list.component.html',
-  styleUrls: ['./g-list.component.css']
+  selector: "app-g-list",
+  templateUrl: "./g-list.component.html",
+  styleUrls: ["./g-list.component.css"],
+  animations: [working]
 })
-
-export class GListComponent implements OnInit {
+export class GListComponent implements OnInit, OnDestroy {
   //public web;
-  constructor(public web:GListService,private http: HttpClient,private snackBar:MatSnackBar) 
-  { }
+  constructor(public web: GListService) {}
 
-  GList:Grocery[];
-  NeededOnly:Grocery[]=this.web.NeededOnly;
-  
-
+  NeededOnly: Grocery[] = this.web.NeededOnly;
+  Show = false;
+  num;
+  loaded=false;
   ngOnInit() {
-    this.web.UpdateList$.subscribe(
-      ()=>{
-        this.getList();console.log("$event Emited$");
-      }
-    );
-    this.web.UpdateList$.next();
+
+    this.loaded=true;
+    var ExcuteOnSuccess=()=>{
+      console.log("this.web.Glist");
+      
+      console.log(this.web.Glist);
+      
+      if(!this.web.Glist)
+      this.web.showAddCard$.next(true)
+    }
+    this.web.UpdateList$.next({loading:true,ExcuteOnSuccess:ExcuteOnSuccess});
   }
 
-  //GET All  from Api
-  getList(){
-     this.web.getGroceries().subscribe( (response)=>
-      { 
-       this.web.Glist=response; 
-        //Filter to needed only
-        {
-          var HoldNeeded:Grocery[]=[{name:'',moreInformations:[{bought:false, }]}];
-          response.forEach(item =>{
-            if (item.moreInformations[(item.moreInformations.length -1) ].bought)
-              HoldNeeded.push(item)
-            });
-          HoldNeeded.shift();
-          this.web.NeededOnly=HoldNeeded;
+  testRefresh(num: number, sequential = false) {
+    var t0 = performance.now();
+    console.log("started", t0);
+
+    let requestNumber = 0;
+    var getRequest = (func: Function = null) => {
+      this.web.getGroceries().subscribe(
+        response => {
+          requestNumber++;
+          func();
+        },
+        e => {
+          console.log("g-list error");
+          console.error(e);
+          requestNumber++;
         }
-      },
-      (e)=>{
-         this.snackBar.open( "Faild to connect to the Server","X" );
-      },
-      ()=> {console.log("Completed");
+      );
+    };
+
+    var batch = () => {
+      for (let i = 0; i < num; i++) {
+        getRequest(() => {
+          console.log(requestNumber);
+          if (requestNumber <= num) {
+            var t1 = performance.now();
+            console.log(
+              `${num} Requests took ${t1 - t0}  milliseconds,${(t1 - t0) /
+                1000} Secounds, avrage ${(t1 - t0) /
+                1000 /
+                num} Secound per request`
+            );
+          }
+        });
       }
-    );
-  }
- 
-  SecondsToDays(s:number):string{
-    if(s<3600*24){
-      var s=s/3600;
-      if (s<3600){return ""+Math.floor(s*24)+" Hours"}
-      return ""+Math.floor(s)+" Hours"
+    };
 
+    var seq = () => {
+      var requestnumCheck = () => {
+        if (requestNumber <= num) {
+          console.log(requestNumber);
+          getRequest(requestnumCheck);
+        } else {
+          var t1 = performance.now();
+          console.log(
+            `${num} Requests took ${t1 - t0}  milliseconds,${(t1 - t0) /
+              1000} Secounds, avrage ${(t1 - t0) /
+              1000 /
+              num} Secound per request`
+          );
+        }
+      };
+      getRequest(requestnumCheck);
+    };
+
+    if (seq) {
+      seq();
     }
-    else{
-      var s=s/3600/24;
-      return ""+Math.floor(s)+" Days"
+    if (!seq) {
+      batch();
     }
   }
 
-}
-
+  ngOnDestroy() {
+    console.log("glist Destroyed");
+  }
+} //class

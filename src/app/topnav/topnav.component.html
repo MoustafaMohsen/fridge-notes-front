@@ -1,0 +1,36 @@
+<mat-toolbar class="navbar-container">
+
+  <mat-toolbar-row>
+
+    <div class="container">
+
+      <div class="row">
+
+        <div class="col-6">
+
+          <button mat-button class="float-left nav-logo" routerLink="/">
+            Fridge Notes</button>
+
+        </div>
+
+        <div class="col-6">
+
+          <div class="float-right" *ngIf="auth.CurrentUser.username">
+
+            <app-userbar class="left"></app-userbar>
+
+          </div>
+
+        </div>
+      </div>
+
+
+    </div>
+    
+  </mat-toolbar-row>
+
+</mat-toolbar>
+
+<!---button mat-raised-button class="fixed-bottom" (click)="animate=!animate" >Test</button-->
+
+<!---div class="blackbox" [@CssJ]="animate"></div-->

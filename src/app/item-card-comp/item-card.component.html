@@ -1,9 +1,12 @@
-<mat-card class="card">
+<mat-card [@simp]="this.web.Glist?.length"  class="card grocery-card" [id]="this.web.ViewIdByname(this.Item.name)">
 
-  <li class="row">
+  <div class="row justify-content-between">
 
     <!--===================Title & subtitle===================-->
-    <mat-card-header class="col-sm-auto mr-auto">
+    <div class="col-sm-auto col-xs-12">
+
+    
+    <mat-card-header>
 
       <!--Title-->
       <mat-card-title>
@@ -11,26 +14,31 @@
       </mat-card-title>
 
       <!--Type-->
-      <mat-card-subtitle *ngIf="!lastmore.bought" class="card-subtitle">
-        {{lastmore.no}} {{lastmore.typeOfNo}}
+      <mat-card-subtitle *ngIf="!Item.groceryOrBought" class="card-subtitle">
+        {{lastmore?.no}} {{lastmore?.typeOfNo}}
       </mat-card-subtitle>
+
+      <mat-card-subtitle [ngClass]="setClasses()">
+          <i class="fas fa-user-circle"></i> {{ItemOwner.username}}
+      </mat-card-subtitle>
+
       <!--Timeout-->
-      <mat-card-subtitle *ngIf="lastmore.bought" class="card-subtitle">
-        Usually every {{ SecondsToDays(avrageTimeout) }}
+      <mat-card-subtitle *ngIf="Item.groceryOrBought" class="card-subtitle">
+        Usually every {{ this.FormatedTimout }}
       </mat-card-subtitle>
-      
+
     </mat-card-header>
 
     <!--Content (empty)-->
     <mat-card-content class="type1">
     </mat-card-content>
-
+  </div>
     <!--=================Buttons======================-->
-    <div class="col-sm-auto">
-      <app-card-buttons [Item]='Item' [bought]='(Item.moreInformations[ Item.moreInformations.length-1])?.bought '>
+    <div class="col-sm-auto col-xs-12 align-self-end">
+      <app-card-buttons [Item]='Item'>
       </app-card-buttons>
     </div>
 
-  </li>
+  </div>
 
 </mat-card>
