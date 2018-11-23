@@ -19,16 +19,6 @@ export class MoreInformation {
   typeOfNo?: string;
 }
 
-export interface ResponseDto<T> {
-  value: T;
-  statusText: string;
-}
-
-export class GroceryDto {
-  grocery: Grocery;
-  userId: number;
-}
-
 export class Keyframe{
   name:string
   frames:{

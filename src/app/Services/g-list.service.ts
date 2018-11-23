@@ -1,4 +1,4 @@
-import { Grocery, ResponseDto, GroceryDto } from "../statics/Grocery";
+import { Grocery, GroceryDto } from "../statics/Grocery";
 import { Injectable } from "@angular/core";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Observable, Subject, BehaviorSubject } from "rxjs";
@@ -10,6 +10,7 @@ import { UserDto } from "../_auth.collection/_models/user";
 import { AuthenticationService } from "../_auth.collection/_services/authentication.service";
 import { Validators, FormBuilder, FormGroup } from "@angular/forms";
 import { StylerService } from "./styler.service";
+import { ResponseDto } from "../statics/Dto";
 
 @Injectable()
 export class GListService {
