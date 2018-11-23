@@ -5,13 +5,13 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
-import { GListComponent } from './g-list-comp/g-list.component';
+import { ListComponent } from './components/list/list.component';
 import { GListService } from './Services/g-list.service';
 //import { GAddComponent } from './g-add-comp/g-add.component';
-import { GUpdateComponent } from './g-update-comp/g-update.component';
+import { GUpdateComponent } from './components/card-components/button-components/g-update-comp/g-update.component';
 
 import { RouterModule } from '@angular/router'; 
-import { appRoutes } from './app.routing';
+import { appRoutes } from './statics/app.routing';
 //import { GEditComponent } from './g-edit/g-edit.component';
 
 //materials
@@ -24,23 +24,24 @@ import {
 } from '@angular/material';
 import { HelpersService } from './Services/helpers.service';
 import { FormatService } from './Services/frormat.service';
-import { ItemCardComponent } from './item-card-comp/item-card.component';
-import { CardButtonsComponent } from './card-buttons-comp/card-buttons.component';
+import { ItemCardComponent } from './components/card-components/item-card/item-card.component';
+import { CardButtonsComponent } from './components/card-components/button-components/card-buttons-comp/card-buttons.component';
 import { MyAuthModule } from './_auth.collection';
-import { LoginComponent } from './login/login.component';
-import { RegisterComponent } from './register/register.component';
-import { UserbarComponent } from './userbar/userbar.component';
-import { AccountComponent } from './account/account.component';
-import { TopnavComponent } from './topnav/topnav.component';
-import { AddCardComponent } from './add-card/add-card.component';
-import { AddButtonComponent } from './add-button/add-button.component';
-import { EditUserComponent } from './edit-user/edit-user.component';
+import { LoginComponent } from './components/account-components/login/login.component';
+import { RegisterComponent } from './components/account-components/register/register.component';
+import { UserbarComponent } from './components/account-components/userbar/userbar.component';
+import { ManageAccountComponent } from './components/account-components/manage-account/manage-account.component';
+import { TopnavComponent } from './components/topnav/topnav.component';
+
+import { AddCardComponent } from './components/card-components/add-card/add-card.component';
+import { AddButtonComponent } from './components/card-components/button-components/add-button/add-button.component';
+import { EditUserComponent } from './components/account-components/edit-user/edit-user.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    GListComponent,
+    ListComponent,
     //GAddComponent,
     GUpdateComponent,
    // GEditComponent,
@@ -49,7 +50,7 @@ import { EditUserComponent } from './edit-user/edit-user.component';
     LoginComponent,
     RegisterComponent,
     UserbarComponent,
-    AccountComponent,
+    ManageAccountComponent,
     TopnavComponent,
     AddCardComponent,
     AddButtonComponent,

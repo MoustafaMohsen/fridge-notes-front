@@ -2,10 +2,10 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 //Import Config
-import { _BaseUrl } from "../../config";
+import { _BaseUrl } from "../../statics/config";
 import { Subject, BehaviorSubject } from 'rxjs';
 import { UserDto } from '../_models/user';
-import { ResponseDto } from '../../Grocery';
+import { ResponseDto } from '../../statics/Grocery';
 
 export const _BASEURL = _BaseUrl;
 

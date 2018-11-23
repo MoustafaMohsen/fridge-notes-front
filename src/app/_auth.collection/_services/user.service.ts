@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import {_BASEURL} from '../_services/authentication.service';
 import { UserDto, FriendRequestDto, UserFriend, ChangePassword } from '../_models/user';
-import { ResponseDto } from '../../Grocery';
+import { ResponseDto } from '../../statics/Grocery';
 @Injectable({
   providedIn: 'root'
 })

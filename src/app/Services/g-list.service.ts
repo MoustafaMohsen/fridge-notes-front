@@ -1,11 +1,11 @@
-import { Grocery, ResponseDto, GroceryDto } from "../Grocery";
+import { Grocery, ResponseDto, GroceryDto } from "../statics/Grocery";
 import { Injectable } from "@angular/core";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Observable, Subject, BehaviorSubject } from "rxjs";
 import { map } from "rxjs/operators";
 import { MatSnackBar } from "@angular/material";
 
-import { _BaseUrl } from "../config";
+import { _BaseUrl } from "../statics/config";
 import { UserDto } from "../_auth.collection/_models/user";
 import { AuthenticationService } from "../_auth.collection/_services/authentication.service";
 import { Validators, FormBuilder, FormGroup } from "@angular/forms";
@@ -143,8 +143,10 @@ export class GListService {
       response => {
         var GroceryUpdateList = (MasterGrocery, SlaveGrocery) => {
           console.log("Updatng values");
+
           for (let i = 0; i < SlaveGrocery.length; i++) {
             const G = SlaveGrocery[i];
+            //filter function
             var IsG = g => {
               return (
                 g.id == G.id &&
@@ -159,9 +161,11 @@ export class GListService {
               console.log(SlaveGrocery[i]);
               SlaveGrocery.splice(i, 1);
             }
-          }
+          }//for
+
           for (let i = 0; i < MasterGrocery.length; i++) {
             const item = MasterGrocery[i];
+            //filter function
             var IsG = g => {
               return (
                 g.id == item.id &&
@@ -176,8 +180,9 @@ export class GListService {
               console.log(item);
               SlaveGrocery.push(item);
             }
-          }
-        };
+          }//for
+        };//GroceryUpdateList()
+
         let groceries = response.value;
 
         if (!this.Glist) {
