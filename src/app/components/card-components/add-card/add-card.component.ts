@@ -31,8 +31,8 @@ export class AddCardComponent implements OnInit {
   ngOnInit() {
     this.web.showAddCard$.subscribe(s=>{
       if (s=true) {
-        this.styler.scrollById("Scrolltarget_1",600)
-        this.styler.focusById("NameFieldEl",600)
+        this.styler.scrollById("Scrolltarget_1",100)
+        this.styler.focusById("NameFieldEl",500)
       }
     })
   }
@@ -53,8 +53,8 @@ export class AddCardComponent implements OnInit {
       moreInformations: [{ bought: bought, no: no, typeOfNo: typeOfNo }],
       basic: basic,
       timeout: timeout,
-      owner: this.auth.CurrentUser.username,
-      ownerid: this.auth.CurrentUser.id,
+      owner: this.auth.CurrentUser.UserName,
+      ownerid: this.auth.CurrentUser.Id,
       groceryOrBought: bought
     };
     this.lastAdded={...g}

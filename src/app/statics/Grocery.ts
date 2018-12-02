@@ -6,7 +6,7 @@ export class Grocery {
   moreInformations: MoreInformation[];
   groceryOrBought?: boolean; //server
   owner?: string;
-  ownerid?: number;
+  ownerid?: string;
   category?: string;
 }
 export class MoreInformation {

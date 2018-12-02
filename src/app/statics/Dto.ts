@@ -2,7 +2,7 @@ import { Grocery } from "./Grocery";
 
 export class GroceryDto {
     grocery: Grocery;
-    userId: number;
+    userId: string;
 }
 
 export interface ResponseDto<T> {

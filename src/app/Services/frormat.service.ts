@@ -5,7 +5,7 @@ import { GListService } from "./g-list.service";
 @Injectable()
 export class FormatService {
   grocery: Grocery;
-  constructor(private GListService: GListService) {}
+  constructor() {}
 
   Tobought(gPara: Grocery): Grocery {
     let g={...gPara}

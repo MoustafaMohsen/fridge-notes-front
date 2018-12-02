@@ -38,24 +38,26 @@
 
   <!-- ========================List Container===========================  -->
 
-  <div class="NeededListContainer" *ngIf="this.web.NeededOnly&&this.web.NeededOnly?.length>0" [@neededAnimation]="this.web.NeededOnly?.length">
-    <!--Head ToolBar-->
-    <mat-toolbar color="primary" class="container-fluid matbar2">
-      <mat-toolbar-row>
-        <span>the Bought List</span>
-      </mat-toolbar-row>
-    </mat-toolbar>
-
-    <ul class="ul list-unstyled list-group">
-      <div *ngFor="let Item of this.web.NeededOnly;let i = index" class="card_item">
-
-        <app-item-card [ItemOrginal]='Item'></app-item-card>
-
-      </div>
-    </ul>
-
-
-
+  <div class="ListContainer" [@neededAnimation]="this.web.NeededOnly?.length">
+    <div class="NeededListContainer" *ngIf="this.web.NeededOnly&&this.web.NeededOnly?.length>0">
+      <!--Head ToolBar-->
+      <mat-toolbar color="primary" class="container-fluid matbar2">
+        <mat-toolbar-row>
+          <span>the Bought List</span>
+        </mat-toolbar-row>
+      </mat-toolbar>
+  
+      <ul class="ul list-unstyled list-group">
+        <div *ngFor="let Item of this.web.NeededOnly;let i = index" class="card_item">
+  
+          <app-item-card [ItemOrginal]='Item'></app-item-card>
+  
+        </div>
+      </ul>
+  
+  
+  
+    </div>
   </div>
   <!--
 

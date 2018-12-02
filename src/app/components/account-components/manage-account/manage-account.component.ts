@@ -30,7 +30,7 @@ export class ManageAccountComponent implements OnInit,OnDestroy {
     var invCode = friend.friendEncryptedCode;
     let friendRequestDto:FriendRequestDto = {
       invetationCode:invCode,
-      userId:this.auth.CurrentUser.id
+      userId:this.auth.CurrentUser.Id
     }
     console.log(friendRequestDto);
     this.userSrv.DeleteFriendship(friendRequestDto).subscribe(
@@ -50,7 +50,7 @@ export class ManageAccountComponent implements OnInit,OnDestroy {
     
     let friendRequestDto:FriendRequestDto = {
       invetationCode:invCode,
-      userId:this.auth.CurrentUser.id
+      userId:this.auth.CurrentUser.Id
     }
     console.log(friendRequestDto);
     
@@ -75,8 +75,10 @@ export class ManageAccountComponent implements OnInit,OnDestroy {
       if(showSnack){
         this.snack.open(`${r.statusText}`,"x",{duration:3000});
       }
-      this.auth.updateCurrentUser(true,r.value)
-      this.friends=this.auth.CurrentUser.userFriends
+      if(r.isSuccessful){
+        this.auth.updateCurrentUser(true,r.value);
+        this.friends=this.auth.CurrentUser.userFriends;
+      }
 
     } )
   }

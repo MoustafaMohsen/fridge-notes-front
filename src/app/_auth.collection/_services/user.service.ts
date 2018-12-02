@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import {_BASEURL} from '../_services/authentication.service';
-import { UserDto, FriendRequestDto, UserFriend, ChangePassword } from '../_models/user';
-import { ResponseDto } from '../../statics/Grocery';
+import { UserDto, FriendRequestDto, UserFriend, UpdatePasswordDto } from '../_models/user';
+import { ResponseDto } from 'src/app/statics/Dto';
 @Injectable({
   providedIn: 'root'
 })
@@ -15,14 +15,15 @@ export class UserService {
     return this.http.get<UserDto[]>(`${this.BASEURL}/api/users`)
   }
   
-  GetById(id:number){
-    return this.http.get<ResponseDto<UserDto>>(`${this.BASEURL}/api/users/${id}`);
+  GetById(){
+    return this.http.get<ResponseDto<UserDto>>(`${this.BASEURL}/api/users/GetUserId`);
   }
 
   Update(user:UserDto){
     return this.http.put<ResponseDto<UserDto>>(`${this.BASEURL}/api/users/editUser`,user);
   }
-  ChangePassword(passDto:ChangePassword){
+
+  ChangePassword(passDto:UpdatePasswordDto){
     return this.http.put<ResponseDto<UserDto>>(`${this.BASEURL}/api/users/changepassword`,passDto);
   }
 
@@ -34,6 +35,7 @@ export class UserService {
     return this.http.post(`${this.BASEURL}/api/users/register`,user)
   }
 
+  
   GenerateInvitaionCode(){
     return this.http.get<ResponseDto<string>>(`${this.BASEURL}/api/users/generateinvitation`)
   }

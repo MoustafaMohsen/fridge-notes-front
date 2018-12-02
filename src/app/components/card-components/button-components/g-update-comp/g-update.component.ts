@@ -49,6 +49,10 @@ export class GUpdateComponent implements OnInit {
     this.web.Loading$.next(true);
     this.web.request(grocery, "bought").subscribe(
       response => {
+        console.log("request().subscribe()");
+        
+        console.log(response);
+        
         this.snack.open(`${response.statusText}`, "X", { duration: 5000 });
         this.web.UpdateList$.next({loading:false,refresh:true});
         this.web.Loading$.next(false);

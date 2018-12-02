@@ -44,7 +44,7 @@ export class ItemCardComponent implements OnInit {
   
   get ItemOwner(): { own: boolean; username: string } {
     let obj: { own: boolean; username: string } = { own: false, username: "" };
-    if (this.auth.CurrentUser.username == this.Item.owner) {
+    if (this.auth.CurrentUser.UserName == this.Item.owner) {
       obj.own = true;
     }
     obj.username = this.Item.owner;

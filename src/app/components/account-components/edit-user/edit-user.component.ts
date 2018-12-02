@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, AbstractControl, Validators } from '@angular/forms';
-import { AuthenticationService, UserDto, ChangePassword, UserService } from '../../../_auth.collection';
+import { AuthenticationService, UserDto, UpdatePasswordDto, UserService } from '../../../_auth.collection';
 
 @Component({
   selector: 'app-edit-user',
@@ -35,10 +35,10 @@ export class EditUserComponent implements OnInit {
 
   ngOnInit() {
     this.currentUser=this.auth.CurrentUser;
-    this.f.firstname.setValue(this.auth.CurrentUser.firstname);
-    this.f.lastname.setValue(this.auth.CurrentUser.lastname);
-    this.f.username.setValue(this.auth.CurrentUser.username);
-    this.f.email.setValue(this.auth.CurrentUser.email);
+    this.f.firstname.setValue(this.auth.CurrentUser.FirstName);
+    this.f.lastname.setValue(this.auth.CurrentUser.LastName);
+    this.f.username.setValue(this.auth.CurrentUser.UserName);
+    this.f.email.setValue(this.auth.CurrentUser.Email);
     this.userForm.disable({emitEvent:false});
 
     this.passwordform.statusChanges.subscribe(d=>{
@@ -50,9 +50,9 @@ export class EditUserComponent implements OnInit {
     });
 
     this.userForm.statusChanges.subscribe(d=>{
-      let fn=this.f['firstname'].value != this.currentUser.firstname;
-      let ln=this.f['lastname'].value != this.currentUser.lastname;
-      let en=this.f['email'].value != this.currentUser.email;
+      let fn=this.f['firstname'].value != this.currentUser.FirstName;
+      let ln=this.f['lastname'].value != this.currentUser.LastName;
+      let en=this.f['email'].value != this.currentUser.Email;
       let all=!(fn||ln||en)
       this.usrFBtn=all;
       if(all)
@@ -76,13 +76,13 @@ export class EditUserComponent implements OnInit {
   editUser(){
     this.usrFBtn=true;
     let userdto:UserDto={...this.currentUser};
-    userdto.firstname=this.f['firstname'].value;
-    userdto.lastname=this.f['lastname'].value;
+    userdto.FirstName=this.f['firstname'].value;
+    userdto.LastName=this.f['lastname'].value;
     this.user.Update(userdto).subscribe(user=>{
       this.usrFBtn=false;
       this.auth.updateCurrentUser(true,user.value)
-      this.f['firstname'].setValue(user.value.firstname);
-      this.f['lastname'].setValue(user.value.lastname);
+      this.f['firstname'].setValue(user.value.FirstName);
+      this.f['lastname'].setValue(user.value.LastName);
       this.currentUser=user.value;
       this.userForm.disable({emitEvent:false});
     },
@@ -97,8 +97,8 @@ export class EditUserComponent implements OnInit {
       console.log("incompatiable passwords");
       return ;
     }
-    let passdto:ChangePassword={
-      id:this.currentUser.id,
+    let passdto:UpdatePasswordDto={
+      id:this.currentUser.Id,
       oldpassword:this.pf['oldpassword'].value,
       newpassword:this.pf['newpassword'].value
     }

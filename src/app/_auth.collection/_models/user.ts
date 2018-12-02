@@ -20,16 +20,18 @@ export class UserDto
     Id?: string;
 
     /**The users first name */
-    firstName?: string;
+    FirstName?: string;
 
     /**The users last name */
-    lastName?: string;
+    LastName?: string;
 
     /**The users username */
-    username?: string;
+    UserName?: string;
 
     /**The users email */
-    email?: string;
+    Email?: string;
+
+    password?: string;
 
     /**The users role */
     role?: string;
@@ -40,24 +42,21 @@ export class UserDto
      */
     token?: string;
 
-    /**The user password, used when editing user */
-    password?: string;
-
-    userFriends: UserFriend[];
+    userFriends?: UserFriend[];
     
-    invitationcode: string;
+    invitationcode?: string;
 }
 
 export class UserFriend
 {
-    id: number;
-    friendUsername: string;
-    friendUserId: string;
-    friendEncryptedCode: string;
-    AreFriends: boolean;
+    id?: number;
+    friendUsername?: string;
+    friendUserId?: string;
+    friendEncryptedCode?: string;
+    AreFriends?: boolean;
 
     //Foreign Key
-    ApplicationUserId: string;
+    ApplicationUserId?: string;
 }
 
 export class FriendRequestDto
@@ -68,7 +67,16 @@ export class FriendRequestDto
 
 export class UpdatePasswordDto
 {
-    id:number;
+    id?:string;
     oldpassword:string;
     newpassword:string;
+}
+
+export class LoginUserDto
+{
+    /**the login username or email */
+    usernameOrEmail: string;
+
+    /**the login password */
+    password: string;
 }

@@ -4,8 +4,8 @@ import { map } from 'rxjs/operators';
 //Import Config
 import { _BaseUrl } from "../../statics/config";
 import { Subject, BehaviorSubject } from 'rxjs';
-import { UserDto } from '../_models/user';
-import { ResponseDto } from '../../statics/Grocery';
+import { UserDto, LoginUserDto } from '../_models/user';
+import { ResponseDto } from 'src/app/statics/Dto';
 
 export const _BASEURL = _BaseUrl;
 
@@ -13,7 +13,7 @@ export const _BASEURL = _BaseUrl;
   providedIn: 'root'
 })
 export class AuthenticationService {
-  CurrentUser:UserDto={};
+  CurrentUser:UserDto=new UserDto();
   user$:Subject<UserDto>=new Subject();
   BASEURL = _BASEURL;
   constructor(private http:HttpClient) {
@@ -49,10 +49,12 @@ export class AuthenticationService {
     
    }
 
-  login(username:string,password:string){    
-    return this.http.post<any>(`${this.BASEURL}/api//users/authenticate`,{username:username,password:password})
-    .pipe(map(user=>{
+  login(usernameOrEmail:string,password:string){
+    var LoginInfo :LoginUserDto = {password,usernameOrEmail}  
+    return this.http.post<ResponseDto<UserDto>>(`${this.BASEURL}/api//users/login`,LoginInfo)
+    .pipe(map(response=>{
 
+      var user = response.value
       if (user && user.token) {
         localStorage.setItem('currentuser',JSON.stringify(user));
         this.user$.next(user)

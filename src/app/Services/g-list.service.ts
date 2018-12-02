@@ -1,4 +1,4 @@
-import { Grocery, GroceryDto } from "../statics/Grocery";
+import { Grocery } from "../statics/Grocery";
 import { Injectable } from "@angular/core";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Observable, Subject, BehaviorSubject } from "rxjs";
@@ -10,7 +10,8 @@ import { UserDto } from "../_auth.collection/_models/user";
 import { AuthenticationService } from "../_auth.collection/_services/authentication.service";
 import { Validators, FormBuilder, FormGroup } from "@angular/forms";
 import { StylerService } from "./styler.service";
-import { ResponseDto } from "../statics/Dto";
+
+import { ResponseDto ,GroceryDto } from "../statics/Dto";
 
 @Injectable()
 export class GListService {
@@ -74,8 +75,8 @@ export class GListService {
     return this.http.get<ResponseDto<Grocery[]>>(this.URL);
   }
 
-  getGroceryDetails(id: number): Observable<any> {
-    return this.http.get<any>(this.URL + "/" + id);
+  getGroceryDetails(id: number): Observable<ResponseDto<Grocery>> {
+    return this.http.get<ResponseDto<Grocery>>(`${this.URL}/grocerybyid?groceryid=${id}`);
   }
 
   //===== Updates
@@ -95,7 +96,8 @@ export class GListService {
           this.UpdateList$.next();
         },
         e => {
-          this.snack.open("Faild to connect to the Server", "X");
+          console.log(e);
+          this.snack.open(`Faild to connect to the Server`, "X");
         },
         () => {
           console.log("Completed");
@@ -110,6 +112,8 @@ export class GListService {
       grocery: grocery,
       userId: id
     };
+    console.log("request()");
+    
     console.log(groceryDto);
 
     return this.http.post<ResponseDto<string>>(
@@ -118,24 +122,24 @@ export class GListService {
     );
   }
 
+  isGroceryNameExsits(name: string) {
+    return this.http.post<ResponseDto<boolean>>(`${this.URL}/nameExists/`, { value: name });
+  }
+  
+  GuessTimeout(id: number) {
+    return this.http.get<any>(`${this.URL}/guess/${id}`);
+  }
+  
   //===== Services
-  GetUserIdByGroceryId(ownerid: number): number {
-    console.log(ownerid);
-    console.log(this.auth.CurrentUser.username);
-
-    if (this.auth.CurrentUser.id == ownerid) {
-      return this.auth.CurrentUser.id;
+  GetUserIdByGroceryId(ownerid: string): string {
+    if (this.auth.CurrentUser.Id == ownerid) {
+      return this.auth.CurrentUser.Id;
     } else {
       return ownerid;
     }
   }
-  isGroceryNameExsits(name: string) {
-    return this.http.post<boolean>(`${this.URL}/nameExists/`, { value: name });
-  }
 
-  GuessTimeout(id: number) {
-    return this.http.get<any>(`${this.URL}/guess/${id}`);
-  }
+
 
   //GET All  from Api
   getList(HandlLoading = true, scrollId = "",ExcuteOnSuccess?:Function) {
@@ -182,10 +186,18 @@ export class GListService {
               SlaveGrocery.push(item);
             }
           }//for
-        };//GroceryUpdateList()
+        };
+
+        if (response.isSuccessful==false) {
+          console.log(response.errors);
+          this.snack.open(`Server returned ${response.errors}`,`X`,{duration:3000})
+          return;
+        }
 
         let groceries = response.value;
-
+        console.log("getGroceries()");
+        console.log(response);
+        
         if (!this.Glist) {
           this.Glist = groceries;
         } else {
@@ -200,7 +212,6 @@ export class GListService {
           if (item.groceryOrBought) HoldNeeded.push(item);
         }
 
-        HoldNeeded.shift();
         if (!this.NeededOnly) {
           this.NeededOnly = HoldNeeded;
         } else {
@@ -246,7 +257,7 @@ export class GListService {
       moreInformations: [{ bought: false, no: 1, typeOfNo: "" }],
       basic: false,
       timeout: 0,
-      owner: this.auth.CurrentUser.username,
+      owner: this.auth.CurrentUser.UserName,
       groceryOrBought: false
     };
     this.formItem.controls.name.setValue("", [Validators.required]);

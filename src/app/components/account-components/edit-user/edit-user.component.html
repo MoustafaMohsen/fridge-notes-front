@@ -26,14 +26,14 @@
 
               <mat-form-field class="spacing">
                 <input formControlName="firstname" placeholder="first name" type="text" matInput>
-                <button matSuffix mat-icon-button (click)="enableControl(f['firstname'])" *ngIf="f['firstname'].value == this.currentUser.firstname"><i
+                <button matSuffix mat-icon-button (click)="enableControl(f['firstname'])" *ngIf="f['firstname'].value == this.currentUser.firstName"><i
                     class="fas fa-edit"></i></button>
 
               </mat-form-field>
 
               <mat-form-field class="spacing">
                 <input formControlName="lastname" placeholder="last name" type="text" matInput>
-                <button matSuffix mat-icon-button (click)="enableControl(f['lastname'])" *ngIf="f['lastname'].value == this.currentUser.lastname"><i
+                <button matSuffix mat-icon-button (click)="enableControl(f['lastname'])" *ngIf="f['lastname'].value == this.currentUser.lastName"><i
                     class="fas fa-edit"></i></button>
               </mat-form-field>
 
