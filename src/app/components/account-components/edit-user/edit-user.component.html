@@ -26,20 +26,20 @@
 
               <mat-form-field class="spacing">
                 <input formControlName="firstname" placeholder="first name" type="text" matInput>
-                <button matSuffix mat-icon-button (click)="enableControl(f['firstname'])" *ngIf="f['firstname'].value == this.currentUser.firstName"><i
+                <button matSuffix mat-icon-button (click)="enableControl(f['firstname'])" *ngIf="f['firstname'].value == this.currentUser.FirstName"><i
                     class="fas fa-edit"></i></button>
 
               </mat-form-field>
 
               <mat-form-field class="spacing">
                 <input formControlName="lastname" placeholder="last name" type="text" matInput>
-                <button matSuffix mat-icon-button (click)="enableControl(f['lastname'])" *ngIf="f['lastname'].value == this.currentUser.lastName"><i
+                <button matSuffix mat-icon-button (click)="enableControl(f['lastname'])" *ngIf="f['lastname'].value == this.currentUser.LastName"><i
                     class="fas fa-edit"></i></button>
               </mat-form-field>
 
               <mat-form-field class="spacing">
                   <input formControlName="email" placeholder="Email" type="email" matInput>
-                  <button matSuffix mat-icon-button (click)="enableControl(f['email'])" *ngIf="f['email'].value == this.currentUser.email"><i
+                  <button matSuffix mat-icon-button (click)="enableControl(f['email'])" *ngIf="f['email'].value == this.currentUser.Email"><i
                       class="fas fa-edit"></i></button>
                 </mat-form-field>
 
