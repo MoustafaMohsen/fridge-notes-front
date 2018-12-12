@@ -1,40 +1,119 @@
-<!---     Form       -->
-<form [formGroup]="registerForm">
-  <!--Username-->
-  <mat-form-field class="spacing">
-    <input formControlName="username" placeholder="Username"type="text" matInput>
-    <mat-error *ngIf="f['username'].hasError('required')">required</mat-error>
-  </mat-form-field>
+<div class="container">
 
-  <!--FirstName-->
-  <mat-form-field class="spacing">
-    <input formControlName="firstName" placeholder="First Name" type="text" matInput>
-    <mat-error *ngIf="f['firstName'].hasError('required')">required</mat-error>
-  </mat-form-field>
+  <div class="row justify-content-center">
 
-  <!--LastName-->
-  <mat-form-field class="spacing">
-    <input formControlName="lastName" placeholder="Last Name" type="text" matInput>
-    <mat-error *ngIf="f['lastName'].hasError('required')">required</mat-error>
-  </mat-form-field>
+    <!---     Form       -->
+    <div class="col-6">
 
-    <!--Email-->
-    <mat-form-field class="spacing">
-        <input formControlName="email" placeholder="Email" type="email" matInput>
-        <mat-error *ngIf="f['email'].hasError('required')">required</mat-error>
-      </mat-form-field>
-  <!--Password-->
-  <mat-form-field class="spacing">
-    <input formControlName="password" placeholder="Password" type="password" matInput>
-    <mat-error *ngIf="f['password'].hasError('required')">required</mat-error>
-  </mat-form-field>
+        <mat-card class="form-card z-index-10">
+
+          <form [formGroup]="registerForm">
+            <!-- Username -->
+          <div class="row justify-content-center">
+            <mat-form-field class="col-12">
+              <input
+                formControlName="username"
+                placeholder="Username"
+                type="text"
+                matInput
+              />
+              <mat-error *ngIf="f['username'].hasError('required')">required</mat-error>
+            </mat-form-field>
+          </div>
+        
+            <!-- FirstName -->
+            <div class="row justify-content-center">
+              <mat-form-field class="col-12">
+                <input
+                  formControlName="firstName"
+                  placeholder="First Name"
+                  type="text"
+                  matInput
+                />
+                <mat-error *ngIf="f['firstName'].hasError('required')"
+                  >required</mat-error
+                >
+              </mat-form-field>
+            </div>
+        
+            <!-- LastName -->
+            <div class="row justify-content-center">
+              <mat-form-field class="col-12">
+                <input
+                  formControlName="lastName"
+                  placeholder="Last Name"
+                  type="text"
+                  matInput
+                />
+                <mat-error *ngIf="f['lastName'].hasError('required')">required</mat-error>
+              </mat-form-field>
+            </div>
+        
+            <!-- Email -->
+            <div class="row justify-content-center">
+              <mat-form-field class="col-12">
+                <input
+                  formControlName="email"
+                  placeholder="Email"
+                  type="email"
+                  matInput
+                />
+                <mat-error *ngIf="f['email'].hasError('required')">required</mat-error>
+                <mat-error *ngIf="f['email'].hasError('email')">Please enter a valid email</mat-error>
+              </mat-form-field>
+            </div>
 
 
+            <!-- Password -->
+            <div class="row justify-content-center">
+              <mat-form-field class="col-12">
+                <input
+                  formControlName="password"
+                  placeholder="Password"
+                  type="password"
+                  matInput
+                />
+                <mat-error *ngIf="f['password'].hasError('required')">required</mat-error>
+              </mat-form-field>
+            </div>
+        
+            <!-- Submit -->
+            <div class="row justify-content-center">
+                <div class="col-2">
+                  <button
+                    type="submit"
+                    (click)="onSubmit()"
+                    class="needed"
+                    mat-raised-button
+                    color="primary"
+                    [disabled]="!registerForm.valid || disSubmit"
+                  >
+                    Submit
+                  </button>
+                </div>
+            </div>
 
-  <!--Needed-->
-  <button type="submit" (click)="onSubmit()" 
-  class="needed" mat-raised-button [disabled]="!registerForm.valid||disSubmit">Submit</button>
+          </form>
+
+              
+          <!--External Links-->
+          <div class="row justify-content-around">
+
+            <button class="col-1" type="button" [disabled]="disSubmit"
+            [routerLink]="['/login']" mat-raised-button >Login</button>
+
+            <div class="col"></div>
+
+          </div>
+
+          <div class="bottom-progressbar-card z-index-8" >
+            <mat-progress-bar *ngIf="disSubmit" mode="query"></mat-progress-bar>
+          </div>
+
+        </mat-card>
+
+    </div>
 
 
-</form>
-<button type="button" [routerLink]="['/login']" mat-raised-button>Login</button>
+  </div>
+</div>

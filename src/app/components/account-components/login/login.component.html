@@ -3,7 +3,7 @@
   <div class="row justify-content-center">
     <!---     Form       -->
     <div class="col-6">
-      <mat-card class="login-card z-index-1">
+      <mat-card class="form-card z-index-10">
         <form [formGroup]="loginform">
           
           <!--UserName-->
@@ -35,7 +35,7 @@
           <div class="row justify-content-around">
 
             <div class="col">
-              <a  class="no-gutters small" href="#">Forget password</a>
+              <a  class="no-gutters small" href="#">Forget password (Disabled for Developing)</a>
             </div>
 
             <button class="col-1" type="button" [disabled]="disSubmit"
@@ -45,7 +45,10 @@
           
         </form>
 
-        <mat-progress-bar class="bottom-progressbar-card z-index-2" *ngIf="disSubmit" mode="query"></mat-progress-bar>
+        <div class="bottom-progressbar-card z-index-8" >
+            <mat-progress-bar *ngIf="disSubmit" mode="query"></mat-progress-bar>
+        </div>
+
       </mat-card>
   
     </div>

@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { UserService, AlertService } from '../../../_auth.collection';
 import { first } from 'rxjs/operators';
 import { MatSnackBar } from '@angular/material';
+import { TestMethodsService } from 'src/app/test-methods.service';
 
 @Component({
   selector: 'app-register',
@@ -20,7 +21,8 @@ export class RegisterComponent implements OnInit,OnDestroy {
       private router: Router,
       private snake:MatSnackBar,
       private userService: UserService,
-      private alertService: AlertService) { }
+      private alertService: AlertService,
+      private testSrv:TestMethodsService) { }
 
   ngOnInit() {
       this.registerForm = this.formBuilder.group({
@@ -63,7 +65,7 @@ export class RegisterComponent implements OnInit,OnDestroy {
             });
   }
 
-  
+
 
   ngOnDestroy(){
       //location.reload()

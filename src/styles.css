@@ -139,10 +139,17 @@ button {
   min-height: 55px !important;
   height: 30px;
 }
-#top-progress-bar{
+.bottom-progressbar-card{
+  position: absolute;
+  bottom: 0px;
+  left: 0;
+  width: 100%;
 }
 
-
+.form-card{
+  margin-top:20px ;
+  position: relative;
+}
 
 
 
