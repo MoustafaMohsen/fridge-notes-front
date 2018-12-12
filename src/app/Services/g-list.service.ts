@@ -21,6 +21,7 @@ export class GListService {
   Lastdate = -1;
   showAddCard: boolean = false;
   showAddCard$: Subject<boolean> = new Subject();
+  clickAddCardButton$: Subject<boolean> = new Subject();
 
   AddFromItem: Grocery = {
     name: "",

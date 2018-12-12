@@ -34,7 +34,8 @@ export class AddCardComponent implements OnInit {
         this.styler.scrollById("Scrolltarget_1",100)
         this.styler.focusById("NameFieldEl",500)
       }
-    })
+    });
+
   }
 
   //add method

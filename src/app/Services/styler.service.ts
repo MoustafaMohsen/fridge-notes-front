@@ -7,9 +7,8 @@ export class StylerService {
 
   constructor() { }
   scrollById(elId:string,delay=100) {
-    console.log("scrolling to",elId);
-    
     setTimeout(() => {
+      console.log("scrolling to",elId);
       const elementList = document.querySelectorAll('#' + elId);
       if(elementList.length==0)
         return
@@ -19,12 +18,26 @@ export class StylerService {
   }
 
   focusById(elId:string,delay=600){
+    
     setTimeout(() => {
+      console.log("focusById",elId);
       const elementList = document.querySelectorAll('#' + elId);
       if(elementList.length==0)
         return
       const element = elementList[0] as HTMLElement;
       element.focus();
+    }, delay);
+  }
+
+  click(elId:string,delay=600){
+    
+    setTimeout(() => {
+      console.log("click",elId);
+      const elementList = document.querySelectorAll('#' + elId);
+      if(elementList.length==0)
+        return
+      const element = elementList[0] as HTMLElement;
+      element.click();
     }, delay);
   }
   
