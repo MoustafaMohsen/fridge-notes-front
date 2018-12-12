@@ -6,6 +6,7 @@ import { _BaseUrl } from "../../statics/config";
 import { Subject, BehaviorSubject } from 'rxjs';
 import { UserDto, LoginUserDto } from '../_models/user';
 import { ResponseDto } from 'src/app/statics/Dto';
+import { RolesService } from './Roles.service';
 
 export const _BASEURL = _BaseUrl;
 
@@ -49,24 +50,23 @@ export class AuthenticationService {
     
    }
 
-   async updateCurrentUserFromServer():Promise<UserDto>{
+  updateCurrentUserFromServer(){
     if (Object.keys(this.CurrentUser).length ===0) {
       console.error("User Dto is null in service");
       console.log(this.CurrentUser);
       return null;
     }
-    await this.ReAuthenticate().subscribe( 
+    return this.ReAuthenticate().subscribe(
       (r)=>{
         console.log(r);
         if(r.isSuccessful){
           this.updateCurrentUser(true,r.value);
-          return r.value
         }
       },
       (e)=>{
         console.log(e);
       }
-    );
+    );    
   }
 
   login(usernameOrEmail:string,password:string){

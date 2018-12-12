@@ -40,6 +40,16 @@ export class UserService {
     return this.http.get<ResponseDto<string>>(`${this.BASEURL}/api/users/generateinvitation`)
   }
 
+  ConfirmEmailAccount(Id:string,vercode:string){
+    let params = `Id=${Id}&verCode=${vercode}`;
+    return this.http.get<ResponseDto<string>>(`${this.BASEURL}/api/verification/verifyemail?${params}`)
+  }
+
+  SendEmailVerification(Id:string){
+    let params = `Id=${Id}`;
+    return this.http.get<ResponseDto<string>>(`${this.BASEURL}/api/verification/sendverifyemail?${params}`)
+  }
+
   AddFriend(FriendRequestDto:FriendRequestDto){
     return this.http.post<ResponseDto<UserFriend>>(`${this.BASEURL}/api/users/addfriend`,FriendRequestDto)
   }

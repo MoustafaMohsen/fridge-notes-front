@@ -1,7 +1,9 @@
 <div class="container">
   
-  <mat-card class="row justify-content-center">
-    Please Check Your email <h3>{{this.currentuser.Email}}</h3> to Complete registration, Make sure to check spam folder too
+  <mat-card class="row justify-content-center check-email-card">
+    <div [innerHTML]=Htmlmessage>
+
+    </div>
   </mat-card>
 
 </div>

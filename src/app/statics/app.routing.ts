@@ -6,6 +6,7 @@ import { RegisterComponent } from '../components/account-components/register/reg
 import { AuthGuard,UnverifiedGaurd } from '../_auth.collection';
 import { ManageAccountComponent } from '../components/account-components/manage-account/manage-account.component';
 import { RegistrationCheckEmailsComponent } from '../registration-check-emails/registration-check-emails.component';
+import { EmailVerificationComponent } from '../email-verification/email-verification.component';
 
 
 export const appRoutes:Routes =[
@@ -15,6 +16,9 @@ export const appRoutes:Routes =[
 
   //login auth
   {path:'check-email' , component:RegistrationCheckEmailsComponent,canActivate:[UnverifiedGaurd]},
+
+  //verification
+  {path:'verify-email' , component:EmailVerificationComponent,canActivate:[UnverifiedGaurd]},
 
   {path:'login',component:LoginComponent},
   {path:'register',component:RegisterComponent},

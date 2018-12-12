@@ -37,6 +37,7 @@ import { AddCardComponent } from './components/card-components/add-card/add-card
 import { AddButtonComponent } from './components/card-components/button-components/add-button/add-button.component';
 import { EditUserComponent } from './components/account-components/edit-user/edit-user.component';
 import { RegistrationCheckEmailsComponent } from './registration-check-emails/registration-check-emails.component';
+import { EmailVerificationComponent } from './email-verification/email-verification.component';
 
 
 @NgModule({
@@ -57,6 +58,7 @@ import { RegistrationCheckEmailsComponent } from './registration-check-emails/re
     AddButtonComponent,
     EditUserComponent,
     RegistrationCheckEmailsComponent,
+    EmailVerificationComponent,
 
     
   ],
