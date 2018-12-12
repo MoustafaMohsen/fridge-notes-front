@@ -151,6 +151,10 @@ button {
   position: relative;
 }
 
+.disable-anchor{
+  pointer-events: none;
+  cursor: default;
+}
 
 
 
