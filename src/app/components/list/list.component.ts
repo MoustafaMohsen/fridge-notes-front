@@ -30,8 +30,9 @@ export class ListComponent implements OnInit, OnDestroy {
       
       console.log(this.web.Glist);
       
-      if(!this.web.Glist || this.web.Glist.length==0)
-      this.web.clickAddCardButton$.next(true)
+      if(!this.web.Glist || this.web.Glist.length==0 )
+        if(!this.web.showAddCard)
+          this.web.clickAddCardButton$.next(true)
     }
     this.web.UpdateList$.next({loading:true,ExcuteOnSuccess:ExcuteOnSuccess});
   }

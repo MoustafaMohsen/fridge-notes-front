@@ -9,10 +9,9 @@ export class StylerService {
   scrollById(elId:string,delay=100) {
     setTimeout(() => {
       console.log("scrolling to",elId);
-      const elementList = document.querySelectorAll('#' + elId);
-      if(elementList.length==0)
+      const element = document.getElementById(elId);
+      if(element === null)
         return
-      const element = elementList[0] as HTMLElement;
       element.scrollIntoView({ behavior: 'smooth' });
     }, delay);
   }
@@ -21,10 +20,9 @@ export class StylerService {
     
     setTimeout(() => {
       console.log("focusById",elId);
-      const elementList = document.querySelectorAll('#' + elId);
-      if(elementList.length==0)
+      const element = document.getElementById(elId);      
+      if(element === null)
         return
-      const element = elementList[0] as HTMLElement;
       element.focus();
     }, delay);
   }
@@ -33,10 +31,9 @@ export class StylerService {
     
     setTimeout(() => {
       console.log("click",elId);
-      const elementList = document.querySelectorAll('#' + elId);
-      if(elementList.length==0)
+      const element = document.getElementById(elId);
+      if(element === null)
         return
-      const element = elementList[0] as HTMLElement;
       element.click();
     }, delay);
   }
