@@ -55,7 +55,9 @@ export class LoginComponent implements OnInit,OnDestroy {
         }
       },
       err=>{
-        this.snake.open(`${err.error.errors}`,"X",{duration:3000});
+        if (err.status === 400) {
+          this.snake.open(`${err.error.errors}`,"X",{duration:3000});
+        }
         this.disSubmit=false;
         this.alertService.error(err);
       }

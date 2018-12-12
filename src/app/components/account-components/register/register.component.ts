@@ -57,7 +57,9 @@ export class RegisterComponent implements OnInit,OnDestroy {
                     this.login(username,password,"check-email")
                 }
                 else{
-                    this.snake.open(`${r.errors}`,"X",{duration:3000});
+                    this.snake.open(`Operation unsuccessfull!`,"X",{duration:20000});
+                    console.error(r);
+                    ;
                 }
             },
             err => {
