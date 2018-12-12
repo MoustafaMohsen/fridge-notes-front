@@ -6,7 +6,7 @@ import { RolesService } from '../_services/Roles.service';
 @Injectable({
   providedIn: 'root'
 })
-export class UnverifiedGuard implements CanActivate {
+export class ClientGuard implements CanActivate {
   constructor(private router:Router,private auth:AuthenticationService,private RolesSrv:RolesService){}
   
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
@@ -14,9 +14,14 @@ export class UnverifiedGuard implements CanActivate {
     // If logged in check roles
     if ( Object.keys(this.auth.CurrentUser).length !==0 ) {      
 
-        let result = this.RolesSrv.isUnverified(this.auth.CurrentUser)
+        let result = this.RolesSrv.isClient(this.auth.CurrentUser)
         console.log(result);
-        
+        if(!result){
+            let unverified = this.RolesSrv.isUnverified(this.auth.CurrentUser);
+
+            if(unverified)
+                this.router.navigate(['/check-email']);
+        }
         return result;
     }
 

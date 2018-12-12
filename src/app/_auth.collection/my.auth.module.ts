@@ -7,7 +7,8 @@ import {  JwtInterceptor} from './_interceptors/jwt.interceptor';
 import { AuthGuard} from './_guards/auth.guard';
 import { CommonModule } from '@angular/common';
 import { Bug200ok } from './_interceptors/bug.200ok.interpector';
-import { UnverifiedGaurd } from './_guards/unverified.guard';
+import { UnverifiedGuard } from './_guards/unverified.guard';
+import { ClientGuard } from './_guards/client.guard';
 //import {  AlertService } from './_services/alert.service';
 //import {  AuthenticationService } from './_services/authentication.service';
 //import {  UserService } from './_services/user.service';
@@ -19,7 +20,8 @@ import { UnverifiedGaurd } from './_guards/unverified.guard';
   imports: [ CommonModule],
   providers: [
     AuthGuard,
-    UnverifiedGaurd,
+    UnverifiedGuard,
+    ClientGuard,
     //AlertService,
     //AuthenticationService,
     //UserService,
