@@ -17,7 +17,11 @@
           <form action="" class="" [formGroup]="userForm">
             <div class="row">
                 <mat-form-field class="spacing">
-                    <input formControlName="username" placeholder="username (not editable)" type="text" matInput>
+                    <input formControlName="username" placeholder="username (not editable)"
+                     type="text" matInput>
+                  </mat-form-field>
+                  <mat-form-field class="spacing">
+                    <input formControlName="email" placeholder="Email (not editable)" type="email" matInput>
                   </mat-form-field>
             </div>
 
@@ -37,22 +41,21 @@
                     class="fas fa-edit"></i></button>
               </mat-form-field>
 
-              <mat-form-field class="spacing">
-                  <input formControlName="email" placeholder="Email" type="email" matInput>
-                  <button matSuffix mat-icon-button (click)="enableControl(f['email'])" *ngIf="f['email'].value == this.currentUser.Email"><i
-                      class="fas fa-edit"></i></button>
-                </mat-form-field>
+
 
             </div>
 
             <div class="row align-content-center justify-content-end">
 
-                <mat-form-field class="spacing col-sm-3">
+                <mat-form-field class="spacing col-sm-3" *ngIf="!usrFBtn">
                     <input formControlName="oldpassword" placeholder="Your Password" 
                     type="password" matInput>
+                    <mat-error *ngIf="this.userForm.get('oldpassword').hasError('required')">Required</mat-error>
                 </mat-form-field>
 
-              <button mat-raised-button class="max-height-button  col-sm-2 align-self-center" [disabled]="usrFBtn" (click)="editUser()">Edit info</button>
+              <button mat-raised-button class="max-height-button  col-sm-2 align-self-center" 
+              [disabled]="usrFBtn" (click)="editUser()">Edit info</button>
+              <button mat-button (click)="resetEditUser()" *ngIf="!usrFBtn">cancel</button>
 
             </div>
 

@@ -3,6 +3,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { UserService, AlertService } from '../../../_auth.collection';
 import { first } from 'rxjs/operators';
+import { MatSnackBar } from '@angular/material';
 
 @Component({
   selector: 'app-register',
@@ -12,11 +13,12 @@ import { first } from 'rxjs/operators';
 export class RegisterComponent implements OnInit,OnDestroy {
   registerForm: FormGroup;
   loading = false;
-  submitted = false;
+  disSubmit = false;
 
   constructor(
       private formBuilder: FormBuilder,
       private router: Router,
+      private snake:MatSnackBar,
       private userService: UserService,
       private alertService: AlertService) { }
 
@@ -34,7 +36,7 @@ export class RegisterComponent implements OnInit,OnDestroy {
   get f(){return this.registerForm.controls;}
 
   onSubmit() {
-      this.submitted = true;
+      this.disSubmit = true;
       // stop here if form is invalid
       if (this.registerForm.invalid) {
           return;
@@ -42,16 +44,23 @@ export class RegisterComponent implements OnInit,OnDestroy {
 
       this.loading = true;
       this.userService.Register(this.registerForm.value)
-          .pipe(first())
           .subscribe(
-              data => {
-                  this.alertService.success('Registration successful', true);
-                  this.router.navigate(['/login']);
-              },
-              error => {
-                  this.alertService.error(error);
-                  this.loading = false;
-              });
+            r => {
+                this.disSubmit = false;
+                if (r.isSuccessful) {
+                    this.snake.open(`Registration successful`,"X",{duration:3000});
+                    this.router.navigate(['/login']);
+                }
+                else{
+                    this.snake.open(`${r.errors}`,"X",{duration:3000});
+                }
+            },
+            err => {
+                this.snake.open(`${err.error.errors}`,"X",{duration:3000});
+                this.disSubmit = false;
+                this.alertService.error(err);
+                this.loading = false;
+            });
   }
 
   

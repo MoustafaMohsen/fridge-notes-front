@@ -62,6 +62,7 @@ export class ManageAccountComponent implements OnInit,OnDestroy {
         this.updateList(false);
       },
       e=>{
+        this.snack.open(`${e.error.errors}`,"x",{duration:3000});
         this.AddfriendBtn=false;
       }
     )
@@ -69,28 +70,36 @@ export class ManageAccountComponent implements OnInit,OnDestroy {
   
 
   updateList(showSnack=true){
-    this.auth.ReAuthenticate().subscribe( (r)=>{
-      console.log(r);
-      
-      if(showSnack){
-        this.snack.open(`${r.statusText}`,"x",{duration:3000});
+    this.auth.ReAuthenticate().subscribe( 
+      (r)=>{
+        console.log(r);
+        if(showSnack){
+          this.snack.open(`${r.statusText}`,"x",{duration:3000});
+        }
+        if(r.isSuccessful){
+          this.auth.updateCurrentUser(true,r.value);
+          this.friends=this.auth.CurrentUser.userFriends;
+        }
+      },
+      (e)=>{
+        this.snack.open(`${e.error.errors}`,"x",{duration:3000});
       }
-      if(r.isSuccessful){
-        this.auth.updateCurrentUser(true,r.value);
-        this.friends=this.auth.CurrentUser.userFriends;
-      }
-
-    } )
+    )
   }
   
   GenInvitaion(){
     this.GenInvitaionBtn=true;
-    var resonse =this.userSrv.GenerateInvitaionCode().subscribe(r=>{
-      var code = r.value
-      this.invetationCode=code;
-      console.log(code);
-    },
+    var resonse =this.userSrv.GenerateInvitaionCode().subscribe(
+      r=>{
+        console.log(r);
+        
+        var code = r.value
+        this.invetationCode=code;
+        console.log(code);
+        this.GenInvitaionBtn=false;
+      },
     e=>{
+      this.snack.open(`${e.error.errors}`,"x",{duration:3000});
       this.GenInvitaionBtn=false;
     });
   }

@@ -32,7 +32,7 @@ export class UserService {
   }
 
   Register(user:UserDto){
-    return this.http.post(`${this.BASEURL}/api/users/register`,user)
+    return this.http.post<any>(`${this.BASEURL}/api/users/register`,user)
   }
 
   

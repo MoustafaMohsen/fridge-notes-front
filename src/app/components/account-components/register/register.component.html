@@ -3,31 +3,37 @@
   <!--Username-->
   <mat-form-field class="spacing">
     <input formControlName="username" placeholder="Username"type="text" matInput>
+    <mat-error *ngIf="f['username'].hasError('required')">required</mat-error>
   </mat-form-field>
 
   <!--FirstName-->
   <mat-form-field class="spacing">
     <input formControlName="firstName" placeholder="First Name" type="text" matInput>
+    <mat-error *ngIf="f['firstName'].hasError('required')">required</mat-error>
   </mat-form-field>
 
   <!--LastName-->
   <mat-form-field class="spacing">
     <input formControlName="lastName" placeholder="Last Name" type="text" matInput>
+    <mat-error *ngIf="f['lastName'].hasError('required')">required</mat-error>
   </mat-form-field>
 
     <!--Email-->
     <mat-form-field class="spacing">
         <input formControlName="email" placeholder="Email" type="email" matInput>
+        <mat-error *ngIf="f['email'].hasError('required')">required</mat-error>
       </mat-form-field>
   <!--Password-->
   <mat-form-field class="spacing">
     <input formControlName="password" placeholder="Password" type="password" matInput>
+    <mat-error *ngIf="f['password'].hasError('required')">required</mat-error>
   </mat-form-field>
 
 
 
   <!--Needed-->
-  <button type="submit" (click)="onSubmit()" class="needed" mat-raised-button [disabled]="!registerForm.valid">Submit</button>
+  <button type="submit" (click)="onSubmit()" 
+  class="needed" mat-raised-button [disabled]="!registerForm.valid||disSubmit">Submit</button>
 
 
 </form>
