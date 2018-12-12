@@ -5,6 +5,7 @@ export * from "./_services/authentication.service";
 //Inteceptors
 export * from "./_interceptors/error.interceptor";
 export * from "./_interceptors/jwt.interceptor";
+export * from "./_guards/unverified.guard"
 export * from "./_interceptors/bug.200ok.interpector";
 //Guard
 export * from "./_guards/auth.guard";

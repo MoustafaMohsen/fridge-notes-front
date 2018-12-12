@@ -36,6 +36,7 @@ import { TopnavComponent } from './components/topnav/topnav.component';
 import { AddCardComponent } from './components/card-components/add-card/add-card.component';
 import { AddButtonComponent } from './components/card-components/button-components/add-button/add-button.component';
 import { EditUserComponent } from './components/account-components/edit-user/edit-user.component';
+import { RegistrationCheckEmailsComponent } from './registration-check-emails/registration-check-emails.component';
 
 
 @NgModule({
@@ -55,6 +56,7 @@ import { EditUserComponent } from './components/account-components/edit-user/edi
     AddCardComponent,
     AddButtonComponent,
     EditUserComponent,
+    RegistrationCheckEmailsComponent,
 
     
   ],

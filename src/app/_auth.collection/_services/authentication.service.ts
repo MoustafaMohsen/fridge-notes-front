@@ -49,6 +49,26 @@ export class AuthenticationService {
     
    }
 
+   async updateCurrentUserFromServer():Promise<UserDto>{
+    if (Object.keys(this.CurrentUser).length ===0) {
+      console.error("User Dto is null in service");
+      console.log(this.CurrentUser);
+      return null;
+    }
+    await this.ReAuthenticate().subscribe( 
+      (r)=>{
+        console.log(r);
+        if(r.isSuccessful){
+          this.updateCurrentUser(true,r.value);
+          return r.value
+        }
+      },
+      (e)=>{
+        console.log(e);
+      }
+    );
+  }
+
   login(usernameOrEmail:string,password:string){
     var LoginInfo :LoginUserDto = {password,usernameOrEmail}  
     return this.http.post<ResponseDto<UserDto>>(`${this.BASEURL}/api//users/login`,LoginInfo)

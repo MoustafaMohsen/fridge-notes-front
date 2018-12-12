@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { UserService, AlertService } from '../../../_auth.collection';
+import { UserService, AlertService, AuthenticationService } from '../../../_auth.collection';
 import { first } from 'rxjs/operators';
 import { MatSnackBar } from '@angular/material';
 import { TestMethodsService } from 'src/app/test-methods.service';
@@ -22,7 +22,7 @@ export class RegisterComponent implements OnInit,OnDestroy {
       private snake:MatSnackBar,
       private userService: UserService,
       private alertService: AlertService,
-      private testSrv:TestMethodsService) { }
+      private authenticationService: AuthenticationService) { }
 
   ngOnInit() {
       this.registerForm = this.formBuilder.group({
@@ -48,23 +48,43 @@ export class RegisterComponent implements OnInit,OnDestroy {
       this.userService.Register(this.registerForm.value)
           .subscribe(
             r => {
-                this.disSubmit = false;
                 if (r.isSuccessful) {
-                    this.snake.open(`Registration successful`,"X",{duration:3000});
-                    this.router.navigate(['/login']);
+                    this.snake.open(`Registration successful, logging in...`,"X",{duration:3000});
+
+                    //internal login
+                    let username=this.f.username.value;
+                    let password=this.f.password.value;
+                    this.login(username,password,"check-email")
                 }
                 else{
                     this.snake.open(`${r.errors}`,"X",{duration:3000});
                 }
             },
             err => {
-                this.snake.open(`${err.error.errors}`,"X",{duration:3000});
+                this.snake.open(`${err.error.errors}`,"X",{duration:20000});
                 this.disSubmit = false;
                 this.alertService.error(err);
                 this.loading = false;
             });
   }
 
+login(username:string,password:string,returnUrl:string){
+    this.authenticationService.login(username,password)
+    //.pipe(first())
+    .subscribe(
+      r=>{
+        console.log("navigate to home");
+        if(r.isSuccessful){
+          this.disSubmit=false;
+          this.router.navigate([returnUrl])
+        }
+      },
+      err=>{
+        this.snake.open(`${err.error.errors}`,"X",{duration:3000});
+        this.disSubmit=false;
+      }
+    );
+  }
 
 
   ngOnDestroy(){

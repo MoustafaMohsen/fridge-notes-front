@@ -80,3 +80,11 @@ export class LoginUserDto
     /**the login password */
     password: string;
 }
+
+export enum MyRoles {
+    admin = "admin",
+    manager = "manager",
+    client = "client",
+    restricted = "restricted",
+    unverfied = "unverfied"
+}
