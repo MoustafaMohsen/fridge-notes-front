@@ -71,7 +71,7 @@ export class AuthenticationService {
 
   login(usernameOrEmail:string,password:string){
     var LoginInfo :LoginUserDto = {password,usernameOrEmail}  
-    return this.http.post<ResponseDto<UserDto>>(`${this.BASEURL}/api//users/login`,LoginInfo)
+    return this.http.post<ResponseDto<UserDto>>(`${this.BASEURL}/api/users/login`,LoginInfo)
     .pipe(map(response=>{
 
       var user = response.value
