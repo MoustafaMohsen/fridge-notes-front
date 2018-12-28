@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthenticationService } from '../_auth.collection/_services/authentication.service';
-import { UserDto, UserService, MyRoles } from '../_auth.collection';
+import { AuthenticationService } from '../../../_auth.collection/_services/authentication.service';
+import { UserDto, UserService, MyRoles } from '../../../_auth.collection';
 import { Router, ActivatedRoute } from '@angular/router';
-import { RolesService } from '../_auth.collection/_services/Roles.service';
+import { RolesService } from '../../../_auth.collection/_services/Roles.service';
 import { MatSnackBar } from '@angular/material';
 
 @Component({

@@ -5,8 +5,8 @@ import { LoginComponent } from '../components/account-components/login/login.com
 import { RegisterComponent } from '../components/account-components/register/register.component';
 import { AuthGuard,UnverifiedGuard,ClientGuard } from '../_auth.collection';
 import { ManageAccountComponent } from '../components/account-components/manage-account/manage-account.component';
-import { RegistrationCheckEmailsComponent } from '../registration-check-emails/registration-check-emails.component';
-import { EmailVerificationComponent } from '../email-verification/email-verification.component';
+import { RegistrationCheckEmailsComponent } from '../components/account-components/registration-check-emails/registration-check-emails.component';
+import { EmailVerificationComponent } from '../components/account-components/email-verification/email-verification.component';
 import { GoogleLoginComponent } from '../components/account-components/google-login/google-login.component';
 import { FacebookLoginComponent } from '../components/account-components/facebook-login/facebook-login.component';
 import { AnonymousGuard } from '../_auth.collection/_guards/anonymous.guard';

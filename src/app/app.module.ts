@@ -36,8 +36,8 @@ import { TopnavComponent } from './components/topnav/topnav.component';
 import { AddCardComponent } from './components/card-components/add-card/add-card.component';
 import { AddButtonComponent } from './components/card-components/button-components/add-button/add-button.component';
 import { EditUserComponent } from './components/account-components/edit-user/edit-user.component';
-import { RegistrationCheckEmailsComponent } from './registration-check-emails/registration-check-emails.component';
-import { EmailVerificationComponent } from './email-verification/email-verification.component';
+import { RegistrationCheckEmailsComponent } from './components/account-components/registration-check-emails/registration-check-emails.component';
+import { EmailVerificationComponent } from './components/account-components/email-verification/email-verification.component';
 import { GoogleLoginComponent } from './components/account-components/google-login/google-login.component';
 import { FacebookLoginComponent } from './components/account-components/facebook-login/facebook-login.component';
 
