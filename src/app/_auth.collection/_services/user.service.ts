@@ -8,6 +8,7 @@ import { ResponseDto } from 'src/app/statics/Dto';
 })
 
 export class UserService {
+  BASEURL = _BASEURL;
   googleUrl = 
   //the authentication url
   "https://accounts.google.com/o/oauth2/auth?"+
@@ -16,7 +17,7 @@ export class UserService {
   "client_id=" +  "939531348067-qr1133hdu7q4i9bpcke2hraetj5e49td.apps.googleusercontent.com&"+
 
   // the redirect uri
-  "redirect_uri=" +  "https://localhost:4200/external-google&"+
+  "redirect_uri=" +  this.BASEURL + "/external-google&"+
 
   //the scope of information
   "scope="+"email profile&"+
@@ -27,10 +28,9 @@ export class UserService {
   FacebookUrl = "https://www.facebook.com/v2.11/dialog/oauth?"+
   "client_id=436896383512845&"+
   "scope="+"email&"+
-  "redirect_uri="+"https://localhost:4200/external-facebook&"+
+  "redirect_uri="  +  this.BASEURL +"/external-facebook&"+
   "response_type="+"code&"
 
-  BASEURL = _BASEURL;
   constructor(private http:HttpClient) { }
 
   GetAll(){
