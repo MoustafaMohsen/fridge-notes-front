@@ -7,6 +7,24 @@
 
         <mat-card class="form-card z-index-10">
 
+          <!--External Login Buttons-->
+          <div class="row justify-content-center">
+              <div class="col-lg-6 col-12">
+                <a [href]=userService.googleUrl class="w-100 google-login-btn"
+                mat-raised-button>
+                  <div>
+                      <i class="login-image fab fa-google"></i>
+                    Login With Google
+                  </div>
+              </a>
+              </div>
+              <div class="col-lg-6 col-12">
+                <a [href]=userService.FacebookUrl class="w-100 facebook-login-btn"
+                mat-raised-button ><i class="login-image fab fa-facebook-f"></i> Login With Facebook</a>
+              </div>
+    
+            </div>
+
           <form [formGroup]="registerForm">
             <!-- Username -->
           <div class="row justify-content-center">

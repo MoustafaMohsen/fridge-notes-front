@@ -17,14 +17,28 @@ export class AuthenticationService {
   CurrentUser:UserDto=new UserDto();
   user$:Subject<UserDto>=new Subject();
   BASEURL = _BASEURL;
+  loggedin:boolean;
   constructor(private http:HttpClient) {
 
     this.user$.subscribe((u)=>{
+      this.loggedin=this.validUser(u)
       this.CurrentUser=u;
     });
     this.updateCurrentUser();
 
    }//constructor
+
+
+   get logged ():boolean{
+    return this.validUser(this.CurrentUser)
+   }
+
+
+   get IsExternalLogin():boolean{
+     if(this.CurrentUser)
+      return !!this.CurrentUser.externalProvider
+    return false;
+   }
 
    updateCurrentUser(sendevent=true,user=null){
      console.log("updateCurrentUser()");
@@ -36,7 +50,6 @@ export class AuthenticationService {
       storageUser =JSON.parse( localStorage.getItem('currentuser') );
       console.log("user");
       console.log(storageUser);
-      
     }
     
     if (storageUser && storageUser.token) {
@@ -51,6 +64,8 @@ export class AuthenticationService {
    }
 
   updateCurrentUserFromServer(){
+    console.log("updateCurrentUserFromServer()");
+    
     if (Object.keys(this.CurrentUser).length ===0) {
       console.error("User Dto is null in service");
       console.log(this.CurrentUser);
@@ -115,6 +130,11 @@ export class AuthenticationService {
 
       return response;
     }))
+  }
+
+  validUser(u:UserDto){
+    let result = u&&u.token&&Object.keys(u).length !==0;
+    return result;
   }
 
   logout(){

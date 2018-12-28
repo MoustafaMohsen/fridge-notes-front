@@ -4,26 +4,25 @@ import { UserDto, FriendRequestDto, UserFriend } from '../../../_auth.collection
 import { UserService } from '../../../_auth.collection/_services/user.service';
 import { MatSnackBar } from '@angular/material';
 import { StylerService } from '../../../Services/styler.service';
-@Component({
-  selector: 'app-account',
-  templateUrl: './manage-account.component.html',
-  styleUrls: ['./manage-account.component.css']
-})
-export class ManageAccountComponent implements OnInit,OnDestroy {
 
+@Component({
+  selector: 'app-people-managment',
+  templateUrl: './people-managment.component.html',
+  styleUrls: ['./people-managment.component.css']
+})
+export class PeopleManagmentComponent implements OnInit {
   friends:UserFriend[];
   friendCode:string;
   invetationCode:string;
   GenInvitaionBtn:boolean=false;
   AddfriendBtn:boolean=false;
+
   constructor(private auth:AuthenticationService,private userSrv:UserService,private snack:MatSnackBar
     ,public styler:StylerService) { }
 
   ngOnInit() {
-    this.friends=this.auth.CurrentUser.userFriends
-    this.invetationCode="";
   }
-  
+
   DeleteFriend(friend:UserFriend){
     console.log("DeleteFriend()");
     console.log(friend);
@@ -67,10 +66,9 @@ export class ManageAccountComponent implements OnInit,OnDestroy {
       }
     )
   }
-  
 
   updateList(showSnack=true){
-    this.auth.ReAuthenticate().subscribe( 
+    this.auth.ReAuthenticate().subscribe(
       (r)=>{
         console.log(r);
         if(showSnack){
@@ -82,7 +80,8 @@ export class ManageAccountComponent implements OnInit,OnDestroy {
         }
       },
       (e)=>{
-        this.snack.open(`${e.error.errors}`,"x",{duration:3000});
+        if(showSnack)
+          this.snack.open(`${e.error.errors}`,"x",{duration:3000});
       }
     )
   }
@@ -103,7 +102,6 @@ export class ManageAccountComponent implements OnInit,OnDestroy {
       this.GenInvitaionBtn=false;
     });
   }
-  
 
   pasteTofriendCode(){
     let Naveigator = (<any>navigator)
@@ -117,7 +115,4 @@ export class ManageAccountComponent implements OnInit,OnDestroy {
   });
   }
 
-  ngOnDestroy(){
-    
-  }
 }

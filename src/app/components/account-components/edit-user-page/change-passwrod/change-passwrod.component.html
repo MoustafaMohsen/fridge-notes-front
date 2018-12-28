@@ -1,0 +1,37 @@
+<div class="row input-row">
+    <div class="col-md-3 col-sm-4">
+      <p class="text-secondary">Change Password</p>
+
+
+    </div>
+
+    <div class="col-md-9 col-sm-8">
+
+      <form action="" class="" [formGroup]="passwordform">
+
+        <div class="row">
+
+          <mat-form-field class="spacing" *ngIf="!IsExternalLogin">
+            <input formControlName="oldpassword" placeholder="Old Password" type="password" matInput>
+          </mat-form-field>
+
+          <mat-form-field class="spacing">
+            <input formControlName="newpassword" placeholder="New Password" type="password" matInput>
+          </mat-form-field>
+
+          <mat-form-field class="spacing">
+            <input formControlName="conpassword" placeholder="Confirm Passwrod" type="password" matInput>
+          </mat-form-field>
+        </div>
+
+        <div class="row align-content-center justify-content-end">
+
+          <button mat-raised-button [disabled]="pfButton" (click)="changepassword()"
+          class="max-height-button col-md-3 col-sm-4 col-5 align-self-center">Change Password</button>
+
+        </div>
+
+      </form>
+
+    </div>
+  </div>

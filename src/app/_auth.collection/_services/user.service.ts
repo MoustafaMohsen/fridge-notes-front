@@ -8,6 +8,28 @@ import { ResponseDto } from 'src/app/statics/Dto';
 })
 
 export class UserService {
+  googleUrl = 
+  //the authentication url
+  "https://accounts.google.com/o/oauth2/auth?"+
+
+  // the client id
+  "client_id=" +  "939531348067-qr1133hdu7q4i9bpcke2hraetj5e49td.apps.googleusercontent.com&"+
+
+  // the redirect uri
+  "redirect_uri=" +  "https://localhost:4200/external-google&"+
+
+  //the scope of information
+  "scope="+"email profile&"+
+
+  //the response type
+  "response_type="+"code&"
+
+  FacebookUrl = "https://www.facebook.com/v2.11/dialog/oauth?"+
+  "client_id=436896383512845&"+
+  "scope="+"email&"+
+  "redirect_uri="+"https://localhost:4200/external-facebook&"+
+  "response_type="+"code&"
+
   BASEURL = _BASEURL;
   constructor(private http:HttpClient) { }
 
@@ -26,8 +48,8 @@ export class UserService {
     return this.http.delete<ResponseDto<boolean>>(`${this.BASEURL}/api/users/DeleteUser`);
   }
 
-  ChangePassword(passDto:UpdatePasswordDto){
-    return this.http.put<ResponseDto<UserDto>>(`${this.BASEURL}/api/users/changepassword`,passDto);
+  ChangePassword(passDto:UpdatePasswordDto,force:boolean=false){
+    return this.http.put<ResponseDto<UserDto>>(`${this.BASEURL}/api/users/changepassword?force=${force}`,passDto);
   }
 
   Register(user:UserDto){

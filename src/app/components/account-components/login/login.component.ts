@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import {AuthenticationService, AlertService} from '../../../_auth.collection';
+import {AuthenticationService, AlertService, UserService} from '../../../_auth.collection';
 import {UserDto} from '../../../_auth.collection';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -15,13 +15,12 @@ export class LoginComponent implements OnInit,OnDestroy {
   loginform:FormGroup;
   returnUrl: string;
   disSubmit=false;
-  googleUrl = `https://accounts.google.com/o/oauth2/auth?response_type=code&redirect_uri=https://localhost:4200/external-google&scope=email profile&client_id=939531348067-qr1133hdu7q4i9bpcke2hraetj5e49td.apps.googleusercontent.com`
-  FacebookUrl = `https://www.facebook.com/v2.11/dialog/oauth?response_type=code&client_id=436896383512845&redirect_uri=https://localhost:4200/external-facebook&scope=email`
 
     constructor(
         private formBuilder: FormBuilder,
         private route: ActivatedRoute,
         private router: Router,
+        public userService: UserService,
         private snake:MatSnackBar,
         private authenticationService: AuthenticationService,
         private alertService: AlertService) {}

@@ -1,46 +1,38 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, AbstractControl, Validators } from '@angular/forms';
-import { AuthenticationService, UserDto, UpdatePasswordDto, UserService } from '../../../_auth.collection';
+import { AuthenticationService, UserDto, UpdatePasswordDto, UserService } from '../../../../_auth.collection';
 import { MatSnackBar } from '@angular/material';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-edit-user',
-  templateUrl: './edit-user.component.html',
-  styleUrls: ['./edit-user.component.css']
+  selector: 'app-edit-user-section',
+  templateUrl: './edit-user-section.component.html',
+  styleUrls: ['./edit-user-section.component.css']
 })
-export class EditUserComponent implements OnInit {
-
+export class EditUserSectionComponent implements OnInit {
+  
   userForm:FormGroup;
-  passwordform:FormGroup;
   currentUser:UserDto;
-  pfButton:boolean=true;
   usrFBtn:boolean=true;
+  IsExternalLogin:boolean=false;
   constructor(
     formbuilder:FormBuilder,
     private router: Router,
     private auth:AuthenticationService,
     private user:UserService,
     private snack:MatSnackBar
-    ) {
-
-    this.userForm=formbuilder.group({
-      username:[""],
-      firstname:[""],
-      lastname:[""],
-      oldpassword:["",[Validators.required]],
-      email:["",Validators.email]
-    });
-
-    this.passwordform=formbuilder.group({
-      oldpassword:["",[Validators.required]],
-      newpassword:[""],
-      conpassword:[""]
+    ) 
+    {
+      this.userForm=formbuilder.group({
+        username:[""],
+        firstname:[""],
+        lastname:[""],
+        oldpassword:["",[Validators.required]],
+        email:["",Validators.email]
     });
 
    }//constructor
-
-
+   get f (){return this.userForm.controls}
   ngOnInit() {
     this.currentUser=this.auth.CurrentUser;
     this.f.firstname.setValue(this.auth.CurrentUser.FirstName);
@@ -50,33 +42,27 @@ export class EditUserComponent implements OnInit {
     this.f.oldpassword.setValue("");
     this.userForm.disable({emitEvent:false});
 
-    this.passwordform.statusChanges.subscribe(d=>{
-      let op=this.passwordform.controls['oldpassword'].value?true:false;
-      let np=this.passwordform.controls['newpassword'].value?true:false;
-      let cp=this.passwordform.controls['conpassword'].value?true:false;   
-      let all=!(op&&np&&cp);
-      this.pfButton=all
-    });
+    setTimeout(() => {
+      this.IsExternalLogin=this.auth.IsExternalLogin;
+      if(this.IsExternalLogin){
+        this.userForm.get('oldpassword').setValidators([]);
+      }else{
+        this.userForm.get('oldpassword').setValidators([Validators.required]);
+      }
+      console.log(this.auth.IsExternalLogin,this.currentUser.externalProvider);
+    }, 500);
 
     this.userForm.statusChanges.subscribe(d=>{
       let fn=this.f['firstname'].value != this.currentUser.FirstName;
       let ln=this.f['lastname'].value != this.currentUser.LastName;
       let all=!(fn||ln)
       this.usrFBtn=all;
-      /*
-      if(all)
-        this.f['email'].disable({emitEvent:false})
-      */
-       //enable password form
-       if(all){
+       if(all&&!this.IsExternalLogin){
          this.userForm.get("oldpassword").enable({emitEvent:false});
        }
     });
     
-  }
-
-  get f (){return this.userForm.controls}
-  get pf (){return this.passwordform.controls}
+  }//ngOnInit
 
   enableControl(control:AbstractControl,enableAnyway:boolean){
     if(enableAnyway){
@@ -91,10 +77,10 @@ export class EditUserComponent implements OnInit {
       }
     }
   }//enableControl()
-
+  
   editUser(){
     //check that password was entered 
-    if (this.f['oldpassword'].value ==""||this.f['oldpassword'].value==null) {
+    if (!this.IsExternalLogin&&(this.f['oldpassword'].value ==""||this.f['oldpassword'].value==null)) {
       this.snack.open(`Please enter your password first`,`X`,{duration:10000});
       this.userForm.get("oldpassword").markAsTouched();
       return;
@@ -104,7 +90,14 @@ export class EditUserComponent implements OnInit {
     userdto.FirstName=this.f['firstname'].value;
     userdto.LastName=this.f['lastname'].value;
     userdto.password=this.f['oldpassword'].value;
-    this.user.Update(userdto).subscribe(user=>{
+    userdto.externalProvider=this.currentUser.externalProvider;
+    console.log("sending");
+    console.log(userdto);
+    
+    this.user.Update(userdto,this.IsExternalLogin).subscribe(user=>{
+      console.log("Update");
+      console.log(user);
+      
       this.usrFBtn=false;
       this.auth.updateCurrentUser(true,user.value)
       this.f['firstname'].setValue(user.value.FirstName);
@@ -125,37 +118,20 @@ export class EditUserComponent implements OnInit {
     this.usrFBtn=true;
   }
 
-  changepassword(){
-    if (this.pf['newpassword'].value!=this.pf['conpassword'].value) {
-      console.log("incompatiable passwords");
-      return ;
-    }
-    let passdto:UpdatePasswordDto={
-      id:this.currentUser.Id,
-      oldpassword:this.pf['oldpassword'].value,
-      newpassword:this.pf['newpassword'].value
-    }
-    this.user.ChangePassword(passdto).subscribe(user=>{
-      this.auth.updateCurrentUser(true,user.value)
-      this.currentUser=user.value;
-      this.passwordform.disable({emitEvent:false});
-    });
-
-  }//changepassword()
-
-  DeleteAccount(){
-    this.user.DeleteUser().subscribe(u=>{
-      console.log("==DeleteUser()");
-      console.log(u);
-      console.log("DeleteUser()==");
-      
-      this.snack.open(`${u.statusText}`,"X",{duration:5000})
-      if (u.isSuccessful) {
-        console.log("logout");
-        this.auth.logout();
-        console.log("navigate");  
-        this.router.navigate([""]);
+  updateList(showSnack=true){
+    this.auth.ReAuthenticate().subscribe( 
+      (r)=>{
+        console.log(r);
+        if(showSnack){
+          this.snack.open(`${r.statusText}`,"x",{duration:3000});
+        }
+        if(r.isSuccessful){
+          this.auth.updateCurrentUser(true,r.value);
+        }
+      },
+      (e)=>{
+        this.snack.open(`${e.error.errors}`,"x",{duration:3000});
       }
-    })
+    )
   }
-}//class
+}

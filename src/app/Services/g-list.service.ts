@@ -63,6 +63,7 @@ export class GListService {
       if (diff > 1 || this.Lastdate == -1 || _refresh) {
         this.Lastdate = Date.now() / 1000;
         this.getList(_loading, scrollId,ExcuteOnSuccess);
+        this.auth.updateCurrentUserFromServer()
       }
     });
 

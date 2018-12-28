@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { AuthenticationService } from '../../../_auth.collection/_services/authentication.service';
 import { MatSnackBar, MatMenuTrigger } from '@angular/material';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { UserService } from '../../../_auth.collection';
 import { GListService } from '../../../Services/g-list.service';
 
@@ -15,13 +15,14 @@ export class UserbarComponent implements OnInit {
   //@ViewChild(MatMenuTrigger) userMenu: MatMenuTrigger;
   rotate=false;
   constructor(public auth:AuthenticationService,
-    private snack:MatSnackBar,private router:Router,
+    private snack:MatSnackBar,
+    private router:Router,
+    public activatedRoute:ActivatedRoute,
     private usersSrv:UserService,
-    public web:GListService) { }
+    public web:GListService) { 
+    }
 
-  ngOnInit() {
-
-    
+  ngOnInit() {    
   }
 
   SetLoadingAndellipsis(){

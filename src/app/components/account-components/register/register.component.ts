@@ -20,7 +20,7 @@ export class RegisterComponent implements OnInit,OnDestroy {
       private formBuilder: FormBuilder,
       private router: Router,
       private snake:MatSnackBar,
-      private userService: UserService,
+      public userService: UserService,
       private alertService: AlertService,
       private authenticationService: AuthenticationService) { }
 

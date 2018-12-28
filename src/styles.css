@@ -158,10 +158,51 @@ button {
 
 
 
+.invetaion-code-area {
+  border: black solid 1px;
+  padding: 10px;
+}
+.invetaion-code-row {
+  margin-top: 10px;
+}
+#invetaion-code-area {
+  color: #28a745;
+}
+.app-edit-user {
+  padding-top: 40px;
+  padding-bottom: 40px;
+}
 
 
 
+.google-login-btn{
+  background-color: #DB4437;
+  /*
+  background-color: white;
+  */
+  color: white;
+  word-wrap: normal;
+}
 
+.google-login-btn:hover{
+  background-color: white;
+  color: black;
+  transition: all 200ms;
+}
+
+.facebook-login-btn{
+  background-color: #3C5A99;
+  color: white;
+  word-wrap: normal;
+}
+.facebook-login-btn:hover{
+  background-color: white;
+  color: black;
+  transition: all 200ms;
+}
+.login-image{
+  margin-right: 10px;
+}
 
 
 /* Preset Styles*/

@@ -30,16 +30,19 @@ import { MyAuthModule } from './_auth.collection';
 import { LoginComponent } from './components/account-components/login/login.component';
 import { RegisterComponent } from './components/account-components/register/register.component';
 import { UserbarComponent } from './components/account-components/userbar/userbar.component';
-import { ManageAccountComponent } from './components/account-components/manage-account/manage-account.component';
 import { TopnavComponent } from './components/topnav/topnav.component';
 
 import { AddCardComponent } from './components/card-components/add-card/add-card.component';
 import { AddButtonComponent } from './components/card-components/button-components/add-button/add-button.component';
-import { EditUserComponent } from './components/account-components/edit-user/edit-user.component';
+import { EditUserComponent } from './components/account-components/edit-user-page/edit-user/edit-user.component';
 import { RegistrationCheckEmailsComponent } from './components/account-components/registration-check-emails/registration-check-emails.component';
 import { EmailVerificationComponent } from './components/account-components/email-verification/email-verification.component';
 import { GoogleLoginComponent } from './components/account-components/google-login/google-login.component';
 import { FacebookLoginComponent } from './components/account-components/facebook-login/facebook-login.component';
+import { PeopleManagmentComponent } from './components/account-components/people-managment/people-managment.component';
+import { ChangePasswrodComponent } from './components/account-components/edit-user-page/change-passwrod/change-passwrod.component';
+import { DeleteUserComponent } from './components/account-components/edit-user-page/delete-user/delete-user.component';
+import { EditUserSectionComponent } from './components/account-components/edit-user-page/edit-user-section/edit-user-section.component';
 
 
 @NgModule({
@@ -54,7 +57,6 @@ import { FacebookLoginComponent } from './components/account-components/facebook
     LoginComponent,
     RegisterComponent,
     UserbarComponent,
-    ManageAccountComponent,
     TopnavComponent,
     AddCardComponent,
     AddButtonComponent,
@@ -63,6 +65,10 @@ import { FacebookLoginComponent } from './components/account-components/facebook
     EmailVerificationComponent,
     GoogleLoginComponent,
     FacebookLoginComponent,
+    PeopleManagmentComponent,
+    ChangePasswrodComponent,
+    DeleteUserComponent,
+    EditUserSectionComponent,
 
     
   ],

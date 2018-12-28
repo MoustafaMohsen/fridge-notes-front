@@ -4,18 +4,24 @@ import { ListComponent } from '../components/list/list.component';
 import { LoginComponent } from '../components/account-components/login/login.component';
 import { RegisterComponent } from '../components/account-components/register/register.component';
 import { AuthGuard,UnverifiedGuard,ClientGuard } from '../_auth.collection';
-import { ManageAccountComponent } from '../components/account-components/manage-account/manage-account.component';
 import { RegistrationCheckEmailsComponent } from '../components/account-components/registration-check-emails/registration-check-emails.component';
 import { EmailVerificationComponent } from '../components/account-components/email-verification/email-verification.component';
 import { GoogleLoginComponent } from '../components/account-components/google-login/google-login.component';
 import { FacebookLoginComponent } from '../components/account-components/facebook-login/facebook-login.component';
 import { AnonymousGuard } from '../_auth.collection/_guards/anonymous.guard';
+import { PeopleManagmentComponent } from '../components/account-components/people-managment/people-managment.component';
+import { EditUserComponent } from '../components/account-components/edit-user-page/edit-user/edit-user.component';
 
 
 export const appRoutes:Routes =[
   //login auth
   {path:'' , component:ListComponent,canActivate:[ClientGuard]},
-  {path:'account' , component:ManageAccountComponent,canActivate:[AuthGuard]},
+
+  //account
+  {path:'account' , component:EditUserComponent,canActivate:[AuthGuard]},
+
+  //people
+  {path:'people' , component:PeopleManagmentComponent,canActivate:[ClientGuard]},
 
   //login auth
   {path:'check-email' , component:RegistrationCheckEmailsComponent,canActivate:[UnverifiedGuard]},

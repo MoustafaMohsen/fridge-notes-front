@@ -1,5 +1,5 @@
 
-<div class="userbar" *ngIf="auth.CurrentUser">
+<div class="userbar" *ngIf="auth.logged">
 
   
 
@@ -21,16 +21,33 @@
       </div>
 
 
-      <button mat-menu-item  routerLinkActive='active-link'
-      [routerLinkActiveOptions]="{exact: true}" 
-     routerLink="/">
+      <!--
+        routerLinkActive='active-link' [routerLinkActiveOptions]="{exact: true}" 
+      -->
+        
+      <button mat-menu-item  
+      routerLink="/" 
+     [disabled]="''==this.activatedRoute.snapshot.firstChild?.routeConfig?.path"
+     >
         <span class="menu-inner">Home</span>
     </button>
 
-    <button mat-menu-item routerLink="/account" routerLinkActive='active-link'
-    [routerLinkActiveOptions]="{exact: true}" >
+    <button mat-menu-item
+     routerLink="/people"
+     
+    [disabled]="'people'==this.activatedRoute.snapshot.firstChild?.routeConfig?.path"
+    >
         <span class="menu-inner">Friends List</span>
     </button>
+
+    <button mat-menu-item 
+    routerLink="/account" 
+     
+    [disabled]="'account'==this.activatedRoute.snapshot.firstChild?.routeConfig?.path"
+    >
+        <span class="menu-inner">Manage Account</span>
+    </button>
+
     <button mat-menu-item (click)="logoutUser()">
       <span class="menu-inner">Logout</span>
     </button>

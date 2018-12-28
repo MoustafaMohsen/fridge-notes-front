@@ -73,7 +73,7 @@ export class UpdatePasswordDto
     id?:string;
     oldpassword:string;
     newpassword:string;
-    externalProvider: string;
+    externalProvider?: string;
 }
 
 export class LoginUserDto
