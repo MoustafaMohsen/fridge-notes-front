@@ -30,7 +30,10 @@ export class UserDto
 
     /**The users email */
     Email?: string;
+    /**the external provider if found */
+    externalProvider?:string;
 
+    /**the user password */
     password?: string;
 
     /**The users role */
@@ -70,6 +73,7 @@ export class UpdatePasswordDto
     id?:string;
     oldpassword:string;
     newpassword:string;
+    externalProvider: string;
 }
 
 export class LoginUserDto

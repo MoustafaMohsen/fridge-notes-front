@@ -72,7 +72,9 @@ export class AddCardComponent implements OnInit {
       },
       e => {
         this.web.Loading$.next(false);
-        this.snackBar.open(`Failed to add item ${e.error}`, "X", {
+        let preError="Failed to add item:";
+        let ServerError = e.error?e.error.errors? `"${e.error.errors}"` :"":""
+        this.snackBar.open(`${preError} ${ServerError}`, "X", {
           duration: 5000
         });
       }

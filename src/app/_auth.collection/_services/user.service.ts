@@ -19,8 +19,8 @@ export class UserService {
     return this.http.get<ResponseDto<UserDto>>(`${this.BASEURL}/api/users/GetUserId`);
   }
 
-  Update(user:UserDto){
-    return this.http.put<ResponseDto<UserDto>>(`${this.BASEURL}/api/users/editUser`,user);
+  Update(user:UserDto,force:boolean=false){
+    return this.http.put<ResponseDto<UserDto>>(`${this.BASEURL}/api/users/editUser?force=${force}`,user);
   }
   DeleteUser(){
     return this.http.delete<ResponseDto<boolean>>(`${this.BASEURL}/api/users/DeleteUser`);

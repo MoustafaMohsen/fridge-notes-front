@@ -30,8 +30,8 @@ export const appRoutes:Routes =[
   //verification
   {path:'verify-email' , component:EmailVerificationComponent,canActivate:[UnverifiedGuard]},
 
-  {path:'login',component:LoginComponent,canActivate:[UnverifiedGuard]},
-  {path:'register',component:RegisterComponent,canActivate:[UnverifiedGuard]},
+  {path:'login',component:LoginComponent,canActivate:[AnonymousGuard]},
+  {path:'register',component:RegisterComponent,canActivate:[AnonymousGuard]},
 
   ];
 
