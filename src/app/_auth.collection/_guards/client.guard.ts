@@ -10,15 +10,15 @@ export class ClientGuard implements CanActivate {
   constructor(private router:Router,private auth:AuthenticationService,private RolesSrv:RolesService){}
   
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-    console.log("==UnverifiedGuard==")      
+    console.log("==ClientGuard==")      
+    let user = this.auth.CurrentUser;
     // If logged in check roles
-    if ( Object.keys(this.auth.CurrentUser).length !==0 ) {      
-
-        let result = this.RolesSrv.isClient(this.auth.CurrentUser)
+    if ( Object.keys(user).length !==0 && user.token) {
+        let result = this.RolesSrv.isClient(user);
+        
         console.log(result);
         if(!result){
-            let unverified = this.RolesSrv.isUnverified(this.auth.CurrentUser);
-
+            let unverified = this.RolesSrv.isUnverified(user);
             if(unverified)
                 this.router.navigate(['/check-email']);
         }

@@ -77,6 +77,38 @@ export class AuthenticationService {
       var user = response.value
       if (user && user.token) {
         localStorage.setItem('currentuser',JSON.stringify(user));
+        this.CurrentUser = user;
+        this.user$.next(user)
+
+      }
+
+      return response;
+    }))
+  }
+  loginWithGoogle(code:string){
+    return this.http.post<ResponseDto<UserDto>>(`${this.BASEURL}/api/users/external-google?code=${code}`,{})
+    .pipe(map(response=>{
+
+      var user = response.value
+      if (user && user.token && response.isSuccessful) {
+        localStorage.setItem('currentuser',JSON.stringify(user));
+        this.CurrentUser = user;
+        this.user$.next(user)
+
+      }
+
+      return response;
+    }))
+  }
+
+  loginWithFacebook(code:string){
+    return this.http.post<ResponseDto<UserDto>>(`${this.BASEURL}/api/users/external-facebook?code=${code}`,{})
+    .pipe(map(response=>{
+
+      var user = response.value
+      if (user && user.token && response.isSuccessful) {
+        localStorage.setItem('currentuser',JSON.stringify(user));
+        this.CurrentUser = user;
         this.user$.next(user)
 
       }
@@ -87,6 +119,8 @@ export class AuthenticationService {
 
   logout(){
     localStorage.removeItem('currentuser');
+    this.CurrentUser=new UserDto();
+    this.user$.next(new UserDto());
   }
 
   ReAuthenticate(){

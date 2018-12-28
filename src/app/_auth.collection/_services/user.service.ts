@@ -22,13 +22,12 @@ export class UserService {
   Update(user:UserDto){
     return this.http.put<ResponseDto<UserDto>>(`${this.BASEURL}/api/users/editUser`,user);
   }
+  DeleteUser(){
+    return this.http.delete<ResponseDto<boolean>>(`${this.BASEURL}/api/users/DeleteUser`);
+  }
 
   ChangePassword(passDto:UpdatePasswordDto){
     return this.http.put<ResponseDto<UserDto>>(`${this.BASEURL}/api/users/changepassword`,passDto);
-  }
-
-  Delete(id:number){
-    return this.http.delete<any>(`${this.BASEURL}/api/users/deleteuser/${id}`)
   }
 
   Register(user:UserDto){

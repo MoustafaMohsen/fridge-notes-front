@@ -10,11 +10,12 @@ export class UnverifiedGuard implements CanActivate {
   constructor(private router:Router,private auth:AuthenticationService,private RolesSrv:RolesService){}
   
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-    console.log("==UnverifiedGuard==")      
+    console.log("==UnverifiedGuard==");
+    let user = this.auth.CurrentUser;
     // If logged in check roles
-    if ( Object.keys(this.auth.CurrentUser).length !==0 ) {      
+    if ( Object.keys(user).length !==0 && user.token) {      
 
-        let result = this.RolesSrv.isUnverified(this.auth.CurrentUser)
+        let result = this.RolesSrv.isUnverified(user)
         console.log(result);
         
         return result;

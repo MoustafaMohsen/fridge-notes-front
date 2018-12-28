@@ -7,6 +7,9 @@ import { AuthGuard,UnverifiedGuard,ClientGuard } from '../_auth.collection';
 import { ManageAccountComponent } from '../components/account-components/manage-account/manage-account.component';
 import { RegistrationCheckEmailsComponent } from '../registration-check-emails/registration-check-emails.component';
 import { EmailVerificationComponent } from '../email-verification/email-verification.component';
+import { GoogleLoginComponent } from '../components/account-components/google-login/google-login.component';
+import { FacebookLoginComponent } from '../components/account-components/facebook-login/facebook-login.component';
+import { AnonymousGuard } from '../_auth.collection/_guards/anonymous.guard';
 
 
 export const appRoutes:Routes =[
@@ -17,11 +20,18 @@ export const appRoutes:Routes =[
   //login auth
   {path:'check-email' , component:RegistrationCheckEmailsComponent,canActivate:[UnverifiedGuard]},
 
+  //login facebook
+  {path:'external-google' , component:GoogleLoginComponent,canActivate:[AnonymousGuard]},
+
+  //login facebook
+  {path:'external-facebook' , component:FacebookLoginComponent,canActivate:[AnonymousGuard]},
+
+
   //verification
   {path:'verify-email' , component:EmailVerificationComponent,canActivate:[UnverifiedGuard]},
 
-  {path:'login',component:LoginComponent},
-  {path:'register',component:RegisterComponent},
+  {path:'login',component:LoginComponent,canActivate:[UnverifiedGuard]},
+  {path:'register',component:RegisterComponent,canActivate:[UnverifiedGuard]},
 
   ];
 

@@ -38,6 +38,8 @@ import { AddButtonComponent } from './components/card-components/button-componen
 import { EditUserComponent } from './components/account-components/edit-user/edit-user.component';
 import { RegistrationCheckEmailsComponent } from './registration-check-emails/registration-check-emails.component';
 import { EmailVerificationComponent } from './email-verification/email-verification.component';
+import { GoogleLoginComponent } from './components/account-components/google-login/google-login.component';
+import { FacebookLoginComponent } from './components/account-components/facebook-login/facebook-login.component';
 
 
 @NgModule({
@@ -59,6 +61,8 @@ import { EmailVerificationComponent } from './email-verification/email-verificat
     EditUserComponent,
     RegistrationCheckEmailsComponent,
     EmailVerificationComponent,
+    GoogleLoginComponent,
+    FacebookLoginComponent,
 
     
   ],

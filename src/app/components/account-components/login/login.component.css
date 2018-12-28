@@ -1,0 +1,28 @@
+.google-login-btn{
+    background-color: #DB4437;
+    /*
+    background-color: white;
+    */
+    color: white;
+    word-wrap: normal;
+}
+
+.google-login-btn:hover{
+    background-color: white;
+    color: black;
+    transition: all 200ms;
+}
+
+.facebook-login-btn{
+    background-color: #3C5A99;
+    color: white;
+    word-wrap: normal;
+}
+.facebook-login-btn:hover{
+    background-color: white;
+    color: black;
+    transition: all 200ms;
+}
+.login-image{
+    margin-right: 10px;
+}

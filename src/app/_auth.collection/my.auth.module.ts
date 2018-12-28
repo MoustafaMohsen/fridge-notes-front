@@ -9,6 +9,7 @@ import { CommonModule } from '@angular/common';
 import { Bug200ok } from './_interceptors/bug.200ok.interpector';
 import { UnverifiedGuard } from './_guards/unverified.guard';
 import { ClientGuard } from './_guards/client.guard';
+import { AnonymousGuard } from './_guards/anonymous.guard';
 //import {  AlertService } from './_services/alert.service';
 //import {  AuthenticationService } from './_services/authentication.service';
 //import {  UserService } from './_services/user.service';
@@ -19,6 +20,7 @@ import { ClientGuard } from './_guards/client.guard';
 @NgModule({
   imports: [ CommonModule],
   providers: [
+    AnonymousGuard,
     AuthGuard,
     UnverifiedGuard,
     ClientGuard,

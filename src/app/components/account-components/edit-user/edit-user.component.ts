@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, AbstractControl, Validators } from '@angular/forms';
 import { AuthenticationService, UserDto, UpdatePasswordDto, UserService } from '../../../_auth.collection';
 import { MatSnackBar } from '@angular/material';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-edit-user',
@@ -15,7 +16,11 @@ export class EditUserComponent implements OnInit {
   currentUser:UserDto;
   pfButton:boolean=true;
   usrFBtn:boolean=true;
-  constructor(formbuilder:FormBuilder,private auth:AuthenticationService,private user:UserService,
+  constructor(
+    formbuilder:FormBuilder,
+    private router: Router,
+    private auth:AuthenticationService,
+    private user:UserService,
     private snack:MatSnackBar
     ) {
 
@@ -138,4 +143,19 @@ export class EditUserComponent implements OnInit {
 
   }//changepassword()
 
+  DeleteAccount(){
+    this.user.DeleteUser().subscribe(u=>{
+      console.log("==DeleteUser()");
+      console.log(u);
+      console.log("DeleteUser()==");
+      
+      this.snack.open(`${u.statusText}`,"X",{duration:5000})
+      if (u.isSuccessful) {
+        console.log("logout");
+        this.auth.logout();
+        console.log("navigate");  
+        this.router.navigate([""]);
+      }
+    })
+  }
 }//class

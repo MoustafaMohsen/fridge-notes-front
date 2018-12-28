@@ -15,6 +15,8 @@ export class LoginComponent implements OnInit,OnDestroy {
   loginform:FormGroup;
   returnUrl: string;
   disSubmit=false;
+  googleUrl = `https://accounts.google.com/o/oauth2/auth?response_type=code&redirect_uri=https://localhost:4200/external-google&scope=email profile&client_id=939531348067-qr1133hdu7q4i9bpcke2hraetj5e49td.apps.googleusercontent.com`
+  FacebookUrl = `https://www.facebook.com/v2.11/dialog/oauth?response_type=code&client_id=436896383512845&redirect_uri=https://localhost:4200/external-facebook&scope=email`
 
     constructor(
         private formBuilder: FormBuilder,
@@ -30,7 +32,7 @@ export class LoginComponent implements OnInit,OnDestroy {
       password:[null,Validators.required]
     });
     
-    this.authenticationService.logout();
+    //this.authenticationService.logout();
     this.returnUrl =this.route.snapshot.queryParams['returnUrl'] || '/';
   }//ngOnInit()
 

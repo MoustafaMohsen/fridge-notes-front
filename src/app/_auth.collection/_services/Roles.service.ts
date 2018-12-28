@@ -9,66 +9,76 @@ export class RolesService {
 
   isUnverified(user: UserDto, allowManagers = true) {
     let role = user.role;
-
+    let Finalresult:boolean
     if (allowManagers) {
       let result =
         role === MyRoles.admin ||
         role === MyRoles.manager ||
         role === MyRoles.unverfied;
-      return result;
+        Finalresult= result;
     } else {
       let result = role === MyRoles.unverfied;
-      return result;
+      Finalresult= result;
     }
+    return Finalresult;
   }
 
   isClient(user: UserDto, allowManagers = true) {
     let role = user.role;
-
+    let Finalresult:boolean
     if (allowManagers) {
       let result =
         role === MyRoles.admin ||
         role === MyRoles.manager ||
         role === MyRoles.client;
-      return result;
+        Finalresult= result;
     } else {
       let result = role === MyRoles.client;
-      return result;
+      Finalresult= result;
     }
+    console.log("isClient()=",Finalresult);
+    return Finalresult;
   }
 
   isRestricted(user: UserDto, allowManagers = true) {
     let role = user.role;
-
+    let Finalresult:boolean
     if (allowManagers) {
       let result =
         role === MyRoles.admin ||
         role === MyRoles.manager ||
         role === MyRoles.restricted;
-      return result;
-    } else {
+        Finalresult= result;
+      } else {
       let result = role === MyRoles.restricted;
-      return result;
+      Finalresult= result;
     }
+    console.log("isRestricted()=",Finalresult);
+    return Finalresult;
+
   }
 
   isAdmin(user: UserDto) {
     let result = user.role === MyRoles.client;
+    console.log("isAdmin()=",result);
     return result;
   }
 
   isManager(user: UserDto, allowManagers = true) {
     let role = user.role;
+    let Finalresult:boolean
 
     if (allowManagers) {
       let result =
         role === MyRoles.admin ||
         role === MyRoles.manager ;
-      return result;
-    } else {
+        Finalresult= result;
+      } else {
       let result = role === MyRoles.manager;
-      return result;
+      Finalresult= result;
     }
+    console.log("isManager()=",Finalresult);
+    return Finalresult;
   }
 
   hasRole(user: UserDto, role: string, allowManagers = true) {
