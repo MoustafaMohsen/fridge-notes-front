@@ -3,9 +3,32 @@
 
     </div>
     <div class="col-md-3 col-sm-4">
-        <button type="submit" mat-raised-button (click)="DeleteAccount()"
-        class="w-100" color="primary"
+        <button type="submit" mat-raised-button
+        class="w-100" color="primary" data-toggle="modal"
+        [attr.data-target]="removeIdConfirm"
         >DeleteAccount</button>
 
     </div>
   </div>
+
+
+  <!-- =====Modal======= -->
+<div class="modal fade" [id]="removeConfirmForId" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+aria-hidden="true">
+<div class="modal-dialog" role="document">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h5 class="modal-title" id="exampleModalLabel">
+          This wil premenetly delete your account, THERE IS NO GOIND BACK</h5>
+    </div>
+    <div class="model-body p-3">
+      <p>the deletion of your account will results in the loss of every item you have,
+           and all friendships will be lost</p>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      <button  (click)="DeleteAccount()" type="button" [disabled]="btnClicked" class="btn btn-danger">Delete</button>
+    </div>
+  </div>
+</div>
+</div>
