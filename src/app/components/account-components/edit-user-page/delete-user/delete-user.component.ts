@@ -3,6 +3,7 @@ import { AuthenticationService, UserService } from '../../../../_auth.collection
 import { MatSnackBar } from '@angular/material';
 import { Router } from '@angular/router';
 import { HelpersService } from 'src/app/Services/helpers.service';
+declare var $ :any;
 
 @Component({
   selector: 'app-delete-user',
@@ -28,6 +29,7 @@ export class DeleteUserComponent implements OnInit {
   DeleteAccount(){
     this.btnClicked=true
     this.user.DeleteUser().subscribe(u=>{
+      $(this.removeIdConfirm).modal('hide');
       this.btnClicked=false
       console.log("==DeleteUser()");
       console.log(u);
@@ -42,6 +44,7 @@ export class DeleteUserComponent implements OnInit {
       }
     },
     e=>{
+      $(this.removeIdConfirm).modal('hide');
       let error = e.error?e.error.errors:"Delete Error"
       this.snack.open(`${error}`,"X",{duration:5000})
       this.btnClicked=false
