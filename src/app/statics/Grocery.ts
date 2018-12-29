@@ -1,5 +1,5 @@
 export class Grocery {
-  id?: number; //server
+  id?: string; //server
   name: string; //input
   basic?: boolean; //input
   timeout?: number; //input

@@ -90,6 +90,12 @@ button {
   padding-top: 30px;
   padding-bottom: 30px;
 }
+.card-section-last {
+  display: block;
+  padding: 10px;
+  padding-top: 30px;
+  padding-bottom: 30px;
+}
 .max-height-button{
     max-height: 36px;
 }
@@ -205,6 +211,12 @@ button {
 }
 
 
+.mr-bottom-0{
+  margin-bottom: 0cm !important;
+}
+.pad-bottom-0{
+  padding-bottom: 0cm !important;
+}
 /* Preset Styles*/
 .z-index-1 {
   z-index: 1;

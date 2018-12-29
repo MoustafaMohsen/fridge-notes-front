@@ -3,7 +3,7 @@
   <div class="row justify-content-center">
 
     <!---     Form       -->
-    <div class="col-6">
+    <div class="col-lg-6 col-md-8 col sm-10 col-12">
 
         <mat-card class="form-card z-index-10">
 
@@ -97,11 +97,11 @@
         
             <!-- Submit -->
             <div class="row justify-content-center">
-                <div class="col-2">
+                <div class="col-lg-2 col-md-5 col-12">
                   <button
                     type="submit"
                     (click)="onSubmit()"
-                    class="needed"
+                    class="w-100"
                     mat-raised-button
                     color="primary"
                     [disabled]="!registerForm.valid || disSubmit"

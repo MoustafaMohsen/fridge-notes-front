@@ -1,0 +1,8 @@
+.delete-account-button{
+    color: #dc3545;
+    cursor: pointer;
+}
+.delete-account-button:hover{
+    color: #dc3545a8;
+    transition: all 500ms
+}

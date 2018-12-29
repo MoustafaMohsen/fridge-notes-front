@@ -95,6 +95,7 @@ export class EditUserSectionComponent implements OnInit {
     console.log(userdto);
     
     this.user.Update(userdto,this.IsExternalLogin).subscribe(user=>{
+      this.snack.open(`${user.statusText}`,`X`,{duration:10000});
       console.log("Update");
       console.log(user);
       

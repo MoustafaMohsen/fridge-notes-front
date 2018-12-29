@@ -11,13 +11,12 @@ import { StylerService } from '../../../Services/styler.service';
   styleUrls: ['./people-managment.component.css']
 })
 export class PeopleManagmentComponent implements OnInit {
-  friends:UserFriend[];
   friendCode:string;
   invetationCode:string;
   GenInvitaionBtn:boolean=false;
   AddfriendBtn:boolean=false;
 
-  constructor(private auth:AuthenticationService,private userSrv:UserService,private snack:MatSnackBar
+  constructor(public auth:AuthenticationService,private userSrv:UserService,private snack:MatSnackBar
     ,public styler:StylerService) { }
 
   ngOnInit() {
@@ -26,7 +25,8 @@ export class PeopleManagmentComponent implements OnInit {
   DeleteFriend(friend:UserFriend){
     console.log("DeleteFriend()");
     console.log(friend);
-    var invCode = friend.friendEncryptedCode;
+    //var invCode = friend.friendEncryptedCode;
+    var invCode = friend.friendUserId;
     let friendRequestDto:FriendRequestDto = {
       invetationCode:invCode,
       userId:this.auth.CurrentUser.Id
@@ -76,7 +76,6 @@ export class PeopleManagmentComponent implements OnInit {
         }
         if(r.isSuccessful){
           this.auth.updateCurrentUser(true,r.value);
-          this.friends=this.auth.CurrentUser.userFriends;
         }
       },
       (e)=>{

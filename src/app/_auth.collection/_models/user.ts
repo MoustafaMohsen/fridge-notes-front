@@ -52,7 +52,7 @@ export class UserDto
 
 export class UserFriend
 {
-    id?: number;
+    id?: string;
     friendUsername?: string;
     friendUserId?: string;
     friendEncryptedCode?: string;

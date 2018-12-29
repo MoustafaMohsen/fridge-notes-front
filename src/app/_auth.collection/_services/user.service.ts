@@ -36,7 +36,7 @@ export class UserService {
   get AppHost():string{
     var protocol = location.protocol;
     var slashes = protocol.concat("//");
-    return slashes.concat(window.location.hostname);
+    return slashes.concat(window.location.host);
   }
 
   GetAll(){
