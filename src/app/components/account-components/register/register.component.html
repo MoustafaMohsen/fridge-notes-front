@@ -1,126 +1,110 @@
-<div class="container">
+<div class="container" id="register-container">
 
-  <div class="row justify-content-center">
+  <div class="row register-row justify-content-center">
 
     <!---     Form       -->
-    <div class="col-lg-6 col-md-8 col sm-10 col-12">
+    <div class="col-lg-8 col-md-8 col sm-10 col-12 align-self-center">
 
         <mat-card class="form-card z-index-10">
 
           <!--External Login Buttons-->
           <div class="row justify-content-center">
-              <div class="col-lg-6 col-12">
-                <a [href]=userService.googleUrl class="w-100 google-login-btn"
-                mat-raised-button>
-                  <div>
-                      <i class="login-image fab fa-google"></i>
-                    Login With Google
-                  </div>
-              </a>
-              </div>
-              <div class="col-lg-6 col-12">
-                <a [href]=userService.FacebookUrl class="w-100 facebook-login-btn"
-                mat-raised-button ><i class="login-image fab fa-facebook-f"></i> Login With Facebook</a>
-              </div>
-    
-            </div>
-
-          <form [formGroup]="registerForm">
-            <!-- Username -->
-          <div class="row justify-content-center">
-            <mat-form-field class="col-12">
-              <input
-                formControlName="username"
-                placeholder="Username"
-                type="text"
-                matInput
-              />
-              <mat-error *ngIf="f['username'].hasError('required')">required</mat-error>
-            </mat-form-field>
-          </div>
-        
-            <!-- FirstName -->
-            <div class="row justify-content-center">
-              <mat-form-field class="col-12">
-                <input
-                  formControlName="firstName"
-                  placeholder="First Name"
-                  type="text"
-                  matInput
-                />
-                <mat-error *ngIf="f['firstName'].hasError('required')"
-                  >required</mat-error
-                >
-              </mat-form-field>
-            </div>
-        
-            <!-- LastName -->
-            <div class="row justify-content-center">
-              <mat-form-field class="col-12">
-                <input
-                  formControlName="lastName"
-                  placeholder="Last Name"
-                  type="text"
-                  matInput
-                />
-                <mat-error *ngIf="f['lastName'].hasError('required')">required</mat-error>
-              </mat-form-field>
-            </div>
-        
-            <!-- Email -->
-            <div class="row justify-content-center">
-              <mat-form-field class="col-12">
-                <input
-                  formControlName="email"
-                  placeholder="Email"
-                  type="email"
-                  matInput
-                />
-                <mat-error *ngIf="f['email'].hasError('required')">required</mat-error>
-                <mat-error *ngIf="f['email'].hasError('email')">Please enter a valid email</mat-error>
-              </mat-form-field>
-            </div>
-
-
-            <!-- Password -->
-            <div class="row justify-content-center">
-              <mat-form-field class="col-12">
-                <input
-                  formControlName="password"
-                  placeholder="Password"
-                  type="password"
-                  matInput
-                />
-                <mat-error *ngIf="f['password'].hasError('required')">required</mat-error>
-              </mat-form-field>
-            </div>
-        
-            <!-- Submit -->
-            <div class="row justify-content-center">
-                <div class="col-lg-2 col-md-5 col-12">
-                  <button
-                    type="submit"
-                    (click)="onSubmit()"
-                    class="w-100"
-                    mat-raised-button
-                    color="primary"
-                    [disabled]="!registerForm.valid || disSubmit"
-                  >
-                    Submit
-                  </button>
+            <div class="col-lg-6 col-12">
+              <a [href]=userService.googleUrl class="w-100 google-login-btn"
+              mat-raised-button>
+                <div>
+                  <i class="login-image fab fa-google"></i>
+                  Login With Google
                 </div>
+              </a>
+            </div>
+            <div class="col-lg-6 col-12">
+              <a [href]=userService.FacebookUrl class="w-100 facebook-login-btn"
+              mat-raised-button ><i class="login-image fab fa-facebook-f"></i> Login With Facebook</a>
+            </div>
+    
+          </div>
+
+          <form [formGroup]="registerForm" class="row register-form">
+
+            <div class="col-12">
+
+              <!-- FirstName , LastName-->
+              <div class="row justify-content-center">
+
+                <!-- FirstName -->
+                <mat-form-field class="col-6">
+                  <input formControlName="firstName" placeholder="First Name" type="text" matInput />
+                  <mat-error *ngIf="f['firstName'].hasError('required')" >required</mat-error >
+                </mat-form-field>
+  
+                <!-- LastName -->
+                <mat-form-field class="col-6">
+                    <input formControlName="lastName" placeholder="Last Name" type="text" matInput />
+                  <mat-error *ngIf="f['lastName'].hasError('required')">required</mat-error>
+                </mat-form-field>
+  
+              </div>
+                              
+              <!-- Username -->
+              <div class="row justify-content-center">
+                <mat-form-field class="col-12">
+                  <input formControlName="username" placeholder="Username" type="text" matInput  />
+                  <mat-error *ngIf="f['username'].hasError('required')">required</mat-error>
+                </mat-form-field>
+              </div>
+          
+              <div class="row justify-content-center">
+                <!-- Password -->
+                <mat-form-field class="col-12">
+                  <input formControlName="password" placeholder="Password" type="password" matInput />
+                  <mat-error *ngIf="f['password'].hasError('required')">required</mat-error>
+                </mat-form-field>
+              </div>
+  
+              <!-- Email -->
+              <div class="row justify-content-center">
+                <mat-form-field class="col-12">
+                  <input
+                    formControlName="email"
+                    placeholder="Email"
+                    type="email"
+                    matInput
+                  />
+                  <mat-error *ngIf="f['email'].hasError('required')">required</mat-error>
+                  <mat-error *ngIf="f['email'].hasError('email')">Please enter a valid email</mat-error>
+                </mat-form-field>
+              </div>
+
+
+          
+              <!-- Submit -->
+              <div class="row justify-content-center">
+                  <div class="col-lg-4 col-md-6 col-12">
+                    <button
+                      type="submit"
+                      (click)="onSubmit()"
+                      class="w-100"
+                      mat-raised-button
+                      color="primary"
+                      [disabled]="!registerForm.valid || disSubmit"
+                    >
+                      Submit
+                    </button>
+                  </div>
+              </div>
+
             </div>
 
           </form>
 
               
           <!--External Links-->
-          <div class="row justify-content-around">
+          <div class="row justify-content-start">
 
-            <button class="col-1" type="button" [disabled]="disSubmit"
-            [routerLink]="['/login']" mat-raised-button >Login</button>
-
-            <div class="col"></div>
+            <div class="col-2">
+              <button class="" type="button" [disabled]="disSubmit" [routerLink]="['/login']" mat-raised-button >Login</button>
+            </div>
 
           </div>
 

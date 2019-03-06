@@ -1,17 +1,19 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, AfterViewInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { UserService, AlertService, AuthenticationService } from '../../../_auth.collection';
 import { first } from 'rxjs/operators';
 import { MatSnackBar } from '@angular/material';
 import { TestMethodsService } from 'src/app/test-methods.service';
+import { StylerService } from 'src/app/Services/styler.service';
+import * as $ from 'jquery';
 
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.css']
 })
-export class RegisterComponent implements OnInit,OnDestroy {
+export class RegisterComponent implements OnInit,OnDestroy,AfterViewInit {
   registerForm: FormGroup;
   loading = false;
   disSubmit = false;
@@ -22,6 +24,7 @@ export class RegisterComponent implements OnInit,OnDestroy {
       private snake:MatSnackBar,
       public userService: UserService,
       private alertService: AlertService,
+      private styleSrv: StylerService,
       private authenticationService: AuthenticationService) { }
 
   ngOnInit() {
@@ -88,6 +91,19 @@ login(username:string,password:string,returnUrl:string){
     );
   }
 
+  SetBodyHeight(){
+    setTimeout(() => {
+      //this.CalcBodyHeight();
+      let height = this.styleSrv.CalcBodyHeight();
+      $('#register-container').css({
+        "height":height
+      });
+    }, 0);
+  }
+
+  ngAfterViewInit(): void {
+    //this.SetBodyHeight();
+  }
 
   ngOnDestroy(){
       //location.reload()
