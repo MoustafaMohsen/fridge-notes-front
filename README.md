@@ -38,8 +38,8 @@ you can use Heroku asp build-pack or docker to deploy the asp .net core project 
 
 ## Built With
 
-* [Angular 6](https://github.com/angular/angular-cli) - The Front-End framework
-* [Angular Material](https://material.angular.io/) - The Front-End framework## Code scaffolding
+* [Angular 7.2](https://github.com/angular/angular-cli) - The Front-End framework
+* [Angular Material 7.3](https://material.angular.io/) - The Front-End framework## Code scaffolding
 
 
 ## Code scaffolding
