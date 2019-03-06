@@ -1,16 +1,19 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, AfterViewInit } from '@angular/core';
 import {AuthenticationService, AlertService, UserService} from '../../../_auth.collection';
 import {UserDto} from '../../../_auth.collection';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material';
+import * as $ from 'jquery'
+import { StylerService } from 'src/app/Services/styler.service';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-export class LoginComponent implements OnInit,OnDestroy {
+export class LoginComponent implements OnInit,OnDestroy,AfterViewInit {
+
 
   loginform:FormGroup;
   returnUrl: string;
@@ -23,6 +26,7 @@ export class LoginComponent implements OnInit,OnDestroy {
         public userService: UserService,
         private snake:MatSnackBar,
         private authenticationService: AuthenticationService,
+        private styleSrv : StylerService,
         private alertService: AlertService) {}
 
   ngOnInit() {
@@ -66,8 +70,22 @@ export class LoginComponent implements OnInit,OnDestroy {
 
   }//onSubmit()
 
+
+  SetBodyHeight(){
+    setTimeout(() => {
+      //this.CalcBodyHeight();
+      let height = this.styleSrv.CalcBodyHeight();
+      $('#login-container').css({
+        "height":height
+      });
+    }, 0);
+  }
+
+  ngAfterViewInit(): void {
+    //this.SetBodyHeight();
+  }
   ngOnDestroy(){
-    location.reload()
+    location.reload();
   }
 
 }//class

@@ -1,8 +1,8 @@
-<div class="container">
+<div class="container" id="login-container">
 
-  <div class="row justify-content-center">
+  <div class="row login-row justify-content-center">
     <!---     Form       -->
-    <div class="col-lg-6 col-md-8 col sm-10 col-12">
+    <div class="col-lg-6 col-md-8 col sm-10 col-12 align-self-center">
       <mat-card class="form-card z-index-10">
 
         <div class="row justify-content-center">
@@ -23,42 +23,45 @@
         </div>
 
 
-        <form [formGroup]="loginform">
-          
-          <!--UserName-->
-          <div class="row justify-content-center">
-            <mat-form-field class="spacing col-12">
-              <input formControlName="username" placeholder="Username" type="text" matInput>
-              <mat-error *ngIf="f['username'].hasError('required')">required</mat-error>
-            </mat-form-field>
-          </div>
-    
-          <!--Password-->
-          <div class="row justify-content-center">
-            <mat-form-field class="spacing col-12">
-              <input formControlName="password" placeholder="Password" type="password" matInput>
-              <mat-error *ngIf="f['password'].hasError('required')">required</mat-error>
-            </mat-form-field>
-          </div>
-    
-          <!--Submit-->
-          <div class="row justify-content-center">
-            <div class="col-lg-2 col-md-5 col-12">
-              <button type="submit" (click)="onSubmit()" mat-raised-button 
-              [disabled]="!loginform.valid||disSubmit" class="w-100" color="primary"
-              >Submit</button>
-            </div>
-          </div>
-    
-          <!--External Links-->
-          <div class="row justify-content-around">
+        <form [formGroup]="loginform" class="row login-form">
 
-            <div class="col">
-              <a  class="no-gutters small disable-anchor text-secondary" href="#">Forget password?(Disabled for Developing)</a>
-            </div>
+          <div class="col-12">
 
-            <button class="col-1" type="button" [disabled]="disSubmit"
-            [routerLink]="['/register']" mat-raised-button >Register</button>
+            <!--UserName-->
+            <div class="row justify-content-center">
+              <mat-form-field class="spacing col-12">
+                <input formControlName="username" placeholder="Username" type="text" matInput>
+                <mat-error *ngIf="f['username'].hasError('required')">required</mat-error>
+              </mat-form-field>
+            </div>
+      
+            <!--Password-->
+            <div class="row justify-content-center">
+              <mat-form-field class="spacing col-12">
+                <input formControlName="password" placeholder="Password" type="password" matInput>
+                <mat-error *ngIf="f['password'].hasError('required')">required</mat-error>
+              </mat-form-field>
+            </div>
+      
+            <!--Submit-->
+            <div class="row justify-content-center">
+              <div class="col-lg-4 col-md-6 col-12">
+                <button type="submit" (click)="onSubmit()" mat-raised-button [disabled]="!loginform.valid ||disSubmit" class="w-100" color="primary">Submit</button>
+              </div>
+            </div>
+      
+            <!--External Links-->
+            <div class="row justify-content-around external-links-row">
+  
+              <div class="col">
+                <a  class="no-gutters small disable-anchor text-secondary" href="#">Forget password?(Disabled for Developing)</a>
+              </div>
+  
+              <div class="col-3">
+                <button class="w-100" type="button" [disabled]="disSubmit" [routerLink]="['/register']" mat-raised-button >Register</button>
+              </div>
+            </div>
+            
           </div>
           
           

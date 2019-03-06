@@ -231,6 +231,10 @@ button {
   margin-right: 10px;
 }
 
+.relative {
+  position: relative;
+}
+
 .mr-bottom-0 {
   margin-bottom: 0cm !important;
 }
