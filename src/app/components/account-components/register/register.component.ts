@@ -6,7 +6,8 @@ import { first } from 'rxjs/operators';
 import { MatSnackBar } from '@angular/material';
 import { TestMethodsService } from 'src/app/test-methods.service';
 import { StylerService } from 'src/app/Services/styler.service';
-import * as $ from 'jquery';
+declare var $ :any;
+;
 
 @Component({
   selector: 'app-register',

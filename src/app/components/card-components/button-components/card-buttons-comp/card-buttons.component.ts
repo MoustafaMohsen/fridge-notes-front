@@ -92,7 +92,10 @@ export class CardButtonsComponent implements OnInit {
     this.web.UpdateStatus(grocery,"needed");
   }
   
-
+  log(){
+    $()
+    console.log("Log Event")
+  }
 
 }//class
 

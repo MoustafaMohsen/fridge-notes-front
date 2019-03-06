@@ -1,5 +1,6 @@
 import { Component, OnInit, AfterViewInit, AfterViewChecked } from "@angular/core";
-import * as $ from 'jquery'
+declare var $ :any;
+
 @Component({
   selector: "app-root",
   templateUrl:'app.component.html'

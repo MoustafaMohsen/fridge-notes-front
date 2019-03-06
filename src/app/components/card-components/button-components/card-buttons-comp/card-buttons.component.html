@@ -10,11 +10,11 @@
 
 
     <mat-menu #userMenu="matMenu" class="block">
-      <button mat-menu-item (click)='buttonClick=true' [disabled]="(this.web.Loading$ | async)">
-        Edit</button>
-      <button mat-menu-item color="warn" class="remove" [disabled]="(this.web.Loading$ | async)" data-toggle="modal"
-        [attr.data-target]="removeIdConfirm">
-        Delete</button>
+
+      <button mat-menu-item (click)='buttonClick=true' [disabled]="this.web.Loading">Edit</button>
+      
+      <button mat-menu-item color="warn" class="remove" (click)="log()" [disabled]="this.web.Loading" data-toggle="modal" [attr.data-target]="removeIdConfirm">Delete</button>
+      
     </mat-menu>
 
   </div>
@@ -89,8 +89,8 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button (click)='remove(Item)' type="button" [disabled]="(this.web.Loading$ | async)" class="btn btn-danger">Remove</button>
-        <button (click)='DELETE(Item)' type="button" [disabled]="(this.web.Loading$ | async)" class="btn btn-danger">Delete</button>
+        <button (click)='remove(Item)' type="button" [disabled]="this.web.Loading" class="btn btn-danger">Remove</button>
+        <button (click)='DELETE(Item)' type="button" [disabled]="this.web.Loading" class="btn btn-danger">Delete</button>
       </div>
     </div>
   </div>

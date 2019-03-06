@@ -4,7 +4,8 @@ import {UserDto} from '../../../_auth.collection';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material';
-import * as $ from 'jquery'
+declare var $ :any;
+
 import { StylerService } from 'src/app/Services/styler.service';
 
 @Component({
