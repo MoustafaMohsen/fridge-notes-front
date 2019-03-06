@@ -1,27 +1,17 @@
-import { Component, OnInit } from "@angular/core";
-declare const $:any;
+import { Component, OnInit, AfterViewInit, AfterViewChecked } from "@angular/core";
+import * as $ from 'jquery'
 @Component({
   selector: "app-root",
-  template: `
-    <div class="container-fluid">
-      <div class="row no-gutters mar--15">
-      <div class="col-12">
-        <app-topnav></app-topnav>
-        <div id="body-container">
-          <router-outlet ></router-outlet>
-        </div>
-      </div>
-      </div>
-    </div>
-  `
+  templateUrl:'app.component.html'
 })
-export class AppComponent implements OnInit {
+export class AppComponent implements OnInit,AfterViewInit{
   title = "app";
   ngOnInit(): void {
-
-    console.log("======Body Hieght")
-    console.log("body-container",)
-    console.log("Body Hieght======")
   }
-  
-}
+
+
+
+  ngAfterViewInit(){
+  }
+
+}//class

@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import * as $ from 'jquery'
 
 @Injectable({
   providedIn: 'root'
@@ -65,6 +66,30 @@ export class StylerService {
       document.execCommand("copy");
       //this.snack.open("Copied", "x", { duration: 1000 });
     }
+  }
+
+  getNavHeight(){
+    let height = $('#navbar').height();
+    console.log("======Body Hieght");
+    console.log("body-container",height);
+    console.log("Body Hieght======");
+    return height;
+  }
+
+  getWindowHeight(){
+    let height = window.innerHeight;
+    console.log("======Window Hieght");
+    console.log("window-container",height);
+    console.log("Window Hieght======");
+    return height;
+  }
+
+  CalcBodyHeight(){
+    let NavHeight = this.getNavHeight();
+    let WinHeight = this.getWindowHeight();      
+    let bodyHeight = WinHeight - NavHeight ;
+    console.log("bodyHeight",bodyHeight);
+    return bodyHeight;
   }
   //
 }
