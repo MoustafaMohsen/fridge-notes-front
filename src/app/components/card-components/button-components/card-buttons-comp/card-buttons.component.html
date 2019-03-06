@@ -88,9 +88,9 @@
         <p>If item was bought then click the bought button and don't delete it</p>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button (click)='remove(Item)' type="button" [disabled]="this.web.Loading" class="btn btn-danger">Remove</button>
         <button (click)='DELETE(Item)' type="button" [disabled]="this.web.Loading" class="btn btn-danger">Delete</button>
+        <button (click)='remove(Item)' type="button" [disabled]="this.web.Loading" class="btn btn-secondary">Remove</button>
+        <button type="button" class="btn btn-dark" data-dismiss="modal">Close</button>
       </div>
     </div>
   </div>
