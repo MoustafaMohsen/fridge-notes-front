@@ -235,6 +235,11 @@ button {
   margin-bottom: 0cm !important;
 }
 
+.mar--15 {
+  margin-left: -15px;
+  margin-right: -15px;
+}
+
 .pad-bottom-0 {
   padding-bottom: 0cm !important;
 }
@@ -334,5 +339,9 @@ button {
 
 .z-index-24 {
   z-index: 24;
+}
+
+.v-h-100 {
+  height: 100vh;
 }
 /*# sourceMappingURL=styles.css.map */
