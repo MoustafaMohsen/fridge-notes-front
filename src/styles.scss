@@ -1,42 +1,49 @@
 /* You can add global styles to this file, and also import other style files */
-@import url(c:\Data\Dev\Projects\fridge-notes\fridge-notes\node_modules\@angular\material\prebuilt-themes\deeppurple-amber.css);
+@import "../node_modules/@angular/material/prebuilt-themes/deeppurple-amber.css";
 /*@import '~@angular/material/prebuilt-themes/purple-green.css';
 @import '~@angular/material/prebuilt-themes/pink-bluegrey.css';
 @import '~@angular/material/prebuilt-themes/indigo-pink.css';*/
+
 body {
   /*background-color: #ededed*/
-  background-color: #fafafa;
+  background-color: rgb(250, 250, 250);
 }
 
 md-icon {
   font-family: "Material Icons" !important;
 }
-
-a {
+a{
   text-decoration: none !important;
 }
-
 a:hover {
-  color: black !important;
-  text-decoration: none !important;
+  color:black!important;
+  text-decoration: none!important;
 }
-
 .rotate-45 {
   -webkit-transform: rotate(45deg);
+  -moz-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  -o-transform: rotate(45deg);
   transform: rotate(45deg);
 }
 
 .rotate-90 {
   -webkit-transform: rotate(90deg);
+  -moz-transform: rotate(90deg);
+  -ms-transform: rotate(90deg);
+  -o-transform: rotate(90deg);
   transform: rotate(90deg);
 }
 
 .rotate {
+  -moz-transition: all 200ms ease;
   -webkit-transition: all 200ms ease;
   transition: all 200ms ease;
 }
 
 .rotate.rotate-down {
+  -ms-transform: rotate(180deg);
+  -moz-transform: rotate(180deg);
   -webkit-transform: rotate(180deg);
   transform: rotate(180deg);
 }
@@ -47,8 +54,7 @@ a:hover {
 button:focus,
 button {
   outline: none !important;
-  -webkit-box-shadow: none;
-          box-shadow: none;
+  box-shadow: none;
 }
 
 .loading-rotate {
@@ -58,42 +64,22 @@ button {
     animation-timing-function: linear; 
     animation-play-state: unset;*/
 }
-
 .loading-rotate-start {
-  -webkit-animation-name: spin;
-          animation-name: spin;
-  -webkit-animation-fill-mode: forwards;
-          animation-fill-mode: forwards;
-  -webkit-animation-duration: 0.3s;
-          animation-duration: 0.3s;
-  -webkit-animation-iteration-count: infinite;
-          animation-iteration-count: infinite;
-  -webkit-animation-timing-function: ease-in-out;
-          animation-timing-function: ease-in-out;
-}
-
-@-webkit-keyframes spin {
-  from {
-    -webkit-transform: rotate(0deg);
-            transform: rotate(0deg);
-  }
-  to {
-    -webkit-transform: rotate(1turn);
-            transform: rotate(1turn);
-  }
+  animation-name: spin;
+  animation-fill-mode: forwards;
+  animation-duration: 0.3s;
+  animation-iteration-count: infinite;
+  animation-timing-function: ease-in-out;
 }
 
 @keyframes spin {
   from {
-    -webkit-transform: rotate(0deg);
-            transform: rotate(0deg);
+    transform: rotate(0deg);
   }
   to {
-    -webkit-transform: rotate(1turn);
-            transform: rotate(1turn);
+    transform: rotate(1turn);
   }
 }
-
 .grocery-card {
   margin-top: 0.5em;
 }
@@ -104,101 +90,98 @@ button {
   padding-top: 30px;
   padding-bottom: 30px;
 }
-
 .card-section-last {
   display: block;
   padding: 10px;
   padding-top: 30px;
   padding-bottom: 30px;
 }
-
-.max-height-button {
-  max-height: 36px;
+.max-height-button{
+    max-height: 36px;
+}
+.active-link{
+  display: none !important
 }
 
-.active-link {
-  display: none !important;
-}
 
-.menu-inner {
+.menu-inner{
   margin-left: 15px;
 }
-
-.menu-header {
+.menu-header{
   margin-top: -8px;
   color: black !important;
   padding-top: 20px;
   padding-bottom: 30px;
-  background-color: #208888;
+  background-color: rgb(32, 136, 136)
+}
+.menu-header-inner{
+  margin-left: 0px ;
+}
+.nav-logo{
+  color: black
 }
 
-.menu-header-inner {
-  margin-left: 0px;
-}
-
-.nav-logo {
-  color: black;
-}
-
-.ListContainer {
+.ListContainer{
   margin-top: 20px;
   margin-bottom: 40px;
+  
 }
 
-.NeededListContainer {
+.NeededListContainer{
   /*border-top: solid 2px ;
   border-top-color:#333;*/
+  
   margin-top: 40px;
 }
 
-.g-list-card {
+.g-list-card{
   padding-top: 0 !important;
   margin-top: 20px;
   margin-bottom: 40px;
 }
 
-.navbar-container {
+.navbar-container{
   background-color: #237d7d;
   min-height: 55px !important;
   height: 30px;
 }
-
-.bottom-progressbar-card {
+.bottom-progressbar-card{
   position: absolute;
   bottom: 0px;
   left: 0;
   width: 100%;
 }
 
-.form-card {
-  margin-top: 20px;
+.form-card{
+  margin-top:20px ;
   position: relative;
 }
 
-.disable-anchor {
+.disable-anchor{
   pointer-events: none;
   cursor: default;
 }
+
+
 
 .invetaion-code-area {
   border: black solid 1px;
   padding: 10px;
 }
-
 .invetaion-code-row {
   margin-top: 10px;
 }
-
 #invetaion-code-area {
   color: #28a745;
 }
-
 .app-edit-user {
   padding-top: 40px;
   padding-bottom: 40px;
 }
 
-.google-login-btn {
+
+
+.google-login-btn{
   background-color: #DB4437;
   /*
   background-color: white;
@@ -207,132 +190,103 @@ button {
   word-wrap: normal;
 }
 
-.google-login-btn:hover {
+.google-login-btn:hover{
   background-color: white;
   color: black;
-  -webkit-transition: all 200ms;
   transition: all 200ms;
 }
 
-.facebook-login-btn {
+.facebook-login-btn{
   background-color: #3C5A99;
   color: white;
   word-wrap: normal;
 }
-
-.facebook-login-btn:hover {
+.facebook-login-btn:hover{
   background-color: white;
   color: black;
-  -webkit-transition: all 200ms;
   transition: all 200ms;
 }
-
-.login-image {
+.login-image{
   margin-right: 10px;
 }
 
-.mr-bottom-0 {
+
+.mr-bottom-0{
   margin-bottom: 0cm !important;
 }
-
-.pad-bottom-0 {
+.pad-bottom-0{
   padding-bottom: 0cm !important;
 }
-
 /* Preset Styles*/
 .z-index-1 {
   z-index: 1;
 }
-
 .z-index-2 {
   z-index: 2;
 }
-
 .z-index-3 {
   z-index: 3;
 }
-
 .z-index-4 {
   z-index: 4;
 }
-
 .z-index-5 {
   z-index: 5;
 }
-
 .z-index-6 {
   z-index: 6;
 }
-
 .z-index-7 {
   z-index: 7;
 }
-
 .z-index-8 {
   z-index: 8;
 }
-
 .z-index-9 {
   z-index: 9;
 }
-
 .z-index-10 {
   z-index: 10;
 }
-
 .z-index-11 {
   z-index: 11;
 }
-
 .z-index-12 {
   z-index: 12;
 }
-
 .z-index-13 {
   z-index: 13;
 }
-
 .z-index-14 {
   z-index: 14;
 }
-
 .z-index-15 {
   z-index: 15;
 }
-
 .z-index-16 {
   z-index: 16;
 }
-
 .z-index-17 {
   z-index: 17;
 }
-
 .z-index-18 {
   z-index: 18;
 }
-
 .z-index-19 {
   z-index: 19;
 }
-
 .z-index-20 {
   z-index: 20;
 }
-
 .z-index-21 {
   z-index: 21;
 }
-
 .z-index-22 {
   z-index: 22;
 }
-
 .z-index-23 {
   z-index: 23;
 }
-
 .z-index-24 {
   z-index: 24;
 }
-/*# sourceMappingURL=styles.css.map */
