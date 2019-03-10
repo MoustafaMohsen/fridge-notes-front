@@ -1,4 +1,6 @@
 import { Component, OnInit, AfterViewInit, AfterViewChecked } from "@angular/core";
+import { GoogleService } from "./services/google.service";
+import { AnalyticsId } from "./statics/config";
 declare var $ :any;
 
 @Component({
@@ -7,7 +9,11 @@ declare var $ :any;
 })
 export class AppComponent implements OnInit,AfterViewInit{
   title = "app";
+  constructor(private googleServ:GoogleService){
+
+  }
   ngOnInit(): void {
+      this.googleServ.Script(AnalyticsId);
   }
 
 
