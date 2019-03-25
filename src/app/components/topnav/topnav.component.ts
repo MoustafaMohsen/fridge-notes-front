@@ -16,6 +16,11 @@ export class TopnavComponent implements OnInit {
 
 
 
+  logoClick(){
+    if(this.auth.logged) {
+      this.web.UpdateList$.next({ loading: true })
+    }
+  }
   triggerLoading() {
     if (this.web.Loading == false) {
       this.web.Loading$.next(true);
