@@ -29,7 +29,7 @@ export class UserbarComponent implements OnInit {
     let classes={
       "fas":true,
       "fa-ellipsis-v":true,
-      "loading-rotate-start":this.web.Loading,
+      "loading-rotate-start":false,
       "loading-rotate":true,
     }
     return classes;

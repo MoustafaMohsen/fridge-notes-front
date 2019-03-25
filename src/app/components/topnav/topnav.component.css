@@ -1,7 +1,28 @@
-.blackbox{
-    background-color: red;
-    width: 100px;
-    height: 100px;
-    display: block;
-    position: absolute
+.blackbox {
+  background-color: red;
+  width: 100px;
+  height: 100px;
+  display: block;
+  position: absolute;
 }
+
+.nav-logo img {
+  width: 40px;
+  height: 40px;
+  display: inline;
+}
+
+.nav-logo .nav-button {
+  padding: 0 !important;
+}
+
+.nav-logo .nav-button p {
+  display: inline;
+  font-size: 20px;
+  margin: 0;
+}
+
+.mat-toolbar-row {
+  padding: 0 !important;
+}
+/*# sourceMappingURL=topnav.component.css.map */

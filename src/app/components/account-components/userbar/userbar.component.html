@@ -1,57 +1,64 @@
-
 <div class="userbar" *ngIf="auth.logged">
-
-  
-
-  <button mat-icon-button class="block" [disabled]="(this.web.Loading$ | async)"
-  (click)="this.web.UpdateList$.next({loading:true});">
-      <i [ngClass]="SetLoadingAndrefresh()"></i>
-    </button>
-
-  <button mat-icon-button  [matMenuTriggerFor]="userMenu" class="block"  >
-    <i [ngClass]="SetLoadingAndellipsis()"></i>
+  <!-- Refresh -->
+  <button
+    mat-icon-button
+    class="block refresh-button"
+    [disabled]="this.web.Loading$ | async"
+    (click)="this.web.UpdateList$.next({ loading: true })"
+  >
+    <i [ngClass]="SetLoadingAndrefresh()"></i>
   </button>
 
-
+  <P class="welcome-nav">{{ auth.CurrentUser.FirstName }}</P>
   
-  <mat-menu #userMenu="matMenu" class="block" >
+  <!-- Menu Button -->
+  <button mat-icon-button [matMenuTriggerFor]="userMenu" class="block">
+    <i class="fas fa-ellipsis-v"></i>
+  </button>
 
-      <div class="menu-header" mat-menu-item disabled>
-        <p  class="menu-header-inner">Welcome {{auth.CurrentUser.FirstName}} </p>
-      </div>
+  <!-- Menu list -->
+  <mat-menu #userMenu="matMenu" class="block">
+    <div class="menu-header" mat-menu-item disabled>
+      <p class="menu-header-inner">Welcome {{ auth.CurrentUser.FirstName }}</p>
+    </div>
 
-
-      <!--
+    <!--
         routerLinkActive='active-link' [routerLinkActiveOptions]="{exact: true}" 
       -->
-        
-      <button mat-menu-item  
-      routerLink="/" 
-     [disabled]="''==this.activatedRoute.snapshot.firstChild?.routeConfig?.path"
-     >
-        <span class="menu-inner">Home</span>
+
+    <button
+      mat-menu-item
+      routerLink="/"
+      [disabled]="
+        '' == this.activatedRoute.snapshot.firstChild?.routeConfig?.path
+      "
+    >
+      <span class="menu-inner">Home</span>
     </button>
 
-    <button mat-menu-item
-     routerLink="/people"
-     
-    [disabled]="'people'==this.activatedRoute.snapshot.firstChild?.routeConfig?.path"
+    <button
+      mat-menu-item
+      routerLink="/people"
+      [disabled]="
+        'people' == this.activatedRoute.snapshot.firstChild?.routeConfig?.path
+      "
     >
-        <span class="menu-inner">Friends List</span>
+      <span class="menu-inner">Friends List</span>
     </button>
 
-    <button mat-menu-item 
-    routerLink="/account" 
-     
-    [disabled]="'account'==this.activatedRoute.snapshot.firstChild?.routeConfig?.path"
+    <button
+      mat-menu-item
+      routerLink="/account"
+      [disabled]="
+        'account' == this.activatedRoute.snapshot.firstChild?.routeConfig?.path
+      "
     >
-        <span class="menu-inner">Manage Account</span>
+      <span class="menu-inner">Manage Account</span>
     </button>
 
     <button mat-menu-item (click)="logoutUser()">
       <span class="menu-inner">Logout</span>
     </button>
   </mat-menu>
-
 
 </div>

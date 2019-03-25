@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "AAAA,AAAA,YAAY,CAAA;EACR,SAAS,EAAC,IAAI;EACd,OAAO,EAAE,YAAY;EACrB,MAAM,EAAE,CAAC;EACT,cAAc,EAAE,MAAM;EACtB,WAAW,EAAE,GAAG;CACnB;;AACD,AAAA,eAAe,CAAA;EACX,cAAc,EAAE,MAAM;CACzB",
+    "sources": [
+        "userbar.component.scss"
+    ],
+    "names": [],
+    "file": "userbar.component.css"
+}

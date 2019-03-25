@@ -1,0 +1,12 @@
+.welcome-nav {
+  font-size: 16px;
+  display: inline-block;
+  margin: 0;
+  vertical-align: middle;
+  padding-top: 3px;
+}
+
+.refresh-button {
+  vertical-align: middle;
+}
+/*# sourceMappingURL=userbar.component.css.map */
