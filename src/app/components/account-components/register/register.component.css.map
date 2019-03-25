@@ -1,8 +1,9 @@
 {
     "version": 3,
-    "mappings": "AAAA,AAAA,aAAa,CAAA;EACT,MAAM,EAAE,IAAI;EACZ,UAAU,EAAE,IAAI;CACnB;;AACD,AAAA,cAAc,CAAA;EACV,UAAU,EAAE,IAAI;CACnB",
+    "mappings": "ACqCA;;;;;;;;;;;;;;;;;;;;;;;EAuBE;AD1DF,AAAA,aAAa,CAAA;EACT,MAAM,EAAE,IAAI;EACZ,UAAU,EAAE,IAAI;CACnB;;AACD,AAAA,cAAc,CAAA;EACV,UAAU,EAAE,IAAI;CACnB;;AAED,AAAA,gBAAgB,CAAA;EACZ,gBAAgB,ECuBL,OAAO;CDtBrB",
     "sources": [
-        "register.component.scss"
+        "register.component.scss",
+        "../../../../_variables.scss"
     ],
     "names": [],
     "file": "register.component.css"

@@ -84,9 +84,8 @@
                     <button
                       type="submit"
                       (click)="onSubmit()"
-                      class="w-100"
+                      class="w-100 register-submit"
                       mat-raised-button
-                      color="primary"
                       [disabled]="!registerForm.valid || disSubmit"
                     >
                       Submit
@@ -103,7 +102,7 @@
           <div class="row justify-content-start">
 
             <div class="col-2">
-              <button class="" type="button" [disabled]="disSubmit" [routerLink]="['/login']" mat-raised-button >Login</button>
+              <button class="login-return" type="button" [disabled]="disSubmit" [routerLink]="['/login']" mat-raised-button >Login</button>
             </div>
 
           </div>
