@@ -140,17 +140,6 @@ button {
   color: black;
 }
 
-.ListContainer {
-  margin-top: 20px;
-  margin-bottom: 40px;
-}
-
-.NeededListContainer {
-  /*border-top: solid 2px ;
-  border-top-color:#333;*/
-  margin-top: 40px;
-}
-
 .g-list-card {
   padding-top: 0 !important;
   margin-top: 20px;

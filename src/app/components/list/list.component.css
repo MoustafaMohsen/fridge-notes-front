@@ -1,24 +1,76 @@
-.card{
-   /* margin: 15px 15px 0;*/
-   margin-top: 15px;
+/*
+$word-size:2em;
+$stop-time:0;
+
+$stop-time-2:1;
+
+$line-delay:1000ms  *$stop-time;
+
+$line-time:1000ms  *$stop-time;
+
+$m-Delay:(1000ms + $line-delay  )*$stop-time;
+
+$m-time:(5000ms     )*$stop-time;
+
+$word-Delay:($m-Delay+$m-time+500ms      )*$stop-time;
+
+$word-time:(500ms       )*$stop-time;
+
+
+
+$container-delay: ($word-time + $word-Delay + 1000ms    )*$stop-time-2;
+
+$container-time:(1000ms     )*$stop-time-2;
+*/
+.card {
+  /* margin: 15px 15px 0;*/
+  margin-top: 15px;
 }
-.ul{
-    padding: 0;
+
+.ul {
+  padding: 0;
 }
-.bar{
+
+.bar {
   /*  margin: 0 15px 0;*/
-    padding-top: 0;
-    height: 40px;
+  padding-top: 0;
+  height: 40px;
 }
 
+.matbar {
+  background-color: #208888;
+}
 
-.matbar{
-    background-color: #208888;
+.matbar2 {
+  background-color: #086D5C;
+  color: white;
 }
-.matbar2{
-    background-color: #208888;
-    color: #000;
+
+.mat-divider {
+  height: 20px;
 }
-.mat-divider{
-    height: 20px;
+
+.ListContainer {
+  margin-top: 20px;
+  margin-bottom: 40px;
+  padding: 5px 20px 20px;
+  background-color: #208888;
+  border-radius: 4px;
+  -webkit-box-shadow: 0 2px 1px -1px rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.14), 0 1px 3px 0 rgba(0, 0, 0, 0.12);
+          box-shadow: 0 2px 1px -1px rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.14), 0 1px 3px 0 rgba(0, 0, 0, 0.12);
 }
+
+.NeededListContainer {
+  background-color: #086D5C;
+}
+
+.list-title {
+  margin-top: 10px;
+}
+
+.list-title h5 {
+  font-size: 22px;
+  color: white;
+  text-align: center;
+}
+/*# sourceMappingURL=list.component.css.map */

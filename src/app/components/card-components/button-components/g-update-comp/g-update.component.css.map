@@ -1,0 +1,10 @@
+{
+    "version": 3,
+    "mappings": "ACqCA;;;;;;;;;;;;;;;;;;;;;;;EAuBE;AD3DF,AAAA,OAAO,CAAA;EACJ,+BAA+B;EAC/B,gBAAgB,EC+BJ,OAAO;ED9BlB,KAAK,EAAE,KAAK;CACf;;AACD,AAAA,OAAO,CAAA;EACH,gBAAgB,EC4BN,OAAO;CD3BpB;;AACD,AAAA,OAAO,CAAA;EACH,YAAY,EAAE,IAAI;EAClB,KAAK,EAAC,OAAkB;CAC3B;;AACD,AAAA,IAAI,CAAA;EACA,YAAY,EAAE,IAAI;EAClB,KAAK,EAAC,OAAkB;CAC3B",
+    "sources": [
+        "g-update.component.scss",
+        "../../../../../_variables.scss"
+    ],
+    "names": [],
+    "file": "g-update.component.css"
+}

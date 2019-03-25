@@ -11,11 +11,7 @@
     <div class="ListContainer" [@listAnimate]="this.web.BoughtOnly?.length">
 
       <!--Head ToolBar-->
-      <mat-toolbar color="primary" class="container-fluid matbar" *ngIf="this.web.BoughtOnly&&this.web.BoughtOnly?.length>0">
-        <mat-toolbar-row>
-          <span>the Grocery List</span>
-        </mat-toolbar-row>
-      </mat-toolbar>
+      <div class="list-title"><h5>The Grocery List</h5></div>
 
       <div>
         <ul class="ul list-unstyled list-group">
@@ -38,14 +34,10 @@
 
   <!-- ========================List Container===========================  -->
 
-  <div class="ListContainer" [@neededAnimation]="this.web.NeededOnly?.length">
-    <div class="NeededListContainer" *ngIf="this.web.NeededOnly&&this.web.NeededOnly?.length>0">
+  <div class="ListContainer NeededListContainer" [@neededAnimation]="this.web.NeededOnly?.length"
+  *ngIf="this.web.NeededOnly&&this.web.NeededOnly?.length>0">
       <!--Head ToolBar-->
-      <mat-toolbar color="primary" class="container-fluid matbar2">
-        <mat-toolbar-row>
-          <span>the Bought List</span>
-        </mat-toolbar-row>
-      </mat-toolbar>
+      <div class="list-title"><h5>The Bought List</h5></div>
   
       <ul class="ul list-unstyled list-group">
         <div *ngFor="let Item of this.web.NeededOnly;let i = index" class="card_item">
@@ -55,9 +47,6 @@
         </div>
       </ul>
   
-  
-  
-    </div>
   </div>
   <!--
 

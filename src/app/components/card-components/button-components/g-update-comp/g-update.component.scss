@@ -1,0 +1,17 @@
+@import "../../../../../_variables.scss";
+.bought{
+   /* background-color: #28ab6f;*/
+   background-color: $grocery_color;
+    color: white;
+}
+.needed{
+    background-color: $bought_color;
+}
+.remove{
+    margin-right: 15px;
+    color:rgb(170, 138, 138);
+}
+.add{
+    margin-right: 15px;
+    color:rgb(170, 138, 138);
+}

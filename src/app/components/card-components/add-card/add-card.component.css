@@ -27,6 +27,8 @@ $container-time:(1000ms     )*$stop-time-2;
   z-index: 5;
   top: 0;
   right: 0;
+  border-top-right-radius: 4px;
+  overflow: hidden;
 }
 
 .add-close-button button {
@@ -41,7 +43,6 @@ $container-time:(1000ms     )*$stop-time-2;
   white-space: nowrap !important;
   color: #e8e8e8 !important;
   background-color: rgba(0, 0, 0, 0.5) !important;
-  border-radius: 0px !important;
   border: none;
   -webkit-transition: 200ms !important;
   transition: 200ms !important;

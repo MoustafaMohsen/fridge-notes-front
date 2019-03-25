@@ -1,16 +1,44 @@
-.bought{
-   /* background-color: #28ab6f;*/
-   background-color: #208888;
-    color: white;
+/*
+$word-size:2em;
+$stop-time:0;
+
+$stop-time-2:1;
+
+$line-delay:1000ms  *$stop-time;
+
+$line-time:1000ms  *$stop-time;
+
+$m-Delay:(1000ms + $line-delay  )*$stop-time;
+
+$m-time:(5000ms     )*$stop-time;
+
+$word-Delay:($m-Delay+$m-time+500ms      )*$stop-time;
+
+$word-time:(500ms       )*$stop-time;
+
+
+
+$container-delay: ($word-time + $word-Delay + 1000ms    )*$stop-time-2;
+
+$container-time:(1000ms     )*$stop-time-2;
+*/
+.bought {
+  /* background-color: #28ab6f;*/
+  background-color: #208888;
+  color: white;
 }
-.needed{
-    background-color: #de0d0dba;
+
+.needed {
+  background-color: #086D5C;
 }
-.remove{
-    margin-right: 15px;
-    color:rgb(170, 138, 138);
+
+.remove {
+  margin-right: 15px;
+  color: #aa8a8a;
 }
-.add{
-    margin-right: 15px;
-    color:rgb(170, 138, 138);
+
+.add {
+  margin-right: 15px;
+  color: #aa8a8a;
 }
+/*# sourceMappingURL=g-update.component.css.map */
