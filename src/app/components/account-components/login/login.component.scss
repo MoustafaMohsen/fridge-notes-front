@@ -1,3 +1,5 @@
+@import "../../../../variables";
+
 .login-row{
     height: 100%;
     margin-top: 40px;
@@ -8,4 +10,7 @@
 
 .external-links-row{
     margin-top: 20px;
+}
+.login-submit{
+    background-color: $grocery_color;
 }

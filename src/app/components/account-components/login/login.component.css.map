@@ -1,8 +1,9 @@
 {
     "version": 3,
-    "mappings": "AAAA,AAAA,UAAU,CAAA;EACN,MAAM,EAAE,IAAI;EACZ,UAAU,EAAE,IAAI;CACnB;;AACD,AAAA,WAAW,CAAA;EACP,UAAU,EAAE,IAAI;CACnB;;AAED,AAAA,mBAAmB,CAAA;EACf,UAAU,EAAE,IAAI;CACnB",
+    "mappings": "ACqCA;;;;;;;;;;;;;;;;;;;;;;;EAuBE;AD1DF,AAAA,UAAU,CAAA;EACN,MAAM,EAAE,IAAI;EACZ,UAAU,EAAE,IAAI;CACnB;;AACD,AAAA,WAAW,CAAA;EACP,UAAU,EAAE,IAAI;CACnB;;AAED,AAAA,mBAAmB,CAAA;EACf,UAAU,EAAE,IAAI;CACnB;;AACD,AAAA,aAAa,CAAA;EACT,gBAAgB,ECoBL,OAAO;CDnBrB",
     "sources": [
-        "login.component.scss"
+        "login.component.scss",
+        "../../../../_variables.scss"
     ],
     "names": [],
     "file": "login.component.css"

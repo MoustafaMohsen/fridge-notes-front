@@ -46,19 +46,22 @@
             <!--Submit-->
             <div class="row justify-content-center">
               <div class="col-lg-4 col-md-6 col-12">
-                <button type="submit" (click)="onSubmit()" mat-raised-button [disabled]="!loginform.valid ||disSubmit" class="w-100" color="primary">Submit</button>
+                <button type="submit" (click)="onSubmit()" mat-raised-button [disabled]="!loginform.valid ||disSubmit" class="w-100 login-submit" >Login</button>
               </div>
             </div>
       
             <!--External Links-->
-            <div class="row justify-content-around external-links-row">
+            <div class="row no-gutters justify-content-around external-links-row">
   
+
               <div class="col">
-                <a  class="no-gutters small disable-anchor text-secondary" href="#">Forget password?(Disabled for Developing)</a>
-              </div>
+                <!-- 
+                  <a  class="no-gutters small disable-anchor text-secondary" href="#">Forget password?</a>
+                -->
+                </div>
   
-              <div class="col-3">
-                <button class="w-100" type="button" [disabled]="disSubmit" [routerLink]="['/register']" mat-raised-button >Register</button>
+              <div class="col-auto">
+                <button class="w-100" type="button" [disabled]="disSubmit" [routerLink]="['/register']" mat-raised-button >Create new account</button>
               </div>
             </div>
             
