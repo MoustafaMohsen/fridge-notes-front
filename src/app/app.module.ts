@@ -43,6 +43,7 @@ import { PeopleManagmentComponent } from './components/account-components/people
 import { ChangePasswrodComponent } from './components/account-components/edit-user-page/change-passwrod/change-passwrod.component';
 import { DeleteUserComponent } from './components/account-components/edit-user-page/delete-user/delete-user.component';
 import { EditUserSectionComponent } from './components/account-components/edit-user-page/edit-user-section/edit-user-section.component';
+import { FooterComponent } from './components/footer/footer.component';
 
 
 @NgModule({
@@ -69,6 +70,7 @@ import { EditUserSectionComponent } from './components/account-components/edit-u
     ChangePasswrodComponent,
     DeleteUserComponent,
     EditUserSectionComponent,
+    FooterComponent,
 
     
   ],
