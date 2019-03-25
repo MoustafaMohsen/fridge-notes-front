@@ -1,0 +1,14 @@
+@import "../../../../../variables";
+.add-grocery-button {
+  top: auto;
+  right: 20px;
+  bottom: 10px;
+  left: auto;
+  position: fixed;
+  @media screen and (min-width:$break-x){
+      
+  }
+  .mat-button-wrapper {
+    padding: 0;
+  }
+}

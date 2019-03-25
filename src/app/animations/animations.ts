@@ -13,7 +13,7 @@ import {
 import { JSONCSS } from "../animations/test-Keyframes";
 export const plusToCross = [
   trigger("plussToCross", [
-    state("true", style({ transform: "rotate(45deg) scale(1.2)" })), //when showcard is true
+    state("true", style({ transform: "rotate(0deg) scale(1.2)" })), //when showcard is true
     state("false", style({ transform: "rotate(0deg) scale(1)" })),
     transition("true<=>false", [animate("200ms")])
   ])

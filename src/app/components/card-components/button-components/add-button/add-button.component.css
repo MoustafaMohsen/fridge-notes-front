@@ -1,7 +1,36 @@
-.add-grocery-button{
-    top: auto;
-    right: 20px;
-    bottom: 10px;
-    left: auto;
-    position: fixed;
+/*
+$word-size:2em;
+$stop-time:0;
+
+$stop-time-2:1;
+
+$line-delay:1000ms  *$stop-time;
+
+$line-time:1000ms  *$stop-time;
+
+$m-Delay:(1000ms + $line-delay  )*$stop-time;
+
+$m-time:(5000ms     )*$stop-time;
+
+$word-Delay:($m-Delay+$m-time+500ms      )*$stop-time;
+
+$word-time:(500ms       )*$stop-time;
+
+
+
+$container-delay: ($word-time + $word-Delay + 1000ms    )*$stop-time-2;
+
+$container-time:(1000ms     )*$stop-time-2;
+*/
+.add-grocery-button {
+  top: auto;
+  right: 20px;
+  bottom: 10px;
+  left: auto;
+  position: fixed;
 }
+
+.add-grocery-button .mat-button-wrapper {
+  padding: 0;
+}
+/*# sourceMappingURL=add-button.component.css.map */

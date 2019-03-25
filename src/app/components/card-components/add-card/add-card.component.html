@@ -1,9 +1,11 @@
 
-<div *ngIf="web.showAddCard" id="Scrolltarget_1" class=""  [@ycard]>
+<div *ngIf="web.showAddCard" id="Scrolltarget_1" class="relative"  [@ycard]>
+
   <!---     Form       -->
   <mat-card class="card grocery-card">
 
-    <form class="row justify-content-around" [formGroup]="this.web.formItem">
+    <form class="row justify-content-around" [formGroup]="this.web.formItem"
+    (keyup.enter)="keydown('enter')" (keyup.escape)="keydown('escape')">
 
       <!--===================Title & subtitle===================-->
       <div class="col-lg-4  col-md-4  col-12">
@@ -46,9 +48,12 @@
 
           <mat-checkbox class="col-lg-5 col-md-2 col-5 align-self-center" formControlName="basic" placeholder="Timeout" name="basic">Basic</mat-checkbox>
           
-          <button class="col-lg-7 col-md-10 col-7"
-           type="submit" [disabled]="(this.web.Loading$ | async)||this.web.formItem.invalid" (click)="add()" class="add-to-list"
-          mat-raised-button *ngIf="!MakeitNeeded">Add to List</button>
+          <!-- 
+
+            <button class="col-lg-7 col-md-10 col-7"
+            type="submit" [disabled]="(this.web.Loading$ | async)||this.web.formItem.invalid" (click)="add()" class="add-to-list"
+            mat-raised-button *ngIf="!MakeitNeeded">Add to List</button>
+          -->
 
 
 
@@ -59,7 +64,8 @@
     </form>
 
   </mat-card>
-
-
+  <div class="add-close-button">
+    <button (click)="close()" ><p>x</p></button>
+  </div>
 
 </div>

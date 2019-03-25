@@ -1,0 +1,67 @@
+/*
+$word-size:2em;
+$stop-time:0;
+
+$stop-time-2:1;
+
+$line-delay:1000ms  *$stop-time;
+
+$line-time:1000ms  *$stop-time;
+
+$m-Delay:(1000ms + $line-delay  )*$stop-time;
+
+$m-time:(5000ms     )*$stop-time;
+
+$word-Delay:($m-Delay+$m-time+500ms      )*$stop-time;
+
+$word-time:(500ms       )*$stop-time;
+
+
+
+$container-delay: ($word-time + $word-Delay + 1000ms    )*$stop-time-2;
+
+$container-time:(1000ms     )*$stop-time-2;
+*/
+.add-close-button {
+  position: absolute;
+  z-index: 5;
+  top: 0;
+  right: 0;
+}
+
+.add-close-button button {
+  margin: 0 !important;
+  display: inline-block !important;
+  position: relative !important;
+  text-align: center;
+  vertical-align: middle;
+  width: 40px;
+  height: 40px;
+  padding: 0 !important;
+  white-space: nowrap !important;
+  color: #e8e8e8 !important;
+  background-color: rgba(0, 0, 0, 0.5) !important;
+  border-radius: 0px !important;
+  border: none;
+  -webkit-transition: 200ms !important;
+  transition: 200ms !important;
+}
+
+.add-close-button button P {
+  font-size: 20px !important;
+  line-height: 20px !important;
+  margin: 0 !important;
+}
+
+.add-close-button button[disabled] {
+  color: #b3b3b3 !important;
+  background-color: #dbdbdb !important;
+  border-color: transparent !important;
+}
+
+.add-close-button button:hover:not([disabled]) {
+  background-color: #404040 !important;
+  -webkit-transition: 200ms !important;
+  transition: 200ms !important;
+}
+/*# sourceMappingURL=add-card.component.css.map */

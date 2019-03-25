@@ -40,7 +40,10 @@ export class AddCardComponent implements OnInit {
 
   //add method
   add() {
-    if (this.web.formItem.invalid) return;
+    if (this.web.formItem.invalid) {
+      this.web.formItem.markAsTouched();
+      return;
+    };
 
     let name = this.web.formItem.controls.name.value;
     let no = this.web.formItem.controls.no.value;
@@ -79,5 +82,20 @@ export class AddCardComponent implements OnInit {
         });
       }
     );
+  }
+  keydown(str){
+    console.log(str);
+    if (str === 'enter') {
+      this.add();
+    }
+
+    if (str === 'escape') {
+      this.close();
+    }
+
+  }
+  close() {
+    this.web.showAddCard$.next(false);
+    this.web.clean();
   }
 }

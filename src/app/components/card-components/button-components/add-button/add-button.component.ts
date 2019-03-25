@@ -20,8 +20,8 @@ export class AddButtonComponent implements OnInit {
     this.styler.focusById("home-add-button");
 
     this.web.clickAddCardButton$.subscribe(s=>{
-      if (s=true) {
-        this.styler.click("home-add-button",500);
+      if (s = true) {
+        this.styler.click('home-add-button', 500);
       }
     });
   }
@@ -33,5 +33,11 @@ export class AddButtonComponent implements OnInit {
       "loading-rotate":true,
     }
     return classes;
+  }
+  click() {
+    if (!this.web.showAddCard) {
+      this.web.showAddCard$.next(true);
+      this.web.clean();
+    }
   }
 }
