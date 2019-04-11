@@ -1,6 +1,8 @@
 import { Component, OnInit, AfterViewInit, AfterViewChecked } from "@angular/core";
 import { GoogleService } from "./services/google.service";
 import { AnalyticsId } from "./statics/config";
+import { environment } from '../environments/environment';
+
 declare var $ :any;
 
 @Component({
@@ -13,7 +15,11 @@ export class AppComponent implements OnInit,AfterViewInit{
 
   }
   ngOnInit(): void {
+    if (environment.production) {
       this.googleServ.Script(AnalyticsId);
+    } else {
+      console.log("Development mode")
+    }
   }
 
 
