@@ -1,4 +1,5 @@
 @import "../../../variables";
+
 .card{
    /* margin: 15px 15px 0;*/
    margin-top: 15px;
@@ -22,9 +23,12 @@
     height: 20px;
 }
 
+.all-lists-container{
+    
+}
 
 .ListContainer{
-    margin-top: 20px;
+    //margin-top: 20px;
     margin-bottom: 40px;
     padding: 5px 20px 20px;
     background-color: $grocery_color;
@@ -33,6 +37,7 @@
 }
 
 .NeededListContainer{
+    margin-top: 20px;
     background-color: $bought_color;
 }
 .list-title{

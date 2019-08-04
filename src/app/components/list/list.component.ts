@@ -3,10 +3,8 @@ import { Grocery } from "../../statics/Grocery";
 import { GListService } from "../../Services/g-list.service";
 import { ListAnimation,simp,GListAnimation,GListItemAnimation,list, Mylist,working } from "../../animations/animations";
 import { trigger,state, style,animate, transition,group,keyframes,query,animateChild,stagger } from "@angular/animations";
-//import { jos } from "../myanimations";
 
-
-
+declare var $;
 
 @Component({
   selector: "app-g-list",
@@ -37,6 +35,15 @@ export class ListComponent implements OnInit, OnDestroy {
     this.web.UpdateList$.next({loading:true,ExcuteOnSuccess:ExcuteOnSuccess});
   }
 
+  minHeight(){
+    let navHeight = $('.navbar-container').height();
+    let style = {
+      'min-height':window.innerHeight - navHeight + 'px'
+    }
+    console.log(style);
+    
+    return style;
+  }
   testRefresh(num: number, sequential = false) {
     var t0 = performance.now();
     console.log("started", t0);

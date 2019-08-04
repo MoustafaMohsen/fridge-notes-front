@@ -57,13 +57,6 @@ button {
   box-shadow: none;
 }
 
-.loading-rotate {
-  /*
-    animation-name: spin;
-    animation-duration: 5s;
-    animation-timing-function: linear; 
-    animation-play-state: unset;*/
-}
 .loading-rotate-start {
   animation-name: spin;
   animation-fill-mode: forwards;

@@ -51,7 +51,6 @@ $container-time:(1000ms     )*$stop-time-2;
 }
 
 .ListContainer {
-  margin-top: 20px;
   margin-bottom: 40px;
   padding: 5px 20px 20px;
   background-color: #208888;
@@ -61,6 +60,7 @@ $container-time:(1000ms     )*$stop-time-2;
 }
 
 .NeededListContainer {
+  margin-top: 20px;
   background-color: #086D5C;
 }
 

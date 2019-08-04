@@ -51,14 +51,6 @@ button {
           box-shadow: none;
 }
 
-.loading-rotate {
-  /*
-    animation-name: spin;
-    animation-duration: 5s;
-    animation-timing-function: linear; 
-    animation-play-state: unset;*/
-}
-
 .loading-rotate-start {
   -webkit-animation-name: spin;
           animation-name: spin;
@@ -336,5 +328,9 @@ button {
 
 .v-h-100 {
   height: 100vh;
+}
+
+.min-height-v-h-100 {
+  min-height: 100vh;
 }
 /*# sourceMappingURL=styles.css.map */
